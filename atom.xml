@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  
+  <title><![CDATA[kaiiak]]></title>
+  <subtitle><![CDATA[啦啦啦，我是卖萌的小行家]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://kaiiak.github.io//"/>
+  <updated>2015-08-05T13:07:03.017Z</updated>
+  <id>http://kaiiak.github.io//</id>
+  
+  <author>
+    <name><![CDATA[Kai]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[打算买个小米路由刷openWRT]]></title>
+    <link href="http://kaiiak.github.io/2015/08/05/%E6%89%93%E7%AE%97%E4%B9%B0%E4%B8%AA%E6%9E%81%E8%B7%AF%E7%94%B1%E5%88%B7openWRT/"/>
+    <id>http://kaiiak.github.io/2015/08/05/打算买个极路由刷openWRT/</id>
+    <published>2015-08-05T09:28:20.000Z</published>
+    <updated>2015-08-05T13:07:03.017Z</updated>
+    <content type="html"><![CDATA[<p>主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。<br>所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。<br>哈哈～<br>这是想象之中的，但愿我能坚持下来吧。<br>Thx～<br>然而在极路由和小米路由器mini之间我选择了小米路由mini。<br>毕竟第一次折腾openWRT，不是很敢自己刷。可以直接在他们定制的openWRT系统上折腾。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。<br>所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。<br>哈哈～<br>这是想象之中的，但愿我能坚持下来吧。<b]]>
+    </summary>
+    
+      <category term="openWRT" scheme="http://kaiiak.github.io/tags/openWRT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[解决Yilia主题的subnav中链接的问题]]></title>
+    <link href="http://kaiiak.github.io/2015/08/01/%E8%A7%A3%E5%86%B3Yilia%E4%B8%BB%E9%A2%98%E7%9A%84subnav%E4%B8%AD%E9%93%BE%E6%8E%A5%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>http://kaiiak.github.io/2015/08/01/解决Yilia主题的subnav中链接的问题/</id>
+    <published>2015-07-31T16:11:23.000Z</published>
+    <updated>2015-07-31T18:07:04.429Z</updated>
+    <content type="html"><![CDATA[<h2 id="问题说明">问题说明</h2><p>我很喜欢Yilia这个漂亮的主题，但是当我自己用的时候发现在subnav区生成的链接并不是我想要的。比如我的github地址是<code>github.com/kaiiak</code>，但是实际生成的是<code>kaiiak.github.io/github.com/kaiiak</code>。微博地址也是这样，邮箱地址也是。</p>
+<h2 id="心路历程">心路历程</h2><p>我一点一点试验嘛，今天一晚上翻来覆去改了有30多次。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">subnav:</span><br><span class="line">  github: "https://github.com/kaiiak"</span><br><span class="line">  weibo:  "http://weibo.com/itkaikai"</span><br><span class="line">  #mail:   "itkaikai@gmail.com"</span><br></pre></td></tr></table></figure>
+<p>  这时可以了，我以为是因为链接对齐了呢，可是我把mail那里的<code>#</code>去掉后，发现邮箱那一栏生成的地址还是没变啊。我又陷入了沉思～</p>
+<h2 id="问题解决">问题解决</h2><p>解决的原因是我把git生成的diff看了一遍，发现微博那一栏在没加<code>http://</code>时，生成的html代码是这样的<code>/weibo.com/itkaikai</code>，加了<code>http://</code>后生成的html代码就变成了<code>http://weibo.com/itkaikai</code>了。看到这里，大家一定会明白了。<br>把subnav改成这样子就可以了。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">subnav:</span><br><span class="line">  github: "https://github.com/kaiiak"</span><br><span class="line">  weibo:  "http://weibo.com/itkaikai"</span><br><span class="line">  mail:   "mailto:itkaikai@gmail.com"</span><br></pre></td></tr></table></figure></p>
+<h2 id="后记">后记</h2><p>把时间花费在打磨工具上有点很吃亏啊，还是等有钱买个vps好了。<br>晚安～</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="问题说明">问题说明</h2><p>我很喜欢Yilia这个漂亮的主题，但是当我自己用的时候发现在subnav区生成的链接并不是我想要的。比如我的github地址是<code>github.com/kaiiak</code>，但是实际生成的是<code>kaiiak]]>
+    </summary>
+    
+      <category term="Hexo主题" scheme="http://kaiiak.github.io/tags/Hexo%E4%B8%BB%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[第一篇]]></title>
+    <link href="http://kaiiak.github.io/2015/07/30/%E7%AC%AC%E4%B8%80%E7%AF%87/"/>
+    <id>http://kaiiak.github.io/2015/07/30/第一篇/</id>
+    <published>2015-07-30T15:59:17.000Z</published>
+    <updated>2015-07-31T18:07:04.414Z</updated>
+    <content type="html"><![CDATA[<h2 id="第一次在github上写博客">第一次在github上写博客</h2><p>哈哈，有点小兴奋呢</p>
+<h3 id="测试下代码高亮">测试下代码高亮</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Hello World!\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最近在做ACM和准备电赛，多多加油！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="第一次在github上写博客">第一次在github上写博客</h2><p>哈哈，有点小兴奋呢</p>
+<h3 id="测试下代码高亮">测试下代码高亮</h3><figure class="highlight c"><table><tr><td class="g]]>
+    </summary>
+    
+      <category term="随笔" scheme="http://kaiiak.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://kaiiak.github.io/2015/07/29/hello-world/"/>
+    <id>http://kaiiak.github.io/2015/07/29/hello-world/</id>
+    <published>2015-07-29T15:59:17.000Z</published>
+    <updated>2015-07-31T18:07:04.414Z</updated>
+    <content type="html"><![CDATA[<h1 id="Hello_World!">Hello World!</h1>]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="Hello_World!">Hello World!</h1>]]>
+    </summary>
+    
+      <category term="随笔" scheme="http://kaiiak.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+</feed>
