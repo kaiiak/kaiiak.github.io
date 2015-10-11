@@ -5,7 +5,7 @@
   <subtitle><![CDATA[啦啦啦，我是卖萌的小行家]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://kaiiak.github.io//"/>
-  <updated>2015-10-11T13:05:15.037Z</updated>
+  <updated>2015-10-11T13:22:11.439Z</updated>
   <id>http://kaiiak.github.io//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://kaiiak.github.io/2015/10/11/%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9B%B4%E8%BF%9E%E7%94%B5%E8%84%91%E4%BA%8C%E4%B8%89%E4%BA%8B/"/>
     <id>http://kaiiak.github.io/2015/10/11/树莓派直连电脑二三事/</id>
     <published>2015-10-11T12:09:35.000Z</published>
-    <updated>2015-10-11T13:05:15.037Z</updated>
+    <updated>2015-10-11T13:22:11.439Z</updated>
     <content type="html"><![CDATA[<h2 id="解决方法">解决方法</h2><p>因为在学校的实验室网络不是很稳定，所以树莓派一直不能直接用网线连接网络。而且wpa_supplication真的很不稳定，莫名其妙的罢工好几次，每次只能重新写镜像。<br>种种原因选择了直连电脑的方法来联网,而我的电脑连接的是信号很弱的无线网，无奈条件太艰苦。</p>
 <p>需要额外准备的东西就是一根直通线啦。好啦，接下来就是设置的时间了。</p>
 <p>首先打开网络与共享中心-&gt;更改适配器设置-&gt;右击无线网络连接-&gt;属性-&gt;共享。<br>如图：<br>        <img src="http://ww2.sinaimg.cn/mw690/ae94c92cgw1ewxgxexpm2j20ah0camy8.jpg" alt="无线网络属性共享"><br>根据别人写的教程，做到这步就可以实现远程登录树莓派和树莓派访问外网了。但是我只能实现远程登录树莓派，访问外网实现不了。经过试验，是没有配置DNS服务器的原因，在本地连接的IPV4属性中添加DNS服务器就可以了。这里我使用的是OpenDNS。<br>        <img src="http://ww3.sinaimg.cn/mw690/ae94c92cgw1ewxgxrj8stj20bi0bxgn5.jpg" alt="IPV4属性"></p>
@@ -33,6 +33,8 @@
     <summary type="html">
     <![CDATA[<h2 id="解决方法">解决方法</h2><p>因为在学校的实验室网络不是很稳定，所以树莓派一直不能直接用网线连接网络。而且wpa_supplication真的很不稳定，莫名其妙的罢工好几次，每次只能重新写镜像。<br>种种原因选择了直连电脑的方法来联网,而我的电脑连接的是信]]>
     </summary>
+    
+      <category term="树莓派" scheme="http://kaiiak.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
     
   </entry>
   
