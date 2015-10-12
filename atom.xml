@@ -5,7 +5,7 @@
   <subtitle><![CDATA[啦啦啦，我是卖萌的小行家]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://kaiiak.github.io//"/>
-  <updated>2015-10-12T13:24:29.264Z</updated>
+  <updated>2015-10-12T13:28:27.428Z</updated>
   <id>http://kaiiak.github.io//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://kaiiak.github.io/2015/10/12/%E4%BD%BF%E7%94%A8Xshell%E8%BF%9B%E8%A1%8C%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD/"/>
     <id>http://kaiiak.github.io/2015/10/12/使用Xshell进行上传和下载/</id>
     <published>2015-10-12T13:13:53.000Z</published>
-    <updated>2015-10-12T13:24:29.264Z</updated>
+    <updated>2015-10-12T13:28:27.428Z</updated>
     <content type="html"><![CDATA[<p>在日常使用Xshell进行远程登录的时候，我们想通过Xshell在Windows和Linux之间便捷的进行文件传输，这时候我们可以使用 <code>rz</code> 或 <code>sz</code> 命令。</p>
 <p>在树莓派上安装<code>rz</code>和<code>sz</code>命令。</p>
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install lrzsz</span><br></pre></td></tr></table></figure>
@@ -33,7 +33,9 @@
 <p>在树莓派上安装<code>rz</code>和<]]>
     </summary>
     
-      <category term="Xshell Linux" scheme="http://kaiiak.github.io/tags/Xshell-Linux/"/>
+      <category term="Linux" scheme="http://kaiiak.github.io/tags/Linux/"/>
+    
+      <category term="Xshell" scheme="http://kaiiak.github.io/tags/Xshell/"/>
     
   </entry>
   
