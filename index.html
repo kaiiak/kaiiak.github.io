@@ -111,7 +111,7 @@ var _hmt = _hmt || [];
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Hexo主题/" style="font-size: 10px;">Hexo主题</a> <a href="/tags/openWRT/" style="font-size: 10px;">openWRT</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/随笔/" style="font-size: 20px;">随笔</a>
+						<a href="/tags/Hexo主题/" style="font-size: 10px;">Hexo主题</a> <a href="/tags/Xshell-Linux/" style="font-size: 10px;">Xshell Linux</a> <a href="/tags/openWRT/" style="font-size: 10px;">openWRT</a> <a href="/tags/树莓派/" style="font-size: 10px;">树莓派</a> <a href="/tags/随笔/" style="font-size: 20px;">随笔</a>
 					</div>
 				</section>
 				
@@ -170,6 +170,66 @@ var _hmt = _hmt || [];
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-使用Xshell进行上传和下载" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/12/使用Xshell进行上传和下载/" class="article-date">
+  	<time datetime="2015-10-12T13:13:53.000Z" itemprop="datePublished">2015-10-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/12/使用Xshell进行上传和下载/">使用Xshell进行上传和下载</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在日常使用Xshell进行远程登录的时候，我们想通过Xshell在Windows和Linux之间便捷的进行文件传输，这时候我们可以使用 <code>rz</code> 或 <code>sz</code> 命令。</p>
+<p>在树莓派上安装<code>rz</code>和<code>sz</code>命令。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install lrzsz</span><br></pre></td></tr></table></figure>
+<p>下载某个文件或文件夹<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">sz</span> filename</span><br></pre></td></tr></table></figure></p>
+<p><code>rz</code>直接把文件拖到Xshell上就可以了.</p>
+<p><code>sz</code>和<code>rz</code>的帮助文档<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">rz version 0.12.21rc</span><br><span class="line">Usage: rz [options] [filename.if.xmodem]</span><br><span class="line">Receive files with ZMODEM/YMODEM/XMODEM protocol</span><br><span class="line">    (X) = option applies to XMODEM only</span><br><span class="line">    (Y) = option applies to YMODEM only</span><br><span class="line">    (Z) = option applies to ZMODEM only</span><br><span class="line">  -<span class="ruby">+, --append                append to existing files</span><br><span class="line"></span>  -<span class="ruby">a, --ascii                 <span class="constant">ASCII</span> transfer (change <span class="constant">CR</span>/<span class="constant">LF</span> to <span class="constant">LF</span>)</span><br><span class="line"></span>  -<span class="ruby">b, --binary                binary transfer</span><br><span class="line"></span>  -<span class="ruby"><span class="constant">B</span>, --bufsize <span class="constant">N</span>             buffer <span class="constant">N</span> bytes (<span class="constant">N</span>==<span class="symbol">auto:</span> buffer whole file)</span><br><span class="line"></span>  -<span class="ruby">c, --with-crc              <span class="constant">Use</span> <span class="number">16</span> bit <span class="constant">CRC</span> (<span class="constant">X</span>)</span><br><span class="line"></span>  -<span class="ruby"><span class="constant">C</span>, --allow-remote-commands allow execution of remote commands (<span class="constant">Z</span>)</span><br><span class="line"></span>  -<span class="ruby"><span class="constant">D</span>, --null                  write all received data to /dev/null</span><br><span class="line"></span>      -<span class="ruby">-delay-startup <span class="constant">N</span>       sleep <span class="constant">N</span> seconds before doing anything</span><br><span class="line"></span>  -<span class="ruby">e, --escape                <span class="constant">Escape</span> control characters (<span class="constant">Z</span>)</span><br><span class="line"></span>  -<span class="ruby"><span class="constant">E</span>, --rename                rename any files already existing</span><br><span class="line"></span>      -<span class="ruby">-errors <span class="constant">N</span>              generate <span class="constant">CRC</span> error every <span class="constant">N</span> bytes (debugging)</span><br><span class="line"></span>  -<span class="ruby">h, --help                  <span class="constant">Help</span>, print this usage message</span><br><span class="line"></span>  -<span class="ruby">m, --min-bps <span class="constant">N</span>             stop transmission <span class="keyword">if</span> <span class="constant">BPS</span> below <span class="constant">N</span></span><br><span class="line"></span>  -<span class="ruby"><span class="constant">M</span>, --min-bps-time <span class="constant">N</span>          <span class="keyword">for</span> at least <span class="constant">N</span> seconds (<span class="symbol">default:</span> <span class="number">120</span>)</span><br><span class="line"></span>  -<span class="ruby"><span class="constant">O</span>, --disable-timeouts      disable timeout code, wait forever <span class="keyword">for</span> data</span><br><span class="line"></span>      -<span class="ruby">-o-sync                open output file(s) <span class="keyword">in</span> synchronous write mode</span><br><span class="line"></span>  -<span class="ruby">p, --protect               protect existing files</span><br><span class="line"></span>  -<span class="ruby">q, --quiet                 quiet, no progress reports</span><br><span class="line"></span>  -<span class="ruby">r, --resume                try to resume interrupted file transfer (<span class="constant">Z</span>)</span><br><span class="line"></span>  -<span class="ruby"><span class="constant">R</span>, --restricted            restricted, more secure mode</span><br><span class="line"></span>  -<span class="ruby">s, --stop-at &#123;<span class="constant">HH</span><span class="symbol">:MM|+N</span>&#125;    stop transmission at <span class="constant">HH</span><span class="symbol">:MM</span> <span class="keyword">or</span> <span class="keyword">in</span> <span class="constant">N</span> seconds</span><br><span class="line"></span>  -<span class="ruby"><span class="constant">S</span>, --timesync              request remote time (<span class="symbol">twice:</span> set local time)</span><br><span class="line"></span>      -<span class="ruby">-syslog[=off]          turn syslog on <span class="keyword">or</span> off, <span class="keyword">if</span> possible</span><br><span class="line"></span>  -<span class="ruby">t, --timeout <span class="constant">N</span>             set timeout to <span class="constant">N</span> tenths of a second</span><br><span class="line"></span>      -<span class="ruby">-tcp-server            open socket, wait <span class="keyword">for</span> connection (<span class="constant">Z</span>)</span><br><span class="line"></span>      -<span class="ruby">-tcp-client <span class="constant">ADDR</span><span class="symbol">:PORT</span>  open socket, connect to ... (<span class="constant">Z</span>)</span><br><span class="line"></span>  -<span class="ruby">u, --keep-uppercase        keep upper <span class="keyword">case</span> filenames</span><br><span class="line"></span>  -<span class="ruby"><span class="constant">U</span>, --unrestrict            disable restricted mode (<span class="keyword">if</span> allowed to)</span><br><span class="line"></span>  -<span class="ruby">v, --verbose               be verbose, provide debugging information</span><br><span class="line"></span>  -<span class="ruby">w, --windowsize <span class="constant">N</span>          <span class="constant">Window</span> is <span class="constant">N</span> bytes (<span class="constant">Z</span>)</span><br><span class="line"></span>  -<span class="ruby"><span class="constant">X</span>  --xmodem                use <span class="constant">XMODEM</span> protocol</span><br><span class="line"></span>  -<span class="ruby">y, --overwrite             <span class="constant">Yes</span>, clobber existing file <span class="keyword">if</span> any</span><br><span class="line"></span>      -<span class="ruby">-ymodem                use <span class="constant">YMODEM</span> protocol</span><br><span class="line"></span>  -<span class="ruby"><span class="constant">Z</span>, --zmodem                use <span class="constant">ZMODEM</span> protocol</span><br><span class="line"></span></span><br><span class="line">short options use the same arguments as the long ones</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Xshell-Linux/">Xshell Linux</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-树莓派直连电脑二三事" class="article article-type-post" itemscope itemprop="blogPost">
   
