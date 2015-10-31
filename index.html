@@ -111,7 +111,7 @@ var _hmt = _hmt || [];
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Hexo主题/" style="font-size: 10px;">Hexo主题</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/PRI-GPIO/" style="font-size: 10px;">PRI.GPIO</a> <a href="/tags/Pyhon/" style="font-size: 10px;">Pyhon</a> <a href="/tags/Xshell/" style="font-size: 10px;">Xshell</a> <a href="/tags/openWRT/" style="font-size: 10px;">openWRT</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+						<a href="/tags/Hexo主题/" style="font-size: 10px;">Hexo主题</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/PRI-GPIO/" style="font-size: 10px;">PRI.GPIO</a> <a href="/tags/Pyhon/" style="font-size: 10px;">Pyhon</a> <a href="/tags/Xshell/" style="font-size: 10px;">Xshell</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/lirc/" style="font-size: 10px;">lirc</a> <a href="/tags/openWRT/" style="font-size: 10px;">openWRT</a> <a href="/tags/树莓派/" style="font-size: 20px;">树莓派</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
 					</div>
 				</section>
 				
@@ -170,6 +170,72 @@ var _hmt = _hmt || [];
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-关于树莓派lirc的配置" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/31/关于树莓派lirc的配置/" class="article-date">
+  	<time datetime="2015-10-31T13:10:19.000Z" itemprop="datePublished">2015-10-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/31/关于树莓派lirc的配置/">关于树莓派lirc的配置</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="记录原因">记录原因</h2><p>这是我正在DIY的一个<a href="https://github.com/kaiiak/NineSky/blob/master/README.md" target="_blank" rel="external">基于树莓派智能家居</a>的过程中，配置lirc的一个小问题的总结。<br>因为在网上搜索到的类似的博客给出的解决方式都不可行，所以打算记录下来，方便后来者。</p>
+<h2 id="事情的起因">事情的起因</h2><p>安装lirc——一个开源的红外控制的库<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install lirc</span><br></pre></td></tr></table></figure></p>
+<p>配置到这一步时，网络上给出的下一步都是在</p>
+<blockquote>
+<p>加载内核模块<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo modprobe lirc_rpi gpio_in_pin=23gpio_out_pin=24</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>然而照着做以后，并不能成功。</p>
+<h2 id="解决方法">解决方法</h2><p>配置树莓派的lirc，需要在<code>/boot/config.txt</code>中添加<br><figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dtoverlay=lirc-rpi,gpio<span class="number">_</span><span class="keyword">in</span><span class="number">_p</span><span class="keyword">in</span>=<span class="number">23</span>,gpio<span class="number">_</span><span class="keyword">out</span><span class="number">_p</span><span class="keyword">in</span>=<span class="number">24</span></span><br></pre></td></tr></table></figure></p>
+<p>然后重启就可以了。</p>
+<p>加载lir_rpi内核模块<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo modprobe lirc_rpi</span><br></pre></td></tr></table></figure></p>
+<p>测试<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mode2 -d /dev/lirc0</span><br></pre></td></tr></table></figure></p>
+<p>现在就会看到一大串space和pulse交替产生。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lirc/">lirc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树莓派/">树莓派</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-使用Python控制树莓派的GPIO-1" class="article article-type-post" itemscope itemprop="blogPost">
   

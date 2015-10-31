@@ -5,7 +5,7 @@
   <subtitle><![CDATA[啦啦啦，我是卖萌的小行家]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://kaiiak.github.io//"/>
-  <updated>2015-10-20T13:21:15.045Z</updated>
+  <updated>2015-10-31T13:20:12.604Z</updated>
   <id>http://kaiiak.github.io//</id>
   
   <author>
@@ -14,6 +14,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[关于树莓派lirc的配置]]></title>
+    <link href="http://kaiiak.github.io/2015/10/31/%E5%85%B3%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BElirc%E7%9A%84%E9%85%8D%E7%BD%AE/"/>
+    <id>http://kaiiak.github.io/2015/10/31/关于树莓派lirc的配置/</id>
+    <published>2015-10-31T13:10:19.000Z</published>
+    <updated>2015-10-31T13:20:12.604Z</updated>
+    <content type="html"><![CDATA[<h2 id="记录原因">记录原因</h2><p>这是我正在DIY的一个<a href="https://github.com/kaiiak/NineSky/blob/master/README.md" target="_blank" rel="external">基于树莓派智能家居</a>的过程中，配置lirc的一个小问题的总结。<br>因为在网上搜索到的类似的博客给出的解决方式都不可行，所以打算记录下来，方便后来者。</p>
+<h2 id="事情的起因">事情的起因</h2><p>安装lirc——一个开源的红外控制的库<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install lirc</span><br></pre></td></tr></table></figure></p>
+<p>配置到这一步时，网络上给出的下一步都是在</p>
+<blockquote>
+<p>加载内核模块<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo modprobe lirc_rpi gpio_in_pin=23gpio_out_pin=24</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>然而照着做以后，并不能成功。</p>
+<h2 id="解决方法">解决方法</h2><p>配置树莓派的lirc，需要在<code>/boot/config.txt</code>中添加<br><figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dtoverlay=lirc-rpi,gpio<span class="number">_</span><span class="keyword">in</span><span class="number">_p</span><span class="keyword">in</span>=<span class="number">23</span>,gpio<span class="number">_</span><span class="keyword">out</span><span class="number">_p</span><span class="keyword">in</span>=<span class="number">24</span></span><br></pre></td></tr></table></figure></p>
+<p>然后重启就可以了。</p>
+<p>加载lir_rpi内核模块<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo modprobe lirc_rpi</span><br></pre></td></tr></table></figure></p>
+<p>测试<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mode2 -d /dev/lirc0</span><br></pre></td></tr></table></figure></p>
+<p>现在就会看到一大串space和pulse交替产生。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="记录原因">记录原因</h2><p>这是我正在DIY的一个<a href="https://github.com/kaiiak/NineSky/blob/master/README.md" target="_blank" rel="external">基于树莓派智]]>
+    </summary>
+    
+      <category term="linux" scheme="http://kaiiak.github.io/tags/linux/"/>
+    
+      <category term="lirc" scheme="http://kaiiak.github.io/tags/lirc/"/>
+    
+      <category term="树莓派" scheme="http://kaiiak.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[使用Python控制树莓派的GPIO(1)]]></title>
