@@ -5,7 +5,7 @@
   <subtitle><![CDATA[啦啦啦，我是卖萌的小行家]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://kaiiak.github.io//"/>
-  <updated>2015-11-04T13:07:12.484Z</updated>
+  <updated>2015-11-06T13:30:46.995Z</updated>
   <id>http://kaiiak.github.io//</id>
   
   <author>
@@ -14,6 +14,23 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Sqlite创建数据库]]></title>
+    <link href="http://kaiiak.github.io/2015/11/04/sqlite-create-datebase/"/>
+    <id>http://kaiiak.github.io/2015/11/04/sqlite-create-datebase/</id>
+    <published>2015-11-04T13:53:54.000Z</published>
+    <updated>2015-11-06T13:30:46.995Z</updated>
+    <content type="html"><![CDATA[<p>其实很简单，但刚开始一点都不会。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sqlite test.db&#10;SQLite version 2.8.17&#10;Enter &#34;.help&#34; for instructions&#10;sqlite&#62; .database&#10;seq  name             file                                                      &#10;---  ---------  -------------------------&#10;0    main        /home/pi/code/testDB.db</span><br></pre></td></tr></table></figure></p>
+<p>这样就创建成功了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>其实很简单，但刚开始一点都不会。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="cod]]>
+    </summary>
+    
+      <category term="sqlite" scheme="http://kaiiak.github.io/tags/sqlite/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[ZOJ_1003:Crashing Ballon]]></title>
