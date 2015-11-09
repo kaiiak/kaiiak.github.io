@@ -5,7 +5,7 @@
   <subtitle><![CDATA[啦啦啦，我是卖萌的小行家]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://kaiiak.github.io//"/>
-  <updated>2015-11-06T13:30:46.995Z</updated>
+  <updated>2015-11-09T11:24:54.541Z</updated>
   <id>http://kaiiak.github.io//</id>
   
   <author>
@@ -14,6 +14,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[local-install-pydev-with-eclipse]]></title>
+    <link href="http://kaiiak.github.io/2015/11/09/local-install-pydev-with-eclipse/"/>
+    <id>http://kaiiak.github.io/2015/11/09/local-install-pydev-with-eclipse/</id>
+    <published>2015-11-09T11:05:57.000Z</published>
+    <updated>2015-11-09T11:24:54.541Z</updated>
+    <content type="html"><![CDATA[<h3 id="由于众所周知的原因，国内的网络环境一直不是很好。最近我在Eclipse上安装Pydev也不可以了。所以，打算用本地安装的方法来解决。">由于众所周知的原因，国内的网络环境一直不是很好。最近我在Eclipse上安装Pydev也不可以了。所以，打算用本地安装的方法来解决。</h3><p>可以在<a href="http://sourceforge.net/projects/pydev" target="_blank" rel="external">这里</a>下载到最新的PyDev for Eclipse。<br>然后，将压缩包内的<code>features</code>和<code>plugins</code>文件夹拷贝到eclipse的安装目录下。重启eclipse，在<code>Help</code>-&gt;<code>About Eclipse</code>-&gt;<code>Installation Details</code>中看到PyDev的信息。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="由于众所周知的原因，国内的网络环境一直不是很好。最近我在Eclipse上安装Pydev也不可以了。所以，打算用本地安装的方法来解决。">由于众所周知的原因，国内的网络环境一直不是很好。最近我在Eclipse上安装Pydev也不可以了。所以，打算用本地安装的方法来解]]>
+    </summary>
+    
+      <category term="Eclipse" scheme="http://kaiiak.github.io/tags/Eclipse/"/>
+    
+      <category term="PyDev" scheme="http://kaiiak.github.io/tags/PyDev/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Sqlite创建数据库]]></title>

@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://kaiiak.github.io/2015/11/09/local-install-pydev-with-eclipse/</loc>
+    <lastmod>2015-11-09T11:24:54.541Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://kaiiak.github.io/2015/11/04/sqlite-create-datebase/</loc>
     <lastmod>2015-11-06T13:30:46.995Z</lastmod>
   </url>
