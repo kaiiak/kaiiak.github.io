@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://kaiiak.github.io/2015/11/14/%E9%80%9A%E8%BF%87pylirc%E5%AE%9E%E7%8E%B0%E7%BA%A2%E5%A4%96%E6%8E%A7%E5%88%B6/</loc>
+    <lastmod>2015-11-14T13:31:45.495Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://kaiiak.github.io/2015/11/09/local-install-pydev-with-eclipse/</loc>
     <lastmod>2015-11-09T11:31:35.282Z</lastmod>
   </url>
