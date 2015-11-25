@@ -5,7 +5,7 @@
   <subtitle><![CDATA[啦啦啦，我是卖萌的小行家]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://kaiiak.github.io//"/>
-  <updated>2015-11-14T13:31:45.495Z</updated>
+  <updated>2015-11-25T11:51:09.118Z</updated>
   <id>http://kaiiak.github.io//</id>
   
   <author>
@@ -14,6 +14,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[C#利用VLC播放网络串流]]></title>
+    <link href="http://kaiiak.github.io/2015/11/19/using-vlclib-in-vs/"/>
+    <id>http://kaiiak.github.io/2015/11/19/using-vlclib-in-vs/</id>
+    <published>2015-11-19T13:08:23.000Z</published>
+    <updated>2015-11-25T11:51:09.118Z</updated>
+    <content type="html"><![CDATA[<p><a href="http://www.videolan.org" target="_blank" rel="external">VLC的官方网站</a>，VLC的源代码是用C语言实现的。我们这里用<code>C#</code>的封装——nVLC。<br><a href="http://www.codeproject.com/Articles/109639/nVLC" target="_blank" rel="external">nVLC</a>。</p>
+<h2 id="开始">开始</h2><p>在运行本程序之前，请先安装VLC，或者拷贝<code>libvlc.dll</code>、<code>libvlccode.dll</code>和<code>plugins目录</code>到你的</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using System;&#10;using System.Windows.Forms;&#10;using Declarations;&#10;using Declarations.Enums;&#10;using Declarations.Media;&#10;using Declarations.Players;&#10;using Implementation;&#10;&#10;namespace nVLC_Demo_MemoryInputOutput&#10;&#123;&#10;    public partial class Form1 : Form&#10;    &#123;&#10;        IMediaPlayerFactory m_factory;&#10;        IVideoPlayer m_sourcePlayer;&#10;        IVideoPlayer m_renderPlayer;&#10;        IMemoryInputMedia m_inputMedia;&#10;        const long MicroSecondsInSecomd = 1000 * 1000;&#10;        long MicroSecondsBetweenFrame;&#10;        long frameCounter;&#10;        FrameData data = new FrameData() &#123; DTS = -1 &#125;;&#10;        const int DefaultFps = 24;&#10;        Timer timer = new Timer();&#10;&#10;        public Form1()&#10;        &#123;&#10;            InitializeComponent();&#10;            timer.Tick += new EventHandler(timer_Tick);&#10;            timer.Interval = 1000;&#10;        &#125;&#10;&#10;        void timer_Tick(object sender, EventArgs e)&#10;        &#123;&#10;            this.Text = m_inputMedia.PendingFramesCount.ToString();&#10;        &#125;&#10;&#10;        protected override void OnLoad(EventArgs e)&#10;        &#123;&#10;            base.OnLoad(e);&#10;&#10;            m_factory = new MediaPlayerFactory(true);&#10;            m_sourcePlayer = m_factory.CreatePlayer&#60;IVideoPlayer&#62;();&#10;            m_sourcePlayer.Events.PlayerPlaying += new EventHandler(Events_PlayerPlaying);&#10;            m_sourcePlayer.Mute = true;&#10;            m_renderPlayer = m_factory.CreatePlayer&#60;IVideoPlayer&#62;();&#10;            m_renderPlayer.WindowHandle = panel1.Handle;&#10;            m_inputMedia = m_factory.CreateMedia&#60;IMemoryInputMedia&#62;(MediaStrings.IMEM);&#10;            SetupOutput(m_sourcePlayer.CustomRendererEx);&#10;        &#125;&#10;&#10;        void Events_PlayerPlaying(object sender, EventArgs e)&#10;        &#123;&#10;            MicroSecondsBetweenFrame = (long)(MicroSecondsInSecomd / (m_sourcePlayer.FPS != 0 ? m_sourcePlayer.FPS : DefaultFps));&#10;        &#125;&#10;&#10;        private void SetupOutput(IMemoryRendererEx iMemoryRenderer)&#10;        &#123;&#10;            iMemoryRenderer.SetFormatSetupCallback(OnSetupCallback);&#10;            iMemoryRenderer.SetExceptionHandler(OnErrorCallback);&#10;            iMemoryRenderer.SetCallback(OnNewFrameCallback);&#10;        &#125;&#10;&#10;        private BitmapFormat OnSetupCallback(BitmapFormat format)&#10;        &#123;&#10;            SetupInput(format);&#10;            return new BitmapFormat(format.Width, format.Height, ChromaType.RV24);&#10;        &#125;&#10;&#10;        private void OnErrorCallback(Exception error)&#10;        &#123;&#10;            MessageBox.Show(error.Message);&#10;        &#125;&#10;&#10;        private void OnNewFrameCallback(PlanarFrame frame)&#10;        &#123;          &#10;            data.Data = frame.Planes[0];&#10;            data.DataSize = frame.Lenghts[0];&#10;            data.PTS = frameCounter++ * MicroSecondsBetweenFrame;&#10;            m_inputMedia.AddFrame(data);&#10;&#10;            if (/*m_inputMedia.PendingFramesCount == 10 &#38;&#38; */!m_renderPlayer.IsPlaying)&#10;            &#123;&#10;                m_renderPlayer.Play();&#10;            &#125;&#10;        &#125;&#10;&#10;        private void SetupInput(BitmapFormat format)&#10;        &#123;&#10;            var streamInfo = new StreamInfo();&#10;            streamInfo.Category = StreamCategory.Video;&#10;            streamInfo.Codec = VideoCodecs.BGR24;&#10;            streamInfo.Width = format.Width;&#10;            streamInfo.Height = format.Height;&#10;            streamInfo.Size = format.ImageSize;&#10;&#10;            m_inputMedia.Initialize(streamInfo);&#10;            m_inputMedia.SetExceptionHandler(OnErrorCallback);&#10;            m_renderPlayer.Open(m_inputMedia);           &#10;        &#125;&#10;&#10;        private void OpenSourceMedia(string path)&#10;        &#123;&#10;            //IMediaFromFile media = m_factory.CreateMedia&#60;IMediaFromFile&#62;(path);&#10;            IMedia media = m_factory.CreateMedia&#60;IMedia&#62;(path);&#10;            m_sourcePlayer.Open(media);&#10;            m_sourcePlayer.Play();&#10;            timer.Start();&#10;            &#10;        &#125;&#10;&#10;        private void button1_Click(object sender, EventArgs e)&#10;        &#123;&#10;            OpenSourceMedia(&#34;http://192.168.2.108:8090&#34;);&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<p><a href="http://www.videolan.org" target="_blank" rel="external">VLC的官方网站</a>，VLC的源代码是用C语言实现的。我们这里用<code>C#</code>的封装——nVLC。<br><a href="]]>
+    </summary>
+    
+      <category term="C#" scheme="http://kaiiak.github.io/tags/C/"/>
+    
+      <category term="vlc" scheme="http://kaiiak.github.io/tags/vlc/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[通过pylirc实现红外控制]]></title>

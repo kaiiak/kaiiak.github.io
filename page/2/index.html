@@ -201,11 +201,99 @@
 
     
     
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/08/01/解决Yilia主题的subnav中链接的问题/" itemprop="url">
+                  解决Yilia主题的subnav中链接的问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2015-08-01T00:11:23+08:00" content="2015-08-01">
+              2015-08-01
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/01/解决Yilia主题的subnav中链接的问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/01/解决Yilia主题的subnav中链接的问题/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
       
       
 
       
-    
+        
+          <span itemprop="articleBody">
+            
+              <h2 id="问题说明">问题说明</h2><p>我很喜欢Yilia这个漂亮的主题，但是当我自己用的时候发现在subnav区生成的链接并不是我想要的。比如我的github地址是<code>github.com/kaiiak</code>，但是实际生成的是<code>kaiiak.github.io/github.com/kaiiak</code>。微博地址也是这样，邮箱地址也是。</p>
+<h2 id="心路历程">心路历程</h2><p>我一点一点试验嘛，今天一晚上翻来覆去改了有30多次。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">subnav:</span><br><span class="line">  github: "https://github.com/kaiiak"</span><br><span class="line">  weibo:  "http://weibo.com/itkaikai"</span><br><span class="line">  #mail:   "itkaikai@gmail.com"</span><br></pre></td></tr></table></figure>
+<p>  这时可以了，我以为是因为链接对齐了呢，可是我把mail那里的<code>#</code>去掉后，发现邮箱那一栏生成的地址还是没变啊。我又陷入了沉思～</p>
+<h2 id="问题解决">问题解决</h2><p>解决的原因是我把git生成的diff看了一遍，发现微博那一栏在没加<code>http://</code>时，生成的html代码是这样的<code>/weibo.com/itkaikai</code>，加了<code>http://</code>后生成的html代码就变成了<code>http://weibo.com/itkaikai</code>了。看到这里，大家一定会明白了。<br>把subnav改成这样子就可以了。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">subnav:</span><br><span class="line">  github: "https://github.com/kaiiak"</span><br><span class="line">  weibo:  "http://weibo.com/itkaikai"</span><br><span class="line">  mail:   "mailto:itkaikai@gmail.com"</span><br></pre></td></tr></table></figure></p>
+<h2 id="后记">后记</h2><p>把时间花费在打磨工具上有点很吃亏啊，还是等有钱买个vps好了。<br>晚安～</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -344,7 +432,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
@@ -358,7 +446,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">標籤</span>
               </a>
           </div>

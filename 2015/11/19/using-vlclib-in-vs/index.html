@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="openWRT," />
+  <meta name="keywords" content="C#,vlc," />
 
 
 
@@ -55,16 +55,22 @@
 
 
 
-<meta name="description" content="主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。哈哈～这是想象之中的，但愿我能坚持下来吧。Thx～然而在极路由和小米路由器mini之间我选择了小米路由mini。毕竟第一次折腾openWRT，不是很敢自己刷。可以直接在他们定制的openWRT系统">
+<meta name="description" content="VLC的官方网站，VLC的源代码是用C语言实现的。我们这里用C#的封装——nVLC。nVLC。
+开始在运行本程序之前，请先安装VLC，或者拷贝libvlc.dll、libvlccode.dll和plugins目录到你的
+1using System;&amp;#10;using System.Windows.Forms;&amp;#10;using Declarations;&amp;#10;using Declarati">
 <meta property="og:type" content="article">
-<meta property="og:title" content="打算买个小米路由刷openWRT">
-<meta property="og:url" content="http://kaiiak.github.io/2015/08/05/打算买个极路由刷openWRT/index.html">
+<meta property="og:title" content="C#利用VLC播放网络串流">
+<meta property="og:url" content="http://kaiiak.github.io/2015/11/19/using-vlclib-in-vs/index.html">
 <meta property="og:site_name" content="KAIIAK">
-<meta property="og:description" content="主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。哈哈～这是想象之中的，但愿我能坚持下来吧。Thx～然而在极路由和小米路由器mini之间我选择了小米路由mini。毕竟第一次折腾openWRT，不是很敢自己刷。可以直接在他们定制的openWRT系统">
-<meta property="og:updated_time" content="2015-08-05T13:07:03.017Z">
+<meta property="og:description" content="VLC的官方网站，VLC的源代码是用C语言实现的。我们这里用C#的封装——nVLC。nVLC。
+开始在运行本程序之前，请先安装VLC，或者拷贝libvlc.dll、libvlccode.dll和plugins目录到你的
+1using System;&amp;#10;using System.Windows.Forms;&amp;#10;using Declarations;&amp;#10;using Declarati">
+<meta property="og:updated_time" content="2015-11-25T11:51:09.118Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="打算买个小米路由刷openWRT">
-<meta name="twitter:description" content="主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。哈哈～这是想象之中的，但愿我能坚持下来吧。Thx～然而在极路由和小米路由器mini之间我选择了小米路由mini。毕竟第一次折腾openWRT，不是很敢自己刷。可以直接在他们定制的openWRT系统">
+<meta name="twitter:title" content="C#利用VLC播放网络串流">
+<meta name="twitter:description" content="VLC的官方网站，VLC的源代码是用C语言实现的。我们这里用C#的封装——nVLC。nVLC。
+开始在运行本程序之前，请先安装VLC，或者拷贝libvlc.dll、libvlccode.dll和plugins目录到你的
+1using System;&amp;#10;using System.Windows.Forms;&amp;#10;using Declarations;&amp;#10;using Declarati">
 
 
 
@@ -76,7 +82,7 @@
   };
 </script>
 
-  <title> 打算买个小米路由刷openWRT | KAIIAK </title>
+  <title> C#利用VLC播放网络串流 | KAIIAK </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -216,7 +222,7 @@
             
             
               
-                打算买个小米路由刷openWRT
+                C#利用VLC播放网络串流
               
             
           </h1>
@@ -225,8 +231,8 @@
         <div class="post-meta">
           <span class="post-time">
             發表於
-            <time itemprop="dateCreated" datetime="2015-08-05T17:28:20+08:00" content="2015-08-05">
-              2015-08-05
+            <time itemprop="dateCreated" datetime="2015-11-19T21:08:23+08:00" content="2015-11-19">
+              2015-11-19
             </time>
           </span>
 
@@ -236,8 +242,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/08/05/打算买个极路由刷openWRT/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/05/打算买个极路由刷openWRT/" itemprop="commentsCount"></span>
+                <a href="/2015/11/19/using-vlclib-in-vs/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/19/using-vlclib-in-vs/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -256,8 +262,9 @@
       
 
       
-        <span itemprop="articleBody"><p>主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。<br>所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。<br>哈哈～<br>这是想象之中的，但愿我能坚持下来吧。<br>Thx～<br>然而在极路由和小米路由器mini之间我选择了小米路由mini。<br>毕竟第一次折腾openWRT，不是很敢自己刷。可以直接在他们定制的openWRT系统上折腾。</p>
-</span>
+        <span itemprop="articleBody"><p><a href="http://www.videolan.org" target="_blank" rel="external">VLC的官方网站</a>，VLC的源代码是用C语言实现的。我们这里用<code>C#</code>的封装——nVLC。<br><a href="http://www.codeproject.com/Articles/109639/nVLC" target="_blank" rel="external">nVLC</a>。</p>
+<h2 id="开始">开始</h2><p>在运行本程序之前，请先安装VLC，或者拷贝<code>libvlc.dll</code>、<code>libvlccode.dll</code>和<code>plugins目录</code>到你的</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using System;&#10;using System.Windows.Forms;&#10;using Declarations;&#10;using Declarations.Enums;&#10;using Declarations.Media;&#10;using Declarations.Players;&#10;using Implementation;&#10;&#10;namespace nVLC_Demo_MemoryInputOutput&#10;&#123;&#10;    public partial class Form1 : Form&#10;    &#123;&#10;        IMediaPlayerFactory m_factory;&#10;        IVideoPlayer m_sourcePlayer;&#10;        IVideoPlayer m_renderPlayer;&#10;        IMemoryInputMedia m_inputMedia;&#10;        const long MicroSecondsInSecomd = 1000 * 1000;&#10;        long MicroSecondsBetweenFrame;&#10;        long frameCounter;&#10;        FrameData data = new FrameData() &#123; DTS = -1 &#125;;&#10;        const int DefaultFps = 24;&#10;        Timer timer = new Timer();&#10;&#10;        public Form1()&#10;        &#123;&#10;            InitializeComponent();&#10;            timer.Tick += new EventHandler(timer_Tick);&#10;            timer.Interval = 1000;&#10;        &#125;&#10;&#10;        void timer_Tick(object sender, EventArgs e)&#10;        &#123;&#10;            this.Text = m_inputMedia.PendingFramesCount.ToString();&#10;        &#125;&#10;&#10;        protected override void OnLoad(EventArgs e)&#10;        &#123;&#10;            base.OnLoad(e);&#10;&#10;            m_factory = new MediaPlayerFactory(true);&#10;            m_sourcePlayer = m_factory.CreatePlayer&#60;IVideoPlayer&#62;();&#10;            m_sourcePlayer.Events.PlayerPlaying += new EventHandler(Events_PlayerPlaying);&#10;            m_sourcePlayer.Mute = true;&#10;            m_renderPlayer = m_factory.CreatePlayer&#60;IVideoPlayer&#62;();&#10;            m_renderPlayer.WindowHandle = panel1.Handle;&#10;            m_inputMedia = m_factory.CreateMedia&#60;IMemoryInputMedia&#62;(MediaStrings.IMEM);&#10;            SetupOutput(m_sourcePlayer.CustomRendererEx);&#10;        &#125;&#10;&#10;        void Events_PlayerPlaying(object sender, EventArgs e)&#10;        &#123;&#10;            MicroSecondsBetweenFrame = (long)(MicroSecondsInSecomd / (m_sourcePlayer.FPS != 0 ? m_sourcePlayer.FPS : DefaultFps));&#10;        &#125;&#10;&#10;        private void SetupOutput(IMemoryRendererEx iMemoryRenderer)&#10;        &#123;&#10;            iMemoryRenderer.SetFormatSetupCallback(OnSetupCallback);&#10;            iMemoryRenderer.SetExceptionHandler(OnErrorCallback);&#10;            iMemoryRenderer.SetCallback(OnNewFrameCallback);&#10;        &#125;&#10;&#10;        private BitmapFormat OnSetupCallback(BitmapFormat format)&#10;        &#123;&#10;            SetupInput(format);&#10;            return new BitmapFormat(format.Width, format.Height, ChromaType.RV24);&#10;        &#125;&#10;&#10;        private void OnErrorCallback(Exception error)&#10;        &#123;&#10;            MessageBox.Show(error.Message);&#10;        &#125;&#10;&#10;        private void OnNewFrameCallback(PlanarFrame frame)&#10;        &#123;          &#10;            data.Data = frame.Planes[0];&#10;            data.DataSize = frame.Lenghts[0];&#10;            data.PTS = frameCounter++ * MicroSecondsBetweenFrame;&#10;            m_inputMedia.AddFrame(data);&#10;&#10;            if (/*m_inputMedia.PendingFramesCount == 10 &#38;&#38; */!m_renderPlayer.IsPlaying)&#10;            &#123;&#10;                m_renderPlayer.Play();&#10;            &#125;&#10;        &#125;&#10;&#10;        private void SetupInput(BitmapFormat format)&#10;        &#123;&#10;            var streamInfo = new StreamInfo();&#10;            streamInfo.Category = StreamCategory.Video;&#10;            streamInfo.Codec = VideoCodecs.BGR24;&#10;            streamInfo.Width = format.Width;&#10;            streamInfo.Height = format.Height;&#10;            streamInfo.Size = format.ImageSize;&#10;&#10;            m_inputMedia.Initialize(streamInfo);&#10;            m_inputMedia.SetExceptionHandler(OnErrorCallback);&#10;            m_renderPlayer.Open(m_inputMedia);           &#10;        &#125;&#10;&#10;        private void OpenSourceMedia(string path)&#10;        &#123;&#10;            //IMediaFromFile media = m_factory.CreateMedia&#60;IMediaFromFile&#62;(path);&#10;            IMedia media = m_factory.CreateMedia&#60;IMedia&#62;(path);&#10;            m_sourcePlayer.Open(media);&#10;            m_sourcePlayer.Play();&#10;            timer.Start();&#10;            &#10;        &#125;&#10;&#10;        private void button1_Click(object sender, EventArgs e)&#10;        &#123;&#10;            OpenSourceMedia(&#34;http://192.168.2.108:8090&#34;);&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></span>
       
     </div>
 
@@ -265,7 +272,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/openWRT/" rel="tag">#openWRT</a>
+            <a href="/tags/C/" rel="tag">#C#</a>
+          
+            <a href="/tags/vlc/" rel="tag">#vlc</a>
           
         </div>
       
@@ -274,17 +283,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/01/解决Yilia主题的subnav中链接的问题/" rel="next" title="解决Yilia主题的subnav中链接的问题">
-                <i class="fa fa-chevron-left"></i> 解决Yilia主题的subnav中链接的问题
+              <a href="/2015/11/14/通过pylirc实现红外控制/" rel="next" title="通过pylirc实现红外控制">
+                <i class="fa fa-chevron-left"></i> 通过pylirc实现红外控制
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/10/11/树莓派直连电脑二三事/" rel="prev" title="树莓派直连电脑二三事">
-                树莓派直连电脑二三事 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -311,8 +316,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/08/05/打算买个极路由刷openWRT/"
-           data-title="打算买个小米路由刷openWRT" data-url="http://kaiiak.github.io/2015/08/05/打算买个极路由刷openWRT/">
+      <div class="ds-thread" data-thread-key="2015/11/19/using-vlclib-in-vs/"
+           data-title="C#利用VLC播放网络串流" data-url="http://kaiiak.github.io/2015/11/19/using-vlclib-in-vs/">
       </div>
     
   </div>
@@ -435,7 +440,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目錄</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">1.</span> <span class="nav-text">开始</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
