@@ -758,7 +758,6 @@ body {
   .site-nav {
     display: none;
     margin: 0 -10px;
-    padding: 0 10px;
     clear: both;
     border-top: 1px solid #ddd;
   }
@@ -777,6 +776,11 @@ body {
   margin-top: 20px;
   padding-left: 0;
   text-align: center;
+}
+@media (max-width: 767px) {
+  .menu {
+    padding-left: 10px;
+  }
 }
 .menu .menu-item {
   display: inline-block;
@@ -961,7 +965,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #b1ffad;
+  background: #fff0cc;
 }
 .sidebar-nav {
   margin: 0 0 20px;
@@ -1346,7 +1350,7 @@ body {
 }
 .posts-expand .post-eof {
   display: block;
-  margin: 160px auto 120px;
+  margin: $post-eof-margin-top auto $post-eof-margin-bottom;
   width: 8%;
   height: 1px;
   background: #ccc;
@@ -1755,6 +1759,48 @@ body {
 .theme-next #ds-thread #ds-reset .ds-service-list .ds-douban:hover {
   background: #37994c;
 }
+.theme-next #ds-thread #ds-reset .ds-service-list .ds-kaixin {
+  color: #fef20d;
+  border-color: #fef20d;
+}
+.theme-next #ds-thread #ds-reset .ds-service-list .ds-kaixin:hover {
+  background: #fef20d;
+}
+.theme-next #ds-thread #ds-reset .ds-service-list .ds-netease {
+  color: #f00;
+  border-color: #f00;
+}
+.theme-next #ds-thread #ds-reset .ds-service-list .ds-netease:hover {
+  background: #f00;
+}
+.theme-next #ds-thread #ds-reset .ds-service-list .ds-sohu {
+  color: #ffcb05;
+  border-color: #ffcb05;
+}
+.theme-next #ds-thread #ds-reset .ds-service-list .ds-sohu:hover {
+  background: #ffcb05;
+}
+.theme-next #ds-thread #ds-reset .ds-service-list .ds-baidu {
+  color: #2831e0;
+  border-color: #2831e0;
+}
+.theme-next #ds-thread #ds-reset .ds-service-list .ds-baidu:hover {
+  background: #2831e0;
+}
+.theme-next #ds-thread #ds-reset .ds-service-list .ds-google {
+  color: #166bec;
+  border-color: #166bec;
+}
+.theme-next #ds-thread #ds-reset .ds-service-list .ds-google:hover {
+  background: #166bec;
+}
+.theme-next #ds-thread #ds-reset .ds-service-list .ds-weixin {
+  color: #00ce0d;
+  border-color: #00ce0d;
+}
+.theme-next #ds-thread #ds-reset .ds-service-list .ds-weixin:hover {
+  background: #00ce0d;
+}
 .theme-next #ds-thread #ds-reset .ds-service-list .ds-more-services {
   border: none;
 }
@@ -2141,7 +2187,11 @@ ul li {
   border: none;
   border-bottom: 2px solid #666;
   transition-property: border;
-mobie()
+}
+@media (max-width: 767px) {
+  .post-more-link a {
+    font-size: 12px;
+  }
 }
 @media (min-width: 1600px) {
   .post-more-link a {
