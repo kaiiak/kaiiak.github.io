@@ -5,7 +5,7 @@
   <subtitle><![CDATA[啦啦啦，我是卖萌的小行家]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://kaiiak.github.io//"/>
-  <updated>2015-12-01T11:31:26.444Z</updated>
+  <updated>2016-01-01T06:25:05.501Z</updated>
   <id>http://kaiiak.github.io//</id>
   
   <author>
@@ -14,6 +14,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Happy New Year]]></title>
+    <link href="http://kaiiak.github.io/2016/01/01/Happy-New-Year/"/>
+    <id>http://kaiiak.github.io/2016/01/01/Happy-New-Year/</id>
+    <published>2016-01-01T06:21:25.000Z</published>
+    <updated>2016-01-01T06:25:05.501Z</updated>
+    <content type="html"><![CDATA[<h2 id="新年快乐～">新年快乐～</h2><h3 id="在新的一年里，希望我能入门C++，哈哈哈哈哈哈哈哈哈哈哈哈">在新的一年里，希望我能入门C++，哈哈哈哈哈哈哈哈哈哈哈哈</h3>]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="新年快乐～">新年快乐～</h2><h3 id="在新的一年里，希望我能入门C++，哈哈哈哈哈哈哈哈哈哈哈哈">在新的一年里，希望我能入门C++，哈哈哈哈哈哈哈哈哈哈哈哈</h3>]]>
+    </summary>
+    
+      <category term="随笔" scheme="http://kaiiak.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[WinForm中使用Charting控件]]></title>
+    <link href="http://kaiiak.github.io/2015/12/01/WinForm%E4%B8%AD%E4%BD%BF%E7%94%A8Chart%E6%8E%A7%E4%BB%B6/"/>
+    <id>http://kaiiak.github.io/2015/12/01/WinForm中使用Chart控件/</id>
+    <published>2015-12-01T11:28:54.000Z</published>
+    <updated>2015-12-01T11:29:57.767Z</updated>
+    <content type="html"></content>
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="C#" scheme="http://kaiiak.github.io/tags/C/"/>
+    
+      <category term="Chart" scheme="http://kaiiak.github.io/tags/Chart/"/>
+    
+      <category term="WinForm" scheme="http://kaiiak.github.io/tags/WinForm/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[C#利用VLC播放网络串流]]></title>
