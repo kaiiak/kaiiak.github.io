@@ -143,7 +143,7 @@
             
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
-            首页
+            首頁
           </a>
         </li>
       
@@ -153,7 +153,7 @@
             
               <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
             
-            关于
+            關於
           </a>
         </li>
       
@@ -163,7 +163,7 @@
             
               <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
             
-            归档
+            歸檔
           </a>
         </li>
       
@@ -173,7 +173,7 @@
             
               <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
             
-            标签
+            標籤
           </a>
         </li>
       
@@ -199,11 +199,101 @@
 
     
     
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/10/11/树莓派直连电脑二三事/" itemprop="url">
+                  树莓派直连电脑二三事
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2015-10-11T20:09:35+08:00" content="2015-10-11">
+              2015-10-11
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/10/11/树莓派直连电脑二三事/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/11/树莓派直连电脑二三事/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
       
       
 
       
-    
+        
+          <span itemprop="articleBody">
+            
+              <h2 id="解决方法">解决方法</h2><p>因为在学校的实验室网络不是很稳定，所以树莓派一直不能直接用网线连接网络。而且wpa_supplication真的很不稳定，莫名其妙的罢工好几次，每次只能重新写镜像。<br>种种原因选择了直连电脑的方法来联网,而我的电脑连接的是信号很弱的无线网，无奈条件太艰苦。</p>
+<p>需要额外准备的东西就是一根直通线啦。好啦，接下来就是设置的时间了。</p>
+<p>首先打开网络与共享中心-&gt;更改适配器设置-&gt;右击无线网络连接-&gt;属性-&gt;共享。<br>如图：<br>        <img src="http://ww2.sinaimg.cn/mw690/ae94c92cgw1ewxgxexpm2j20ah0camy8.jpg" alt="无线网络属性共享"><br>根据别人写的教程，做到这步就可以实现远程登录树莓派和树莓派访问外网了。但是我只能实现远程登录树莓派，访问外网实现不了。经过试验，是没有配置DNS服务器的原因，在本地连接的IPV4属性中添加DNS服务器就可以了。这里我使用的是OpenDNS。<br>        <img src="http://ww3.sinaimg.cn/mw690/ae94c92cgw1ewxgxrj8stj20bi0bxgn5.jpg" alt="IPV4属性"></p>
+<h2 id="原理">原理</h2><p>windows实现直连访问的技术叫做ICS，百科上的解释如下：</p>
+<blockquote>
+<p>ICS即Internet连接共享(InternetConnectionSharing)的英文简称，是Windows系统针对家庭网络或小型的Intranet网络提供的一种Internet连接共享服务。它实际上相当于一种网络地址转换器，所谓网络地址转换器就是当数据包向前传递的过程中，可以转换数据包中的IP地址和TCP/UDP端口等地址信息。有了网络地址转换器，家庭网络或小型的办公网络中的电脑就可以使用私有地址，并且通过网络地址转换器将私有地址转换成ISP分配的单一的公用IP地址从而实现对Internet的连接。ICS方式也称之为Internet转换连接。</p>
+</blockquote>
+<p>这里是<a href="http://windows.microsoft.com/zh-cn/windows/using-internet-connection-sharing#1TC=windows-7" target="_blank" rel="external">在微软的官方帮助文档</a>中对ICS的介绍，使用它也可以连接路由器使用。</p>
+<h3 id="推荐阿里和中科大的的树莓派镜像">推荐阿里和中科大的的树莓派镜像</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deb <span class="symbol">http:</span>/<span class="regexp">/mirrors.aliyun.com/raspbian</span><span class="regexp">/raspbian/</span>   wheezy main contrib non-free rpi</span><br><span class="line">deb <span class="symbol">http:</span>/<span class="regexp">/mirrors.ustc.edu.cn/raspbian</span><span class="regexp">/raspbian/</span>   wheezy main contrib non-free rpi</span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -237,7 +327,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            发表于
+            發表於
             <time itemprop="dateCreated" datetime="2015-08-05T17:28:20+08:00" content="2015-08-05">
               2015-08-05
             </time>
@@ -325,7 +415,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            发表于
+            發表於
             <time itemprop="dateCreated" datetime="2015-08-01T00:11:23+08:00" content="2015-08-01">
               2015-08-01
             </time>
@@ -418,7 +508,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            发表于
+            發表於
             <time itemprop="dateCreated" datetime="2015-07-30T23:59:17+08:00" content="2015-07-30">
               2015-07-30
             </time>
@@ -523,22 +613,22 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
-              <span class="site-state-item-name">日志</span>
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">文章</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             
               <span class="site-state-item-count">0</span>
-              <span class="site-state-item-name">分类</span>
+              <span class="site-state-item-name">分類</span>
               
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">21</span>
-              <span class="site-state-item-name">标签</span>
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">標籤</span>
               </a>
           </div>
 
@@ -606,11 +696,11 @@
 </div>
 
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
 </div>
 
 <div class="theme-info">
-  主题 -
+  主題 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>

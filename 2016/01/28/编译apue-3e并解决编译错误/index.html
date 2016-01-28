@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="openWRT," />
+  <meta name="keywords" content="APUE,Linux," />
 
 
 
@@ -53,16 +53,22 @@
 
 
 
-<meta name="description" content="主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。哈哈～这是想象之中的，但愿我能坚持下来吧。Thx～然而在极路由和小米路由器mini之间我选择了小米路由mini。毕竟第一次折腾openWRT，不是很敢自己刷。可以直接在他们定制的openWRT系统">
+<meta name="description" content="下载源代码我们在学习APUE这本书的时候，总会见到书上的源代码总会引用apue.h这个头文件，这个并不是Linux系统自带的。所以，我们要自己编译。我们在http://www.apuebook.com/src.3e.tar.gz下载源代码后，解压。1tar -zxvf src.3e.tar.gz
+然后编译1sudo make
+但是在编译过程中，会出现错误，错误部分的log是这样的。12345678">
 <meta property="og:type" content="article">
-<meta property="og:title" content="打算买个小米路由刷openWRT">
-<meta property="og:url" content="http://kaiiak.github.io/2015/08/05/打算买个极路由刷openWRT/index.html">
+<meta property="og:title" content="编译apue.3e并解决编译错误">
+<meta property="og:url" content="http://kaiiak.github.io/2016/01/28/编译apue-3e并解决编译错误/index.html">
 <meta property="og:site_name" content="KAIIAK">
-<meta property="og:description" content="主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。哈哈～这是想象之中的，但愿我能坚持下来吧。Thx～然而在极路由和小米路由器mini之间我选择了小米路由mini。毕竟第一次折腾openWRT，不是很敢自己刷。可以直接在他们定制的openWRT系统">
-<meta property="og:updated_time" content="2015-08-05T13:07:03.017Z">
+<meta property="og:description" content="下载源代码我们在学习APUE这本书的时候，总会见到书上的源代码总会引用apue.h这个头文件，这个并不是Linux系统自带的。所以，我们要自己编译。我们在http://www.apuebook.com/src.3e.tar.gz下载源代码后，解压。1tar -zxvf src.3e.tar.gz
+然后编译1sudo make
+但是在编译过程中，会出现错误，错误部分的log是这样的。12345678">
+<meta property="og:updated_time" content="2016-01-28T14:51:39.119Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="打算买个小米路由刷openWRT">
-<meta name="twitter:description" content="主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。哈哈～这是想象之中的，但愿我能坚持下来吧。Thx～然而在极路由和小米路由器mini之间我选择了小米路由mini。毕竟第一次折腾openWRT，不是很敢自己刷。可以直接在他们定制的openWRT系统">
+<meta name="twitter:title" content="编译apue.3e并解决编译错误">
+<meta name="twitter:description" content="下载源代码我们在学习APUE这本书的时候，总会见到书上的源代码总会引用apue.h这个头文件，这个并不是Linux系统自带的。所以，我们要自己编译。我们在http://www.apuebook.com/src.3e.tar.gz下载源代码后，解压。1tar -zxvf src.3e.tar.gz
+然后编译1sudo make
+但是在编译过程中，会出现错误，错误部分的log是这样的。12345678">
 
 
 
@@ -74,7 +80,7 @@
   };
 </script>
 
-  <title> 打算买个小米路由刷openWRT | KAIIAK </title>
+  <title> 编译apue.3e并解决编译错误 | KAIIAK </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -214,7 +220,7 @@
             
             
               
-                打算买个小米路由刷openWRT
+                编译apue.3e并解决编译错误
               
             
           </h1>
@@ -223,8 +229,8 @@
         <div class="post-meta">
           <span class="post-time">
             發表於
-            <time itemprop="dateCreated" datetime="2015-08-05T17:28:20+08:00" content="2015-08-05">
-              2015-08-05
+            <time itemprop="dateCreated" datetime="2016-01-28T22:38:58+08:00" content="2016-01-28">
+              2016-01-28
             </time>
           </span>
 
@@ -234,8 +240,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/08/05/打算买个极路由刷openWRT/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/05/打算买个极路由刷openWRT/" itemprop="commentsCount"></span>
+                <a href="/2016/01/28/编译apue-3e并解决编译错误/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/28/编译apue-3e并解决编译错误/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -254,7 +260,11 @@
       
 
       
-        <span itemprop="articleBody"><p>主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。<br>所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。<br>哈哈～<br>这是想象之中的，但愿我能坚持下来吧。<br>Thx～<br>然而在极路由和小米路由器mini之间我选择了小米路由mini。<br>毕竟第一次折腾openWRT，不是很敢自己刷。可以直接在他们定制的openWRT系统上折腾。</p>
+        <span itemprop="articleBody"><h2 id="下载源代码">下载源代码</h2><p>我们在学习APUE这本书的时候，总会见到书上的源代码总会引用<code>apue.h</code>这个头文件，这个并不是Linux系统自带的。所以，我们要自己编译。<br>我们在<a href="http://www.apuebook.com/src.3e.tar.gz" target="_blank" rel="external">http://www.apuebook.com/src.3e.tar.gz</a>下载源代码后，解压。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf src.3e.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>然后编译<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make</span><br></pre></td></tr></table></figure></p>
+<p>但是在编译过程中，会出现错误，错误部分的log是这样的。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gcc -ansi -I..<span class="regexp">/include -Wall -DLINUX -D_GNU_SOURCE  badexit2.c -o badexit2  -L../</span>lib -lapue -pthread -lrt -lbsd</span><br><span class="line"><span class="regexp">/usr/</span>bin/<span class="string">ld:</span> cannot find -lbsd</span><br><span class="line"><span class="string">collect2:</span> ld returned <span class="number">1</span> exit status</span><br><span class="line"><span class="string">Makefile:</span><span class="number">31</span>: recipe <span class="keyword">for</span> target <span class="string">'badexit2'</span> failed</span><br><span class="line">make[<span class="number">1</span>]: *** [badexit2] Error <span class="number">1</span></span><br><span class="line">make[<span class="number">1</span>]: Leaving directory <span class="string">'/home/pi/apue.3e/threads'</span></span><br><span class="line"><span class="string">Makefile:</span><span class="number">6</span>: recipe <span class="keyword">for</span> target <span class="string">'all'</span> failed</span><br><span class="line"><span class="string">make:</span> *** [all] Error <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="修复">修复</h2><p>出现这个错误是因为，我们缺少一个库。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get inatall libbsd-dev</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后，重新进行编译，就可以愉快的使用<code>apue.h</code>了.</p>
 </span>
       
     </div>
@@ -263,7 +273,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/openWRT/" rel="tag">#openWRT</a>
+            <a href="/tags/APUE/" rel="tag">#APUE</a>
+          
+            <a href="/tags/Linux/" rel="tag">#Linux</a>
           
         </div>
       
@@ -272,17 +284,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/01/解决Yilia主题的subnav中链接的问题/" rel="next" title="解决Yilia主题的subnav中链接的问题">
-                <i class="fa fa-chevron-left"></i> 解决Yilia主题的subnav中链接的问题
+              <a href="/2016/01/01/Happy-New-Year/" rel="next" title="Happy New Year">
+                <i class="fa fa-chevron-left"></i> Happy New Year
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/10/11/树莓派直连电脑二三事/" rel="prev" title="树莓派直连电脑二三事">
-                树莓派直连电脑二三事 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -309,8 +317,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/08/05/打算买个极路由刷openWRT/"
-           data-title="打算买个小米路由刷openWRT" data-url="http://kaiiak.github.io/2015/08/05/打算买个极路由刷openWRT/">
+      <div class="ds-thread" data-thread-key="2016/01/28/编译apue-3e并解决编译错误/"
+           data-title="编译apue.3e并解决编译错误" data-url="http://kaiiak.github.io/2016/01/28/编译apue-3e并解决编译错误/">
       </div>
     
   </div>
@@ -425,7 +433,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目錄</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载源代码"><span class="nav-number">1.</span> <span class="nav-text">下载源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修复"><span class="nav-number">2.</span> <span class="nav-text">修复</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
