@@ -63,7 +63,7 @@
 <meta property="og:description" content="下载源代码我们在学习APUE这本书的时候，总会见到书上的源代码总会引用apue.h这个头文件，这个并不是Linux系统自带的。所以，我们要自己编译。我们在http://www.apuebook.com/src.3e.tar.gz下载源代码后，解压。1tar -zxvf src.3e.tar.gz
 然后编译1sudo make
 但是在编译过程中，会出现错误，错误部分的log是这样的。12345678">
-<meta property="og:updated_time" content="2016-01-28T14:51:39.119Z">
+<meta property="og:updated_time" content="2016-02-03T14:42:45.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译apue.3e并解决编译错误">
 <meta name="twitter:description" content="下载源代码我们在学习APUE这本书的时候，总会见到书上的源代码总会引用apue.h这个头文件，这个并不是Linux系统自带的。所以，我们要自己编译。我们在http://www.apuebook.com/src.3e.tar.gz下载源代码后，解压。1tar -zxvf src.3e.tar.gz
@@ -264,7 +264,9 @@
 <p>然后编译<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make</span><br></pre></td></tr></table></figure></p>
 <p>但是在编译过程中，会出现错误，错误部分的log是这样的。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">gcc -ansi -I..<span class="regexp">/include -Wall -DLINUX -D_GNU_SOURCE  badexit2.c -o badexit2  -L../</span>lib -lapue -pthread -lrt -lbsd</span><br><span class="line"><span class="regexp">/usr/</span>bin/<span class="string">ld:</span> cannot find -lbsd</span><br><span class="line"><span class="string">collect2:</span> ld returned <span class="number">1</span> exit status</span><br><span class="line"><span class="string">Makefile:</span><span class="number">31</span>: recipe <span class="keyword">for</span> target <span class="string">'badexit2'</span> failed</span><br><span class="line">make[<span class="number">1</span>]: *** [badexit2] Error <span class="number">1</span></span><br><span class="line">make[<span class="number">1</span>]: Leaving directory <span class="string">'/home/pi/apue.3e/threads'</span></span><br><span class="line"><span class="string">Makefile:</span><span class="number">6</span>: recipe <span class="keyword">for</span> target <span class="string">'all'</span> failed</span><br><span class="line"><span class="string">make:</span> *** [all] Error <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="修复">修复</h2><p>出现这个错误是因为，我们缺少一个库。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get inatall libbsd-dev</span><br></pre></td></tr></table></figure></p>
-<p>安装完成后，重新进行编译，就可以愉快的使用<code>apue.h</code>了.</p>
+<p>安装完成后，重新进行编译.</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp ./<span class="keyword">include</span>/apue.<span class="keyword">h</span> ./lib/<span class="keyword">error</span>.c /usr/<span class="keyword">include</span></span><br></pre></td></tr></table></figure>
+<p>然后，在<code>/usr/include/apue.h</code>的<code>ifdef</code>和<code>endif</code>中间添加<code>#include &quot;error.c&quot;</code>,就可以在编写的程序中，愉快的使用<code>apue.h</code>了。</p>
 </span>
       
     </div>
