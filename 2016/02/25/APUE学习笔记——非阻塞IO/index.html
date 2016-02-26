@@ -65,7 +65,7 @@
 维基百科上对于文件描述符的解释是这样的：
 
 文件描述符在形式上是一个非负整数。实际上，它是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。在程序设计中，一些涉及底层的程序编写往往会围绕着文件描述符展开。但是文件描述符">
-<meta property="og:updated_time" content="2016-02-25T14:28:10.601Z">
+<meta property="og:updated_time" content="2016-02-26T08:09:18.433Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="APUE学习笔记——非阻塞IO">
 <meta name="twitter:description" content="APUE学习笔记——非阻塞IO文件描述符所有打开的文件都通过文件描述符(一个非负整数)引用。
@@ -280,83 +280,85 @@
 </thead>
 <tbody>
 <tr>
-<td>O_RDONLY</td>
+<td><code>O_RDONLY</code></td>
 <td style="text-align:left">只读打开.</td>
 </tr>
 <tr>
-<td>O_WRONLY</td>
+<td><code>O_WRONLY</code></td>
 <td style="text-align:left">只写打开.</td>
 </tr>
 <tr>
-<td>O_RDWR</td>
+<td><code>O_RDWR</code></td>
 <td style="text-align:left">读、写打开.</td>
 </tr>
 <tr>
-<td>O_EXEC</td>
+<td><code>O_EXEC</code></td>
 <td style="text-align:left">只执行打开.</td>
 </tr>
 <tr>
-<td>O_SEARCH</td>
+<td><code>O_SEARCH</code></td>
 <td style="text-align:left">只搜索打开 (应用于目录).</td>
 </tr>
 <tr>
-<td>O_APPEND</td>
+<td><code>O_APPEND</code></td>
 <td style="text-align:left">每次写时都追加到文件的尾端.</td>
 </tr>
 <tr>
-<td>O_CLOEXEC</td>
+<td><code>O_CLOEXEC</code></td>
 <td style="text-align:left">设置<code>FD_CLOEXEC</code>文件描述符.</td>
 </tr>
 <tr>
-<td>O_CREAT</td>
+<td><code>O_CREAT</code></td>
 <td style="text-align:left">若此文件不存在则创建它.</td>
 </tr>
 <tr>
-<td>O_DIRECTORY</td>
+<td><code>O_DIRECTORY</code></td>
 <td style="text-align:left">如果<code>path</code>引用的不是目录，则出错.</td>
 </tr>
 <tr>
-<td>O_EXCL</td>
+<td><code>O_EXCL</code></td>
 <td style="text-align:left">如果同时指定了<code>O_CREAT</code>，而文件已存在，则出错.</td>
 </tr>
 <tr>
-<td>O_NOCTTY</td>
+<td><code>O_NOCTTY</code></td>
 <td style="text-align:left">如果<code>path</code>引用的是终端设备，则不将该设备分配作为此进程的控制终端.</td>
 </tr>
 <tr>
-<td>O_NOFOLLOW</td>
+<td><code>O_NOFOLLOW</code></td>
 <td style="text-align:left">如果<code>path</code>引用的是一个符号连接，则出错.</td>
 </tr>
 <tr>
-<td>O_NONBLOCK</td>
+<td><code>O_NONBLOCK</code></td>
 <td style="text-align:left">如果<code>path</code>引用的是一个<code>FIFO</code>、一个块特殊文件或一个自负特殊文件，则此选项为文件的本次打开操作和后续的I/O操作设置非阻塞方式.</td>
 </tr>
 <tr>
-<td>O_SYNC</td>
+<td><code>O_SYNC</code></td>
 <td style="text-align:left">使每次<code>write</code>等待物理I/O完成，包括由该<code>write</code>操作引起的文件属性更新所需的I/O.</td>
 </tr>
 <tr>
-<td>O_TRUNC</td>
+<td><code>O_TRUNC</code></td>
 <td style="text-align:left">如果此文件存在，而且为只写或读-写成功打开，则将其长度截断为0.</td>
 </tr>
 <tr>
-<td>O_TTY_INIT</td>
+<td><code>O_TTY_INIT</code></td>
 <td style="text-align:left">如果打开一个还未打开的终端设备，设置非标准<code>termios</code>参数值，使其符合<code>Single UNIX Specification</code>.</td>
 </tr>
 <tr>
-<td>O_DSYNC</td>
+<td><code>O_DSYNC</code></td>
 <td style="text-align:left">使每次<code>write</code>要等待物理I/O完成，但是如果该写操作并不影响读取刚写入的数据，则不需等待文件属性被更新.</td>
 </tr>
 <tr>
-<td>O_RSYNC</td>
+<td><code>O_RSYNC</code></td>
 <td style="text-align:left">使每一个一文件描述符作为参数进行的<code>read</code>操作等待，直至所有对文件同一部份挂起的写操作都完成.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="fd参数吧open和openat函数区分开，共有3种可能性。"><code>fd</code>参数吧<code>open</code>和<code>openat</code>函数区分开，共有3种可能性。</h3><pre><code><span class="number">1</span>.<span class="escape">`p</span>ath<span class="escape">`参</span>数指定的是绝对路径名，在这种情况下，<span class="escape">`f</span>d<span class="escape">`参</span>数被忽略，<span class="escape">`o</span>penat<span class="escape">`函</span>数就相当于<span class="escape">`o</span>pen<span class="escape">`函</span>数。
-<span class="number">2</span>.<span class="escape">`p</span>ath<span class="escape">`参</span>数指定的是相对路径名，<span class="escape">`f</span>d<span class="escape">`参</span>数指出了相对路径名在文件系统中的开始地址。<span class="escape">`f</span>d<span class="escape">`参</span>数是通过打开相对路径名所在的目录来获取。
-<span class="number">3</span>.<span class="escape">`p</span>ath<span class="escape">`参</span>数指定了相对路径名，<span class="escape">`f</span>d<span class="escape">`参</span>数具有特殊值<span class="escape">`A</span>T_FDCWD<span class="escape">`。</span>在这种情况下，路径名在当前工作目录中获取，<span class="escape">`o</span>penat<span class="escape">`函</span>数在操作上与<span class="escape">`o</span>pen<span class="escape">`函</span>数类似。
-</code></pre><h2 id="函数creat">函数<code>creat</code></h2><h3 id="调用函数creat创建一个新的文件">调用函数<code>creat</code>创建一个新的文件</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">creat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, mode_t mode)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值： 若成功，返回为只写打开的文件描述符；如出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<h3 id="fd参数吧open和openat函数区分开，共有3种可能性。"><code>fd</code>参数吧<code>open</code>和<code>openat</code>函数区分开，共有3种可能性。</h3><ol>
+<li><code>path</code>参数指定的是绝对路径名，在这种情况下，<code>fd</code>参数被忽略，<code>openat</code>函数就相当于<code>open</code>函数。</li>
+<li><code>path</code>参数指定的是相对路径名，<code>fd</code>参数指出了相对路径名在文件系统中的开始地址。<code>fd</code>参数是通过打开相对路径名所在的目录来获取。</li>
+<li><code>path</code>参数指定了相对路径名，<code>fd</code>参数具有特殊值<code>AT_FDCWD</code>。在这种情况下，路径名在当前工作目录中获取，<code>openat</code>函数在操作上与<code>open</code>函数类似。</li>
+</ol>
+<h2 id="函数creat">函数<code>creat</code></h2><h3 id="调用函数creat创建一个新的文件">调用函数<code>creat</code>创建一个新的文件</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">creat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, mode_t mode)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值： 若成功，返回为只写打开的文件描述符；如出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 <p>等效于：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open(path, O_WRONLY|O_CREAT|O_TRUNC, mode);</span><br></pre></td></tr></table></figure></p>
 <h2 id="函数close">函数<code>close</code></h2><h3 id="调用close函数关闭一个打开文件">调用<code>close</code>函数关闭一个打开文件</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">close</span><span class="params">(<span class="keyword">int</span> fd)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；如出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 <h2 id="函数lseek">函数<code>lseek</code></h2><h3 id="当前文件偏移量(current_file_offset)：它通常是一个非负整数，用以度量从文件开始处计算的字节数。">当前文件偏移量(current file offset)：它通常是一个非负整数，用以度量从文件开始处计算的字节数。</h3><h3 id="调用lseek显式的为一个打开文件设置偏移量。">调用<code>lseek</code>显式的为一个打开文件设置偏移量。</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">off_t</span> lseek(<span class="keyword">int</span> fd, <span class="keyword">off_t</span> offset, <span class="keyword">int</span> whence);</span><br><span class="line"><span class="comment">/* 返回值：若辰宫，返回新的文件偏移量；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
@@ -387,6 +389,11 @@
 <p>原子操作(atomic operation)；指的是由多步组成一个一个操作。如果该操作原子地执行，则要么执行所有步骤，要么一步也不执行，不可能只执行所有步骤的一个子集。</p>
 </blockquote>
 <h2 id="函数dup和dup2">函数<code>dup</code>和<code>dup2</code></h2><h3 id="复制一个现有的文件描述符">复制一个现有的文件描述符</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dup</span><span class="params">(<span class="keyword">int</span> fd)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dup2</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">int</span> fd2)</span></span>;</span><br><span class="line"><span class="comment">/* 两函数的返回值：若成功，返回新的文件描述符；如出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<h2 id="函数sync、fsync和fdatasync">函数<code>sync</code>、<code>fsync</code>和<code>fdatasync</code></h2><blockquote>
+<p>内核通常先将数据复制到缓冲区中，然后排入队列，晚些时候写入磁盘。这种方法被称为<code>延迟写(delayed write)</code>.</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unitstd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fsync</span><span class="params">(<span class="keyword">int</span> fd)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fdatasync</span><span class="params">(<span class="keyword">int</span> fd)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sync</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><code>sync</code>只是将所有修改过的块缓冲区排入写队列，然后就返回，它并不等待实际写磁盘操作结束。<br><code>fsync</code>函数只对由文件描述符<code>fd</code>指定的一个文件起作用，并且等待写磁盘操作结束才返回。<br><code>fdatasync</code>函数类似于<code>fsync</code>，但它只影响文件的数据部分。</p>
 <h2 id="函数fcntl">函数<code>fcntl</code></h2><h3 id="改变已经打开文件的属性。">改变已经打开文件的属性。</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fcntl</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">int</span> cmd, ... <span class="comment">/* int arg */</span>)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，则依赖cmd，若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 <h4 id="fcntl函数有以下5种功能。"><code>fcntl</code>函数有以下5种功能。</h4><ol>
 <li>复制一个已有的描述符 (<code>cmd=F_DUPFD</code>或<code>F_DUPFD_CLOEXEC</code>)。</li>
@@ -395,6 +402,50 @@
 <li>获取/设置异步I/O所有权 (<code>cmd=F_GETOWN</code>或<code>F_SETOWN</code>)。</li>
 <li>获取/设置记录锁 (<code>cmd=F_GETLK</code>或<code>F_SETLKW</code>)。</li>
 </ol>
+<table>
+<thead>
+<tr>
+<th>cmd</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>F_DUPFD</code></td>
+<td style="text-align:left">复制文件描述符<code>fd</code>。</td>
+</tr>
+<tr>
+<td><code>F_DUPFD_CLOEXEC</code></td>
+<td style="text-align:left">复制文件描述符，设置与新描述符关联的<code>FD_CLOEXEC</code>文件描述符标志的值，返回新文件描述符。</td>
+</tr>
+<tr>
+<td><code>F_GETFD</code></td>
+<td style="text-align:left">对应于<code>fd</code>的文件描述符标志作为函数值返回。</td>
+</tr>
+<tr>
+<td><code>F_SETFD</code></td>
+<td style="text-align:left">对于<code>fd</code>设置文件描述符标志。</td>
+</tr>
+<tr>
+<td><code>F_GETFL</code></td>
+<td style="text-align:left">对应于<code>fd</code>的文件状态标志作为函数值返回。</td>
+</tr>
+<tr>
+<td><code>F_SETFL</code></td>
+<td style="text-align:left">将文件状态标志设置为第3个参数的值。可以更改的几个标志是：<code>O_APPEND</code>、<code>O_NONBLOCK</code>、<code>O_SYNC</code>、<code>O_DSYNC</code>、<code>O_RSYNC</code>、<code>O_FSYNC</code>、和<code>O_ASYNC</code>。</td>
+</tr>
+<tr>
+<td><code>F_GETOWN</code></td>
+<td style="text-align:left">获取当前接收<code>SIGIO</code>和<code>SIGURG</code>信号进程ID或进程组ID。</td>
+</tr>
+<tr>
+<td><code>F_SETOWN</code></td>
+<td style="text-align:left">设置接收<code>SIGIO</code>和<code>SIGURG</code>信号的进程ID或进程组ID。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="函数ioctl">函数<code>ioctl</code></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span> /* System V */</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/ioctl.h&gt;</span>  /* BSD and Linux */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ioctl</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">int</span> request, ...)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若出错，返回-1；若成功，返回其他值 */</span></span><br></pre></td></tr></table></figure>
+<h2 id="/dev/fd"><code>/dev/fd</code></h2><p>较新的系统都提供名为<code>/dev/fd</code>的目录，其目录项是名为0、1、2等的文件。打开文件<code>/dev/fdn</code>等效于复制描述符n(假设描述符n是打开的).</p>
 </span>
       
     </div>
@@ -563,7 +614,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#APUE学习笔记——非阻塞IO"><span class="nav-number">1.</span> <span class="nav-text">APUE学习笔记——非阻塞IO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.1.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数open和openat"><span class="nav-number">1.2.</span> <span class="nav-text">函数open和openat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fd参数吧open和openat函数区分开，共有3种可能性。"><span class="nav-number">1.2.1.</span> <span class="nav-text">fd参数吧open和openat函数区分开，共有3种可能性。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数creat"><span class="nav-number">1.3.</span> <span class="nav-text">函数creat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用函数creat创建一个新的文件"><span class="nav-number">1.3.1.</span> <span class="nav-text">调用函数creat创建一个新的文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数close"><span class="nav-number">1.4.</span> <span class="nav-text">函数close</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用close函数关闭一个打开文件"><span class="nav-number">1.4.1.</span> <span class="nav-text">调用close函数关闭一个打开文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数lseek"><span class="nav-number">1.5.</span> <span class="nav-text">函数lseek</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#当前文件偏移量(current_file_offset)：它通常是一个非负整数，用以度量从文件开始处计算的字节数。"><span class="nav-number">1.5.1.</span> <span class="nav-text">当前文件偏移量(current file offset)：它通常是一个非负整数，用以度量从文件开始处计算的字节数。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用lseek显式的为一个打开文件设置偏移量。"><span class="nav-number">1.5.2.</span> <span class="nav-text">调用lseek显式的为一个打开文件设置偏移量。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数read"><span class="nav-number">1.6.</span> <span class="nav-text">函数read</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用read函数从打开文件中读数据。"><span class="nav-number">1.6.1.</span> <span class="nav-text">调用read函数从打开文件中读数据。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数write"><span class="nav-number">1.7.</span> <span class="nav-text">函数write</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用write函数向打开文件写数据。"><span class="nav-number">1.7.1.</span> <span class="nav-text">调用write函数向打开文件写数据。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数pread和pwrite"><span class="nav-number">1.8.</span> <span class="nav-text">函数pread和pwrite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数dup和dup2"><span class="nav-number">1.9.</span> <span class="nav-text">函数dup和dup2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复制一个现有的文件描述符"><span class="nav-number">1.9.1.</span> <span class="nav-text">复制一个现有的文件描述符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数fcntl"><span class="nav-number">1.10.</span> <span class="nav-text">函数fcntl</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变已经打开文件的属性。"><span class="nav-number">1.10.1.</span> <span class="nav-text">改变已经打开文件的属性。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fcntl函数有以下5种功能。"><span class="nav-number">1.10.1.1.</span> <span class="nav-text">fcntl函数有以下5种功能。</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#APUE学习笔记——非阻塞IO"><span class="nav-number">1.</span> <span class="nav-text">APUE学习笔记——非阻塞IO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.1.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数open和openat"><span class="nav-number">1.2.</span> <span class="nav-text">函数open和openat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fd参数吧open和openat函数区分开，共有3种可能性。"><span class="nav-number">1.2.1.</span> <span class="nav-text">fd参数吧open和openat函数区分开，共有3种可能性。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数creat"><span class="nav-number">1.3.</span> <span class="nav-text">函数creat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用函数creat创建一个新的文件"><span class="nav-number">1.3.1.</span> <span class="nav-text">调用函数creat创建一个新的文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数close"><span class="nav-number">1.4.</span> <span class="nav-text">函数close</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用close函数关闭一个打开文件"><span class="nav-number">1.4.1.</span> <span class="nav-text">调用close函数关闭一个打开文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数lseek"><span class="nav-number">1.5.</span> <span class="nav-text">函数lseek</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#当前文件偏移量(current_file_offset)：它通常是一个非负整数，用以度量从文件开始处计算的字节数。"><span class="nav-number">1.5.1.</span> <span class="nav-text">当前文件偏移量(current file offset)：它通常是一个非负整数，用以度量从文件开始处计算的字节数。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用lseek显式的为一个打开文件设置偏移量。"><span class="nav-number">1.5.2.</span> <span class="nav-text">调用lseek显式的为一个打开文件设置偏移量。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数read"><span class="nav-number">1.6.</span> <span class="nav-text">函数read</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用read函数从打开文件中读数据。"><span class="nav-number">1.6.1.</span> <span class="nav-text">调用read函数从打开文件中读数据。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数write"><span class="nav-number">1.7.</span> <span class="nav-text">函数write</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用write函数向打开文件写数据。"><span class="nav-number">1.7.1.</span> <span class="nav-text">调用write函数向打开文件写数据。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数pread和pwrite"><span class="nav-number">1.8.</span> <span class="nav-text">函数pread和pwrite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数dup和dup2"><span class="nav-number">1.9.</span> <span class="nav-text">函数dup和dup2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复制一个现有的文件描述符"><span class="nav-number">1.9.1.</span> <span class="nav-text">复制一个现有的文件描述符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数sync、fsync和fdatasync"><span class="nav-number">1.10.</span> <span class="nav-text">函数sync、fsync和fdatasync</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数fcntl"><span class="nav-number">1.11.</span> <span class="nav-text">函数fcntl</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变已经打开文件的属性。"><span class="nav-number">1.11.1.</span> <span class="nav-text">改变已经打开文件的属性。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fcntl函数有以下5种功能。"><span class="nav-number">1.11.1.1.</span> <span class="nav-text">fcntl函数有以下5种功能。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数ioctl"><span class="nav-number">1.12.</span> <span class="nav-text">函数ioctl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#/dev/fd"><span class="nav-number">1.13.</span> <span class="nav-text">/dev/fd</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
