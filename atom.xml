@@ -5,7 +5,7 @@
   <subtitle><![CDATA[啦啦啦，我是卖萌的小行家]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://kaiiak.github.io//"/>
-  <updated>2016-02-26T08:09:18.433Z</updated>
+  <updated>2016-03-05T11:17:27.410Z</updated>
   <id>http://kaiiak.github.io//</id>
   
   <author>
@@ -16,12 +16,375 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[APUE学习笔记——非阻塞IO]]></title>
-    <link href="http://kaiiak.github.io/2016/02/25/APUE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E9%9D%9E%E9%98%BB%E5%A1%9EIO/"/>
-    <id>http://kaiiak.github.io/2016/02/25/APUE学习笔记——非阻塞IO/</id>
+    <title><![CDATA[自用vim配置文件]]></title>
+    <link href="http://kaiiak.github.io/2016/03/05/personal_vimrc/"/>
+    <id>http://kaiiak.github.io/2016/03/05/personal_vimrc/</id>
+    <published>2016-03-05T08:49:30.000Z</published>
+    <updated>2016-03-05T11:17:27.410Z</updated>
+    <content type="html"><![CDATA[<h1 id="自用的vim配置文件">自用的vim配置文件</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" 编码</span><br><span class="line">set encoding=utf-8</span><br><span class="line"></span><br><span class="line">"</span> 避免以前版本的一些bug和局限</span><br><span class="line"><span class="built_in">set</span> nocompatible</span><br><span class="line"></span><br><span class="line"><span class="string">" 逐步搜索模式，对当前键入的字符进行搜索而不必等待键入完成,/b寻找b开头的。</span><br><span class="line">set incsearch</span><br><span class="line"></span><br><span class="line">"</span>自动识别文件类型</span><br><span class="line"><span class="string">" set filetype</span><br><span class="line"></span><br><span class="line">"</span> 搜索时高亮显示找到文本</span><br><span class="line"><span class="built_in">set</span> hlsearch</span><br><span class="line"></span><br><span class="line"><span class="string">" 在Insert模式下退格键何时可以删除光标之前的字符。三项内容分别指定了Vim可以删除位于行首的空格,断行,以及开始进入Insert模式之前的位置。</span><br><span class="line">set backspace=indent,eol,start</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">"</span> 设置tab键为<span class="number">4</span>个空格，设置当行之间交错时使用<span class="number">4</span>个空格</span><br><span class="line"><span class="built_in">set</span> tabstop=<span class="number">4</span></span><br><span class="line"><span class="built_in">set</span> shiftwidth=<span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="string">" 匹配模式，左括号匹配右括号</span><br><span class="line">set showmatch</span><br><span class="line"></span><br><span class="line">"</span> 在覆盖一个文件之前备份该文件。但是对VMS系统除外,因为该系统已经为文件保存了老的版本。备份文件名由当前文件名加后辍<span class="string">"~"</span>组成。</span><br><span class="line"><span class="string">" if has("</span>vms<span class="string">")</span><br><span class="line">"</span> <span class="built_in">set</span> nobackup</span><br><span class="line"><span class="string">" else</span><br><span class="line">"</span> <span class="built_in">set</span> backup</span><br><span class="line"><span class="string">" endif</span><br><span class="line"></span><br><span class="line">"</span> 设置冒号命令和搜索命令的命令历史列表的长度。</span><br><span class="line"><span class="built_in">set</span> <span class="built_in">history</span>=<span class="number">1000</span></span><br><span class="line"></span><br><span class="line"><span class="string">" 总是在Vim窗口的右下角显示当前光标的行列信息。</span><br><span class="line">set ruler</span><br><span class="line"></span><br><span class="line">"</span> 在Vim窗口的右下角显示一个完整的命令已经完成的部分。比如说你键入<span class="string">"2f"</span>,Vim就会在你键入下一个要查找的字符之前显示已经键入的<span class="string">"2f"</span>。一旦你接下来再键入一个字符比如<span class="string">"w"</span>,那么一个完整的命令<span class="string">"2fw"</span>就会被Vim 执行,同时刚才显示的<span class="string">"2f"</span>也将消失。</span><br><span class="line"><span class="built_in">set</span> showcmd</span><br><span class="line"></span><br><span class="line"><span class="string">" 语法高亮</span><br><span class="line">syntax on</span><br><span class="line"></span><br><span class="line">"</span> 显示行号</span><br><span class="line"><span class="built_in">set</span> nu</span><br><span class="line"></span><br><span class="line"><span class="string">" 显示空格和TAB</span><br><span class="line">set list</span><br><span class="line">set listchars=tab:&gt;-,trail:-</span><br><span class="line"></span><br><span class="line">"</span> 凸显当前行</span><br><span class="line"><span class="built_in">set</span> cursorline</span><br><span class="line"></span><br><span class="line"><span class="string">" 检测文件类型</span><br><span class="line">filetype on</span><br><span class="line"></span><br><span class="line">"</span> 启用鼠标</span><br><span class="line"><span class="built_in">set</span> mouse=a</span><br><span class="line"></span><br><span class="line"><span class="string">" 配色方案</span><br><span class="line">"</span>colorscheme torte</span><br><span class="line"></span><br><span class="line"><span class="string">" 以下为插件</span><br><span class="line"></span><br><span class="line">"</span> 管理插件的插件pathogen</span><br><span class="line">call pathogen<span class="comment">#infect()</span></span><br><span class="line"></span><br><span class="line"><span class="string">" NERDTree目录树插件</span><br><span class="line">noremap  :NERDTree</span><br><span class="line"></span><br><span class="line">"</span> Powerline</span><br><span class="line"><span class="built_in">set</span> guifont=PowerlineSymbols\ <span class="keyword">for</span>\ Powerline</span><br><span class="line"><span class="built_in">set</span> nocompatible</span><br><span class="line"><span class="built_in">set</span> laststatus=<span class="number">2</span></span><br><span class="line"><span class="built_in">set</span> t_Co=<span class="number">256</span></span><br><span class="line"><span class="built_in">let</span> g:Powerline_symbols = <span class="string">'fancy'</span></span><br><span class="line"></span><br><span class="line"><span class="string">" NERDTree</span><br><span class="line">map &lt;F10&gt; :NERDTreeToggle&lt;CR&gt;</span><br><span class="line"></span><br><span class="line">"</span> C的编译和运行 </span><br><span class="line">map &lt;F5&gt; :call CompileRunGcc()&lt;CR&gt; </span><br><span class="line">func! CompileRunGcc() </span><br><span class="line"><span class="built_in">exec</span> <span class="string">"w"</span> </span><br><span class="line"><span class="built_in">exec</span> <span class="string">"!gcc % -o %&lt;"</span> </span><br><span class="line"><span class="built_in">exec</span> <span class="string">"! ./%&lt;"</span> </span><br><span class="line">endfunc </span><br><span class="line"></span><br><span class="line"><span class="string">" C++的编译和运行 </span><br><span class="line">map &lt;F6&gt; :call CompileRunGpp()&lt;CR&gt; </span><br><span class="line">func! CompileRunGpp() </span><br><span class="line">exec "</span>w<span class="string">" </span><br><span class="line">exec "</span>!g++ % -o %&lt;<span class="string">" </span><br><span class="line">exec "</span>! ./%&lt;<span class="string">" </span><br><span class="line">endfunc</span></span><br></pre></td></tr></table></figure>
+<h1 id="插件列表">插件列表</h1><table>
+<thead>
+<tr>
+<th>插件名称</th>
+<th style="text-align:left">项目地址</th>
+<th style="text-align:left">教程地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pathogen</code></td>
+<td style="text-align:left"><a href="http://www.vim.org/scripts/script.php?script_id=2332" target="_blank" rel="external">项目地址</a></td>
+<td style="text-align:left"><a href="https://github.com/tpope/vim-pathogen" target="_blank" rel="external">教程地址</a></td>
+</tr>
+<tr>
+<td><code>NERDTree</code></td>
+<td style="text-align:left"><a href="http://www.vim.org/scripts/script.php?script_id=1658" target="_blank" rel="external">项目地址</a></td>
+<td style="text-align:left"><a href="http://my.oschina.net/VASKS/blog/388907?fromerr=ktE2belY" target="_blank" rel="external">教程地址</a></td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="自用的vim配置文件">自用的vim配置文件</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span cl]]>
+    </summary>
+    
+      <category term="Linux" scheme="http://kaiiak.github.io/tags/Linux/"/>
+    
+      <category term="vim" scheme="http://kaiiak.github.io/tags/vim/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[APUE学习笔记——文件和目录]]></title>
+    <link href="http://kaiiak.github.io/2016/02/29/APUE_study_notes-Files_and_Directories/"/>
+    <id>http://kaiiak.github.io/2016/02/29/APUE_study_notes-Files_and_Directories/</id>
+    <published>2016-02-29T13:48:30.000Z</published>
+    <updated>2016-03-04T15:47:16.948Z</updated>
+    <content type="html"><![CDATA[<h1 id="函数stat、fstat、fstatat、lstat">函数<code>stat</code>、<code>fstat</code>、<code>fstatat</code>、<code>lstat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">stat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fstat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">struct</span> stat *buf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lstat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lstat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 所有4个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line">sturct stat &#123; </span><br><span class="line">    <span class="keyword">mode_t</span>          st_mode;        <span class="comment">/* file type &amp; mode (permissions) */</span></span><br><span class="line">    <span class="keyword">ino_t</span>           st_ino;         <span class="comment">/* i-node number (serial number) */</span></span><br><span class="line">    <span class="keyword">dev_t</span>           st_dev;         <span class="comment">/* device number (file system) */</span></span><br><span class="line">    <span class="keyword">dev_t</span>           st_rdev;        <span class="comment">/* device number for special files */</span></span><br><span class="line">    <span class="keyword">nlink_t</span>         st_nlink;       <span class="comment">/* number of links */</span></span><br><span class="line">    <span class="keyword">uid_t</span>           st_uid;         <span class="comment">/* user ID of links */</span></span><br><span class="line">    <span class="keyword">gid_t</span>           st_gid;         <span class="comment">/* group ID of owner */</span></span><br><span class="line">    <span class="keyword">off_t</span>           st_size;        <span class="comment">/* size in bytes, for regular files  */</span></span><br><span class="line">    <span class="keyword">struct</span> timespec st_atime;       <span class="comment">/* time of last access */</span></span><br><span class="line">    <span class="keyword">struct</span> timespec st_mtime;       <span class="comment">/* time of last modification */</span></span><br><span class="line">    <span class="keyword">struct</span> timespec st_ctime;       <span class="comment">/* time of last file status change */</span></span><br><span class="line">    <span class="keyword">blksize_t</span>       st_blksize;     <span class="comment">/* best I/O block size */</span></span><br><span class="line">    <span class="keyword">blkcnt_t</span>        st_blocks;      <span class="comment">/* number of disk blocks allocated */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>函数<code>stat</code>:返回<code>pathname</code>命名文件有关的信息结构；</li>
+<li>函数<code>fstat</code>:返回在描述符<code>fd</code>上打开文件的有关信息；</li>
+<li>函数<code>lstat</code>:类似于函数<code>stat</code>，但当命名的文件是一个符号链接时，<code>lstat</code>返回该符号连接的有关信息；</li>
+<li>函数<code>fstatat</code>:为一个相对于当前打开目录(由<code>fd</code>参数指向)的路径名返回文件统计信息。</li>
+</ul>
+<p>文件信息包含<code>stat</code>结构的<code>st_mode</code>成员中。可以下表中的宏文件确定文件的类型。</p>
+<table>
+<thead>
+<tr>
+<th>宏</th>
+<th style="text-align:left">文件类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>S_ISREG()</code></td>
+<td style="text-align:left">普通文件</td>
+</tr>
+<tr>
+<td><code>S_ISDIR()</code></td>
+<td style="text-align:left">目录文件</td>
+</tr>
+<tr>
+<td><code>S_ISCHR()</code></td>
+<td style="text-align:left">字符特殊文件</td>
+</tr>
+<tr>
+<td><code>S_ISBLK()</code></td>
+<td style="text-align:left">块特殊文件</td>
+</tr>
+<tr>
+<td><code>S_ISFIFO()</code></td>
+<td style="text-align:left">管道或FIFO</td>
+</tr>
+<tr>
+<td><code>S_ISLNK()</code></td>
+<td style="text-align:left">符号链接</td>
+</tr>
+<tr>
+<td><code>S_ISSOCK()</code></td>
+<td style="text-align:left">套接字</td>
+</tr>
+</tbody>
+</table>
+<h1 id="文件类型">文件类型</h1><p>文件类型包括如下几类：</p>
+<ol>
+<li>普通文件(regular file):包含了某种形式的数据；</li>
+<li>目录文件(directory file):包含了其他文件的名字以及指向与这些文件有关信息的指针；</li>
+<li>块特殊文件(block special file):该类型文件提供对设备(如磁盘)带缓冲的访问，每次访问以固定长度为单位进行；</li>
+<li>字符特殊文件(character special file):该文件提供对设备不带缓冲的访问，每次访问长度不变。系统中的所有设备要么是字符特殊文件，要么是块特殊文件。</li>
+<li>FIFO:该文件用于进程通信，也称为命名管道(named pipe)；</li>
+<li>套接字(socket)：该文件用于进程间的网络通信，也可以用在一台宿主机上进程间的非网络通信。</li>
+<li>符号链接(symbolic link):该文件指向另一个文件。</li>
+</ol>
+<h1 id="设置用户ID和设置组ID">设置用户ID和设置组ID</h1><ul>
+<li>实际用户ID和实际组ID标识我们究竟是谁。</li>
+<li>有效用户ID、有效组ID以及附属组ID决定了我们的文件访问权限。</li>
+<li>保存的设置用户ID和保存的设置组ID在执行一个程序时包含了有效用户ID和有效组ID的副本。</li>
+</ul>
+<p>每个文件有一个所有者和组所有者，所有者由<code>stat</code>结构中的<code>st_uid</code>指定，组所有者则由<code>st_gid</code>指定。</p>
+<h1 id="文件访问权限">文件访问权限</h1><p>所有文件类型(目录、字符特别文件等)都有访问权限(access permisiion)。</p>
+<table>
+<thead>
+<tr>
+<th><code>st_mode</code>屏蔽</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>S_IRUSR</code></td>
+<td style="text-align:left">用户都</td>
+</tr>
+<tr>
+<td><code>S_IWUSR</code></td>
+<td style="text-align:left">用户写</td>
+</tr>
+<tr>
+<td><code>S_IXUSR</code></td>
+<td style="text-align:left">用户执行</td>
+</tr>
+<tr>
+<td><code>S_IRGRP</code></td>
+<td style="text-align:left">组读</td>
+</tr>
+<tr>
+<td><code>S_IWGRP</code></td>
+<td style="text-align:left">组写</td>
+</tr>
+<tr>
+<td><code>S_IXGRP</code></td>
+<td style="text-align:left">组执行</td>
+</tr>
+<tr>
+<td><code>S_IROTH</code></td>
+<td style="text-align:left">其他读</td>
+</tr>
+<tr>
+<td><code>S_IWOTH</code></td>
+<td style="text-align:left">其他写</td>
+</tr>
+<tr>
+<td><code>S_IXOTH</code></td>
+<td style="text-align:left">其他执行</td>
+</tr>
+</tbody>
+</table>
+<h1 id="函数access和faccessat">函数<code>access</code>和<code>faccessat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">access</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> mode)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">faccessat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> mode, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<p><code>access</code>和<code>faccessat</code>函数是按实际用户ID和实际组ID进行访问权限测试的。</p>
+<table>
+<thead>
+<tr>
+<th><code>mode</code></th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>R_OK</code></td>
+<td style="text-align:left">测试读权限</td>
+</tr>
+<tr>
+<td><code>W_OK</code></td>
+<td style="text-align:left">测试写权限</td>
+</tr>
+<tr>
+<td><code>X_OK</code></td>
+<td style="text-align:left">测试执行权限</td>
+</tr>
+</tbody>
+</table>
+<h1 id="函数umask">函数<code>umask</code></h1><p><code>umask</code>函数为进程设置文件模式创建屏蔽字(mask for the process)，并返回之前的值。(这是少数几个没有出错返回函数中的一个。)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">mode_t</span> umask(<span class="keyword">mode_t</span> cmask);</span><br><span class="line"><span class="comment">/* 返回值：之前的文件模式穿件屏蔽字 */</span></span><br></pre></td></tr></table></figure>
+<p>参数<code>cmask</code>是由上上个表列出的9个常量(S_IRUSR、S_IWUSR等)中若干个按位“或”构成的。</p>
+<table>
+<thead>
+<tr>
+<th>屏蔽位</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0400</td>
+<td style="text-align:left">用户读</td>
+</tr>
+<tr>
+<td>0200</td>
+<td style="text-align:left">用户写</td>
+</tr>
+<tr>
+<td>0100</td>
+<td style="text-align:left">用户执行</td>
+</tr>
+<tr>
+<td>0040</td>
+<td style="text-align:left">组读</td>
+</tr>
+<tr>
+<td>0020</td>
+<td style="text-align:left">组写</td>
+</tr>
+<tr>
+<td>0010</td>
+<td style="text-align:left">组执行</td>
+</tr>
+<tr>
+<td>0004</td>
+<td style="text-align:left">其他读</td>
+</tr>
+<tr>
+<td>0002</td>
+<td style="text-align:left">其他写</td>
+</tr>
+<tr>
+<td>0001</td>
+<td style="text-align:left">其他执行</td>
+</tr>
+</tbody>
+</table>
+<h1 id="函数chmod、fchmod和fchmodat">函数<code>chmod</code>、<code>fchmod</code>和<code>fchmodat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">chomd</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, mode_t mode)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fchome</span><span class="params">(<span class="keyword">int</span> fd, mode_t mode)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fchomdat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *pathname, mode_t mode, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="comment">/* 3个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<p><code>chmod</code>函数在指定的文件上进行操作，而<code>fchmod</code>函数则对已打开的文件进行操作。<br><code>fchomdat</code>函数与<code>chmod</code>函数在下面两种情况下是相同的：一种是<code>pathname</code>参数为绝对路径，另一种是<code>fd</code>参数取值为<code>AT_FDCWD</code>而<code>pathname</code>参数为相对路径。否则，<code>fchmodat</code>计算相对于打开目录(由<code>fd</code>参数指向)的pathname。<code>flag</code>参数可以用于改变<code>fchmodat</code>的行为，当设置了<code>AT_SYMLIN_NOFOLLOW</code>标志时，<code>fchmodat</code>并不会跟随符号链接。</p>
+<table>
+<thead>
+<tr>
+<th><code>mode</code></th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>S_ISUID</code></td>
+<td style="text-align:left">执行时设置用户ID</td>
+</tr>
+<tr>
+<td><code>S_ISGID</code></td>
+<td style="text-align:left">执行时设置组ID</td>
+</tr>
+<tr>
+<td><code>S_ISVTX</code></td>
+<td style="text-align:left">保存正文(粘着位)</td>
+</tr>
+<tr>
+<td><code>S_IRWXU</code></td>
+<td style="text-align:left">用户(所有者)读、写和执行</td>
+</tr>
+<tr>
+<td><code>S_IRUSR</code></td>
+<td style="text-align:left">用户(所有者)读</td>
+</tr>
+<tr>
+<td><code>S_IWUSR</code></td>
+<td style="text-align:left">用户(所有者)写</td>
+</tr>
+<tr>
+<td><code>S_IXUSR</code></td>
+<td style="text-align:left">用户(所有者)执行</td>
+</tr>
+<tr>
+<td><code>S_IRWXG</code></td>
+<td style="text-align:left">组读、写和执行</td>
+</tr>
+<tr>
+<td><code>S_IRGRP</code></td>
+<td style="text-align:left">组读</td>
+</tr>
+<tr>
+<td><code>S_IWGRP</code></td>
+<td style="text-align:left">组写</td>
+</tr>
+<tr>
+<td><code>S_IXGRP</code></td>
+<td style="text-align:left">组执行</td>
+</tr>
+<tr>
+<td><code>S_IRWXO</code></td>
+<td style="text-align:left">其他读、写和执行</td>
+</tr>
+<tr>
+<td><code>S_IROTH</code></td>
+<td style="text-align:left">其他读</td>
+</tr>
+<tr>
+<td><code>S_IWOTH</code></td>
+<td style="text-align:left">其他写</td>
+</tr>
+<tr>
+<td><code>S_IXOTH</code></td>
+<td style="text-align:left">其他执行</td>
+</tr>
+</tbody>
+</table>
+<h1 id="粘着位(sticky_bit)">粘着位(sticky bit)</h1><p><code>S_ISVTX</code>位被称为<code>粘着位</code>：如果一个可执行的程序文件的这一位被设置了，那么当程序第一次被执行，在其终止时，程序正文的一个副本仍被保存在交换区。<br>后来的UNIX版本称为它为<code>保存正文位(saved-text bit)</code>，因此也就有了常量<code>S_ISVTX</code>。</p>
+<h1 id="函数chown、fchown、fchownat和lchown">函数<code>chown</code>、<code>fchown</code>、<code>fchownat</code>和<code>lchown</code></h1><p>下面几个<code>chown</code>函数可用于更改文件的用户ID和组ID。如果两个参数<code>owner</code>或<code>group</code>中的任意一个是-1，则对应的ID不变。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">chown</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, uid_t owner, git_t group)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fchown</span><span class="params">(<span class="keyword">int</span> fd, uid_t owner, gid_t group)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fchownat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *pathname, uid_t owner, gid_t group, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lchown</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, uid_t owner, gid_t group)</span></span>;</span><br><span class="line"><span class="comment">/*</span><br><span class="line"> * 4个函数的返回值：若辰宫，返回0；若出错，返回-1</span><br><span class="line"> */</span></span><br></pre></td></tr></table></figure>
+<h1 id="文件长度">文件长度</h1><p><code>stat</code>结构成员<code>st_size</code>表示以字节为单位的单位长度。只对普通文件、目录文件和符号连接有效。</p>
+<h1 id="文件中的空洞">文件中的空洞</h1><p>空洞是由所设置的偏移量超过文件端尾，并写入了某些数据后造成的。</p>
+<h1 id="文件截断">文件截断</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">truncate</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, off_t length)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ftruncate</span><span class="params">(<span class="keyword">int</span> fd, off_t length)</span></span>;</span><br><span class="line"><span class="comment">/*</span><br><span class="line"> * 两个函数的返回值：若成功，返回0；若失败，返回-1</span><br><span class="line"> */</span></span><br></pre></td></tr></table></figure>
+<p>如果该文件以前的长度大于<code>length</code>，则超过<code>length</code>以外的数据就不能再访问。如果以前的长度小于<code>length</code>，文件长度将增加，在以前的文件尾端和新的文件尾端之间的数据将读作0。</p>
+<h1 id="文件系统">文件系统</h1><h1 id="函数link、linkat、unlink、unlinkat和remove">函数<code>link</code>、<code>linkat</code>、<code>unlink</code>、<code>unlinkat</code>和<code>remove</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">link</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *existingpath, <span class="keyword">const</span> <span class="keyword">char</span> *newpath)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">linkat</span><span class="params">(<span class="keyword">int</span> efd, <span class="keyword">const</span> <span class="keyword">char</span> *existingpath, <span class="keyword">int</span> nfd, <span class="keyword">const</span> <span class="keyword">char</span> *newpath, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<p>这两个函数创建一个新目录项<code>newpath</code>，它引用现有文件<code>existingpath</code>。如果<code>newpath</code>已存在，则返回出错。<br>对于<code>linkat</code>函数，现有文件是通过<code>efd</code>和<code>existingpath</code>指定，新的路径名是通过<code>nfd</code>和<code>newpath</code>指定的。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">unlink</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">unlinkat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<p>这两个函数删除目录项，并将由<code>pathname</code>所引用的链接数减1。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">remove</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若失败，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<h1 id="函数rename和renameat">函数<code>rename</code>和<code>renameat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rename</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *oldname, <span class="keyword">const</span> <span class="keyword">char</span> *newname)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">renameat</span><span class="params">(<span class="keyword">int</span> oldfd, <span class="keyword">const</span> <span class="keyword">char</span> *oldname, <span class="keyword">int</span> newfd, <span class="keyword">const</span> <span class="keyword">char</span> *newname)</span></span>;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>如果<code>oldname</code>指的是一个文件而不是目录，那么为该文件或符号连接重命名。</li>
+<li>如果<code>oldname</code>指的是一个空目录，那么为该目录重命名。</li>
+<li>如果<code>oldname</code>或<code>newname</code>引用符号连接，则处理的是符号链接本身，而不是它引用的文件。</li>
+<li>不能对<code>.</code>和<code>..</code>重命名。</li>
+<li>作为一个特例，如果<code>oldname</code>和<code>newname</code>引用同意文件，则函数不做任何更改而成功返回。</li>
+</ol>
+<h1 id="符号链接">符号链接</h1><p>符号链接是对一个文件的间接指针。符号链接以及它指向何种对象并无任何文件系统限制，任何用户都可以创建指向目录的符号连接。</p>
+<h1 id="创建和读取符号连接">创建和读取符号连接</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">symlink</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *actualpath, <span class="keyword">const</span> <span class="keyword">char</span> *sympath)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">symlinat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *acutalpath, <span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *symptah)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ssize_t</span> readlink(<span class="keyword">const</span> <span class="keyword">char</span> *actualpath, <span class="keyword">const</span> <span class="keyword">char</span> *symptah);</span><br><span class="line"><span class="keyword">sszie_t</span> readlinkat(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">restrict</span> pathname, <span class="keyword">char</span> *<span class="keyword">restrict</span> buf, <span class="keyword">size_t</span> bufsize);</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回读取的字节数；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<h1 id="文件时间">文件时间</h1><table>
+<thead>
+<tr>
+<th>字段</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">例子</th>
+<th style="text-align:left">ls(1)选项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>st_atim</code></td>
+<td style="text-align:left">文件数据的最后访问时间</td>
+<td style="text-align:left"><code>read</code></td>
+<td style="text-align:left"><code>-u</code></td>
+</tr>
+<tr>
+<td><code>st_mtim</code></td>
+<td style="text-align:left">文件数据的最后修改时间</td>
+<td style="text-align:left"><code>write</code></td>
+<td style="text-align:left"><code>默认</code></td>
+</tr>
+<tr>
+<td><code>st_ctim</code></td>
+<td style="text-align:left">i节点状态的最后更改时间</td>
+<td style="text-align:left"><code>chomd、chown</code></td>
+<td style="text-align:left"><code>-c</code></td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="函数stat、fstat、fstatat、lstat">函数<code>stat</code>、<code>fstat</code>、<code>fstatat</code>、<code>lstat</code></h1><figure class="highli]]>
+    </summary>
+    
+      <category term="APUE" scheme="http://kaiiak.github.io/tags/APUE/"/>
+    
+      <category term="Linux" scheme="http://kaiiak.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[APUE学习笔记——文件IO]]></title>
+    <link href="http://kaiiak.github.io/2016/02/25/APUE_study_notes-Files_IO/"/>
+    <id>http://kaiiak.github.io/2016/02/25/APUE_study_notes-Files_IO/</id>
     <published>2016-02-25T00:36:08.000Z</published>
-    <updated>2016-02-26T08:09:18.433Z</updated>
-    <content type="html"><![CDATA[<h1 id="APUE学习笔记——非阻塞IO">APUE学习笔记——非阻塞IO</h1><h2 id="文件描述符">文件描述符</h2><p>所有打开的文件都通过文件描述符(一个非负整数)引用。</p>
+    <updated>2016-02-29T14:01:20.496Z</updated>
+    <content type="html"><![CDATA[<h1 id="APUE学习笔记——文件IO">APUE学习笔记——文件IO</h1><h2 id="文件描述符">文件描述符</h2><p>所有打开的文件都通过文件描述符(一个非负整数)引用。</p>
 <p>维基百科上对于文件描述符的解释是这样的：</p>
 <blockquote>
 <p>文件描述符在形式上是一个非负整数。实际上，它是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。在程序设计中，一些涉及底层的程序编写往往会围绕着文件描述符展开。但是文件描述符这一概念往往只适用于UNIX、Linux这样的操作系统。</p>
@@ -160,55 +523,14 @@
 <li>获取/设置异步I/O所有权 (<code>cmd=F_GETOWN</code>或<code>F_SETOWN</code>)。</li>
 <li>获取/设置记录锁 (<code>cmd=F_GETLK</code>或<code>F_SETLKW</code>)。</li>
 </ol>
-<table>
-<thead>
-<tr>
-<th>cmd</th>
-<th style="text-align:left">功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>F_DUPFD</code></td>
-<td style="text-align:left">复制文件描述符<code>fd</code>。</td>
-</tr>
-<tr>
-<td><code>F_DUPFD_CLOEXEC</code></td>
-<td style="text-align:left">复制文件描述符，设置与新描述符关联的<code>FD_CLOEXEC</code>文件描述符标志的值，返回新文件描述符。</td>
-</tr>
-<tr>
-<td><code>F_GETFD</code></td>
-<td style="text-align:left">对应于<code>fd</code>的文件描述符标志作为函数值返回。</td>
-</tr>
-<tr>
-<td><code>F_SETFD</code></td>
-<td style="text-align:left">对于<code>fd</code>设置文件描述符标志。</td>
-</tr>
-<tr>
-<td><code>F_GETFL</code></td>
-<td style="text-align:left">对应于<code>fd</code>的文件状态标志作为函数值返回。</td>
-</tr>
-<tr>
-<td><code>F_SETFL</code></td>
-<td style="text-align:left">将文件状态标志设置为第3个参数的值。可以更改的几个标志是：<code>O_APPEND</code>、<code>O_NONBLOCK</code>、<code>O_SYNC</code>、<code>O_DSYNC</code>、<code>O_RSYNC</code>、<code>O_FSYNC</code>、和<code>O_ASYNC</code>。</td>
-</tr>
-<tr>
-<td><code>F_GETOWN</code></td>
-<td style="text-align:left">获取当前接收<code>SIGIO</code>和<code>SIGURG</code>信号进程ID或进程组ID。</td>
-</tr>
-<tr>
-<td><code>F_SETOWN</code></td>
-<td style="text-align:left">设置接收<code>SIGIO</code>和<code>SIGURG</code>信号的进程ID或进程组ID。</td>
-</tr>
-</tbody>
-</table>
+<p>|cmd|功能<br>|<br>|——|:—————————————————-|<br>|<code>F_DUPFD</code>|复制文件描述符<code>fd</code>。|<br>|<code>F_DUPFD_CLOEXEC</code>|复制文件描述符，设置与新描述符关联的<code>FD_CLOEXEC</code>文件描述符标志的值，返回新文件描述符。|<br>|<code>F_GETFD</code>|对应于<code>fd</code>的文件描述符标志作为函数值返回。|<br>|<code>F_SETFD</code>|对于<code>fd</code>设置文件描述符标志。|<br>|<code>F_GETFL</code>|对应于<code>fd</code>的文件状态标志作为函数值返回。|<br>|<code>F_SETFL</code>|将文件状态标志设置为第3个参数的值。可以更改的几个标志是：<code>O_APPEND</code>、<code>O_NONBLOCK</code>、<code>O_SYNC</code>、<code>O_DSYNC</code>、<code>O_RSYNC</code>、<code>O_FSYNC</code>、和<code>O_ASYNC</code>。|<br>|<code>F_GETOWN</code>|获取当前接收<code>SIGIO</code>和<code>SIGURG</code>信号进程ID或进程组ID。|<br>|<code>F_SETOWN</code>|设置接收<code>SIGIO</code>和<code>SIGURG</code>信号的进程ID或进程组ID。|</p>
 <h2 id="函数ioctl">函数<code>ioctl</code></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span> /* System V */</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/ioctl.h&gt;</span>  /* BSD and Linux */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ioctl</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">int</span> request, ...)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若出错，返回-1；若成功，返回其他值 */</span></span><br></pre></td></tr></table></figure>
 <h2 id="/dev/fd"><code>/dev/fd</code></h2><p>较新的系统都提供名为<code>/dev/fd</code>的目录，其目录项是名为0、1、2等的文件。打开文件<code>/dev/fdn</code>等效于复制描述符n(假设描述符n是打开的).</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h1 id="APUE学习笔记——非阻塞IO">APUE学习笔记——非阻塞IO</h1><h2 id="文件描述符">文件描述符</h2><p>所有打开的文件都通过文件描述符(一个非负整数)引用。</p>
+    <![CDATA[<h1 id="APUE学习笔记——文件IO">APUE学习笔记——文件IO</h1><h2 id="文件描述符">文件描述符</h2><p>所有打开的文件都通过文件描述符(一个非负整数)引用。</p>
 <p>维基百科上对于文件描述符的解释是这样的：</p>
-<blockqu]]>
+<blockquot]]>
     </summary>
     
       <category term="APUE" scheme="http://kaiiak.github.io/tags/APUE/"/>

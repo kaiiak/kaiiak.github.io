@@ -2,8 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://kaiiak.github.io/2016/02/25/APUE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94%E9%9D%9E%E9%98%BB%E5%A1%9EIO/</loc>
-    <lastmod>2016-02-26T08:09:18.433Z</lastmod>
+    <loc>http://kaiiak.github.io/2016/03/05/personal_vimrc/</loc>
+    <lastmod>2016-03-05T11:17:27.410Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://kaiiak.github.io/2016/02/29/APUE_study_notes-Files_and_Directories/</loc>
+    <lastmod>2016-03-04T15:47:16.948Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://kaiiak.github.io/2016/02/25/APUE_study_notes-Files_IO/</loc>
+    <lastmod>2016-02-29T14:01:20.496Z</lastmod>
   </url>
   
   <url>

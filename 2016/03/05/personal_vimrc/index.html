@@ -35,7 +35,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="pylirc,树莓派," />
+  <meta name="keywords" content="Linux,vim," />
 
 
 
@@ -53,19 +53,16 @@
 
 
 
-<meta name="description" content="官方文档在2005年更新的官方文档，点击这里.
-1pyLirc v0.0.5&amp;#10;&amp;#10;Introduction&amp;#10;&amp;#10;pyLirc is a module for Python that interacts with lirc to give &amp;#10;Python programs the ability to receive commands from remote &amp;#">
+<meta name="description" content="自用的vim配置文件12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697&quot; 编码s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="通过pylirc实现红外控制">
-<meta property="og:url" content="http://kaiiak.github.io/2015/11/14/通过pylirc实现红外控制/index.html">
+<meta property="og:title" content="自用vim配置文件">
+<meta property="og:url" content="http://kaiiak.github.io/2016/03/05/personal_vimrc/index.html">
 <meta property="og:site_name" content="KAIIAK">
-<meta property="og:description" content="官方文档在2005年更新的官方文档，点击这里.
-1pyLirc v0.0.5&amp;#10;&amp;#10;Introduction&amp;#10;&amp;#10;pyLirc is a module for Python that interacts with lirc to give &amp;#10;Python programs the ability to receive commands from remote &amp;#">
-<meta property="og:updated_time" content="2015-11-14T13:31:45.495Z">
+<meta property="og:description" content="自用的vim配置文件12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697&quot; 编码s">
+<meta property="og:updated_time" content="2016-03-05T11:17:27.410Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="通过pylirc实现红外控制">
-<meta name="twitter:description" content="官方文档在2005年更新的官方文档，点击这里.
-1pyLirc v0.0.5&amp;#10;&amp;#10;Introduction&amp;#10;&amp;#10;pyLirc is a module for Python that interacts with lirc to give &amp;#10;Python programs the ability to receive commands from remote &amp;#">
+<meta name="twitter:title" content="自用vim配置文件">
+<meta name="twitter:description" content="自用的vim配置文件12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697&quot; 编码s">
 
 
 
@@ -77,7 +74,7 @@
   };
 </script>
 
-  <title> 通过pylirc实现红外控制 | KAIIAK </title>
+  <title> 自用vim配置文件 | KAIIAK </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -217,7 +214,7 @@
             
             
               
-                通过pylirc实现红外控制
+                自用vim配置文件
               
             
           </h1>
@@ -226,8 +223,8 @@
         <div class="post-meta">
           <span class="post-time">
             發表於
-            <time itemprop="dateCreated" datetime="2015-11-14T20:39:40+08:00" content="2015-11-14">
-              2015-11-14
+            <time itemprop="dateCreated" datetime="2016-03-05T16:49:30+08:00" content="2016-03-05">
+              2016-03-05
             </time>
           </span>
 
@@ -237,8 +234,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/11/14/通过pylirc实现红外控制/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/14/通过pylirc实现红外控制/" itemprop="commentsCount"></span>
+                <a href="/2016/03/05/personal_vimrc/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/05/personal_vimrc/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -257,11 +254,29 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="官方文档">官方文档</h2><p>在2005年更新的官方文档，点击<a href="http://bazaar.launchpad.net/~rockstar/pylirc2/trunk/view/head:/doc/simple.txt" target="_blank" rel="external">这里</a>.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyLirc v0.0.5&#10;&#10;Introduction&#10;&#10;pyLirc is a module for Python that interacts with lirc to give &#10;Python programs the ability to receive commands from remote &#10;controls.&#10;&#10;This isn&#39;t much of documentation, but at least it&#39;s a start and&#10;there isn&#39;t much to document right now anyway.&#10;&#10;&#10;Initialization&#10;&#10;Before you can receive any commands from lirc, you&#39;ll need to &#10;initialize the module. After importing pyLirc, call the pylirc.init()&#10;function:&#10;&#10;   import pylirc&#10;&#10;   integer = pylirc.init(string name[, string configuration [, integer blocking ]])&#10;&#10;the returnvalue is the returnvalue of lircs client library&#10;lirc_init(), ie a socket, or zero on failure.&#10;&#10;The socket can be used with select.select() to wait for data if you don&#39;t&#10;want to use blocking. This is especially useful in multithreaded programs&#10;as blocking mode of pylirc will blick all threads, whereas select() will&#10;only block the current and with optional timeout.&#10;&#10;name: the name used for your program in the lirc configuration&#10;file, must be supplied.&#10;&#10;configuration:  a filename to a lirc configuration file in case you wish not to&#10;use lircs default configuration file (usually ~/.lircrc).&#10;&#10;blocking: a flag indicating wether you want blocking mode or not. See also &#10;blocking() and select.select() (latter in python docs)&#10;&#10;&#10;Polling&#10;&#10;If initialization was ok, you can poll lirc for commands. To read any commands&#10;in queue call pylirc.nextcode():&#10;&#10;   list = pylirc.nextcode([integer Exteneded])&#10;&#10;The returnvalue is &#39;None&#39;, if no commands was on the queue, or a list&#10;containing the commands read.&#10;&#10;To get the commands one by one enumerate the list:&#10;&#10;   for code in list:&#10;      print code&#10;&#10;If you supply the optional argument Extended as true, code will be a dictionary&#10;otherwise it will be a string (old behaviour).&#10;&#10;The dictionary currently contains:&#10;&#34;config&#34;: The config string from lirc config file - the same string you&#39;d get in&#10;          non-extended mode.&#10;&#34;repeat&#34;: The repeat count of the buttonpress.&#10;      &#10;Note, that there can still be more commands on queue after a call&#10;to pylirc.nextcode(). You should call it in a loop until you get&#10;&#39;None&#39; back.&#10;&#10;&#10;Exiting&#10;&#10;When you&#39;re done using pyLirc and before you exit your program you&#10;should clean up:&#10;&#10;   pylirc.exit()&#10;&#10;&#10;Changing mode&#10;&#10;When you initialize pyLirc, you can chose wether you want blocking or&#10;non-blocking mode. Blocking mode means pylirc.nextcode() waits until&#10;there is a command to be read until it returns.&#10;To change mode after initialization, use blocking():&#10;&#10;   success = pylirc.blocking(int)</span><br></pre></td></tr></table></figure>
-<h2 id="中文翻译">中文翻译</h2><p>自己尝试翻译一下，英语渣渣，有不正确的地方请指正。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyLirc v0.0.5&#10;&#10;&#20171;&#32461;&#10;&#10;pyLirc&#26159;&#19968;&#20010;&#19982;LIRC&#20132;&#20114;&#32473;&#10;Python&#31243;&#24207;&#20174;&#36828;&#31243;&#25509;&#25910;&#36828;&#31243;&#21629;&#20196;&#30340;&#33021;&#21147;&#10;&#30340;Python&#27169;&#22359;&#12290;&#10;&#10;&#36825;&#26159;&#27809;&#26377;&#22826;&#22810;&#30340;&#25991;&#26723;&#65292;&#27605;&#31455;&#23427;&#26159;&#19968;&#20010;&#26032;&#39033;&#30446;&#65292;&#10;&#29616;&#22312;&#21453;&#27491;&#27809;&#26377;&#22826;&#22810;&#30340;&#25991;&#26723;&#12290;&#10;&#10;&#21021;&#22987;&#21270;&#10;&#10;&#22312;&#25509;&#21463;&#26469;&#33258;lirc&#30340;&#21629;&#20196;&#20043;&#21069;&#65292;&#20320;&#24212;&#35813;&#21021;&#22987;&#21270;&#26412;&#27169;&#22359;&#12290;&#22312; import pylirc&#20043;&#21518;&#65292;&#20351;&#29992; pylirc.inti()&#20989;&#25968;&#65306;&#10;&#9;import pylirc&#10;&#9;integer = pylirc.init(string name[, string configuration [, integer blocking ]])&#10;&#36820;&#22238;&#20540;&#26159;&#23458;&#25143;&#31471;&#24211;&#20013;lirc_init()&#20989;&#25968;&#30340;&#36820;&#22238;&#20540;&#65292;&#26159;&#19968;&#20010;socket&#65292;&#22914;&#26524;&#36820;&#22238;&#20540;&#26159;0&#65292;&#21017;&#21021;&#22987;&#21270;&#22833;&#36133;&#12290;</span><br></pre></td></tr></table></figure>
-<h1 id="示例代码">示例代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">import</span> pylirc</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Buttons</span>:</span></span><br><span class="line">    SELECT = <span class="number">0</span></span><br><span class="line">    RIGHT = <span class="number">1</span></span><br><span class="line">    DOWN = <span class="number">2</span></span><br><span class="line">    UP = <span class="number">3</span></span><br><span class="line">    LEFT = <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, app, conf)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> pylirc.init(app, conf, <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">"Unable to init pylirc"</span>);</span><br><span class="line">        pylirc.blocking(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">readButton</span><span class="params">(self)</span>:</span></span><br><span class="line">        btn = pylirc.nextcode()</span><br><span class="line">        <span class="keyword">if</span> btn:</span><br><span class="line">            <span class="keyword">return</span> btn[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">None</span></span><br></pre></td></tr></table></figure></span>
+        <span itemprop="articleBody"><h1 id="自用的vim配置文件">自用的vim配置文件</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" 编码</span><br><span class="line">set encoding=utf-8</span><br><span class="line"></span><br><span class="line">"</span> 避免以前版本的一些bug和局限</span><br><span class="line"><span class="built_in">set</span> nocompatible</span><br><span class="line"></span><br><span class="line"><span class="string">" 逐步搜索模式，对当前键入的字符进行搜索而不必等待键入完成,/b寻找b开头的。</span><br><span class="line">set incsearch</span><br><span class="line"></span><br><span class="line">"</span>自动识别文件类型</span><br><span class="line"><span class="string">" set filetype</span><br><span class="line"></span><br><span class="line">"</span> 搜索时高亮显示找到文本</span><br><span class="line"><span class="built_in">set</span> hlsearch</span><br><span class="line"></span><br><span class="line"><span class="string">" 在Insert模式下退格键何时可以删除光标之前的字符。三项内容分别指定了Vim可以删除位于行首的空格,断行,以及开始进入Insert模式之前的位置。</span><br><span class="line">set backspace=indent,eol,start</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">"</span> 设置tab键为<span class="number">4</span>个空格，设置当行之间交错时使用<span class="number">4</span>个空格</span><br><span class="line"><span class="built_in">set</span> tabstop=<span class="number">4</span></span><br><span class="line"><span class="built_in">set</span> shiftwidth=<span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="string">" 匹配模式，左括号匹配右括号</span><br><span class="line">set showmatch</span><br><span class="line"></span><br><span class="line">"</span> 在覆盖一个文件之前备份该文件。但是对VMS系统除外,因为该系统已经为文件保存了老的版本。备份文件名由当前文件名加后辍<span class="string">"~"</span>组成。</span><br><span class="line"><span class="string">" if has("</span>vms<span class="string">")</span><br><span class="line">"</span> <span class="built_in">set</span> nobackup</span><br><span class="line"><span class="string">" else</span><br><span class="line">"</span> <span class="built_in">set</span> backup</span><br><span class="line"><span class="string">" endif</span><br><span class="line"></span><br><span class="line">"</span> 设置冒号命令和搜索命令的命令历史列表的长度。</span><br><span class="line"><span class="built_in">set</span> <span class="built_in">history</span>=<span class="number">1000</span></span><br><span class="line"></span><br><span class="line"><span class="string">" 总是在Vim窗口的右下角显示当前光标的行列信息。</span><br><span class="line">set ruler</span><br><span class="line"></span><br><span class="line">"</span> 在Vim窗口的右下角显示一个完整的命令已经完成的部分。比如说你键入<span class="string">"2f"</span>,Vim就会在你键入下一个要查找的字符之前显示已经键入的<span class="string">"2f"</span>。一旦你接下来再键入一个字符比如<span class="string">"w"</span>,那么一个完整的命令<span class="string">"2fw"</span>就会被Vim 执行,同时刚才显示的<span class="string">"2f"</span>也将消失。</span><br><span class="line"><span class="built_in">set</span> showcmd</span><br><span class="line"></span><br><span class="line"><span class="string">" 语法高亮</span><br><span class="line">syntax on</span><br><span class="line"></span><br><span class="line">"</span> 显示行号</span><br><span class="line"><span class="built_in">set</span> nu</span><br><span class="line"></span><br><span class="line"><span class="string">" 显示空格和TAB</span><br><span class="line">set list</span><br><span class="line">set listchars=tab:&gt;-,trail:-</span><br><span class="line"></span><br><span class="line">"</span> 凸显当前行</span><br><span class="line"><span class="built_in">set</span> cursorline</span><br><span class="line"></span><br><span class="line"><span class="string">" 检测文件类型</span><br><span class="line">filetype on</span><br><span class="line"></span><br><span class="line">"</span> 启用鼠标</span><br><span class="line"><span class="built_in">set</span> mouse=a</span><br><span class="line"></span><br><span class="line"><span class="string">" 配色方案</span><br><span class="line">"</span>colorscheme torte</span><br><span class="line"></span><br><span class="line"><span class="string">" 以下为插件</span><br><span class="line"></span><br><span class="line">"</span> 管理插件的插件pathogen</span><br><span class="line">call pathogen<span class="comment">#infect()</span></span><br><span class="line"></span><br><span class="line"><span class="string">" NERDTree目录树插件</span><br><span class="line">noremap  :NERDTree</span><br><span class="line"></span><br><span class="line">"</span> Powerline</span><br><span class="line"><span class="built_in">set</span> guifont=PowerlineSymbols\ <span class="keyword">for</span>\ Powerline</span><br><span class="line"><span class="built_in">set</span> nocompatible</span><br><span class="line"><span class="built_in">set</span> laststatus=<span class="number">2</span></span><br><span class="line"><span class="built_in">set</span> t_Co=<span class="number">256</span></span><br><span class="line"><span class="built_in">let</span> g:Powerline_symbols = <span class="string">'fancy'</span></span><br><span class="line"></span><br><span class="line"><span class="string">" NERDTree</span><br><span class="line">map &lt;F10&gt; :NERDTreeToggle&lt;CR&gt;</span><br><span class="line"></span><br><span class="line">"</span> C的编译和运行 </span><br><span class="line">map &lt;F5&gt; :call CompileRunGcc()&lt;CR&gt; </span><br><span class="line">func! CompileRunGcc() </span><br><span class="line"><span class="built_in">exec</span> <span class="string">"w"</span> </span><br><span class="line"><span class="built_in">exec</span> <span class="string">"!gcc % -o %&lt;"</span> </span><br><span class="line"><span class="built_in">exec</span> <span class="string">"! ./%&lt;"</span> </span><br><span class="line">endfunc </span><br><span class="line"></span><br><span class="line"><span class="string">" C++的编译和运行 </span><br><span class="line">map &lt;F6&gt; :call CompileRunGpp()&lt;CR&gt; </span><br><span class="line">func! CompileRunGpp() </span><br><span class="line">exec "</span>w<span class="string">" </span><br><span class="line">exec "</span>!g++ % -o %&lt;<span class="string">" </span><br><span class="line">exec "</span>! ./%&lt;<span class="string">" </span><br><span class="line">endfunc</span></span><br></pre></td></tr></table></figure>
+<h1 id="插件列表">插件列表</h1><table>
+<thead>
+<tr>
+<th>插件名称</th>
+<th style="text-align:left">项目地址</th>
+<th style="text-align:left">教程地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pathogen</code></td>
+<td style="text-align:left"><a href="http://www.vim.org/scripts/script.php?script_id=2332" target="_blank" rel="external">项目地址</a></td>
+<td style="text-align:left"><a href="https://github.com/tpope/vim-pathogen" target="_blank" rel="external">教程地址</a></td>
+</tr>
+<tr>
+<td><code>NERDTree</code></td>
+<td style="text-align:left"><a href="http://www.vim.org/scripts/script.php?script_id=1658" target="_blank" rel="external">项目地址</a></td>
+<td style="text-align:left"><a href="http://my.oschina.net/VASKS/blog/388907?fromerr=ktE2belY" target="_blank" rel="external">教程地址</a></td>
+</tr>
+</tbody>
+</table>
+</span>
       
     </div>
 
@@ -269,9 +284,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/pylirc/" rel="tag">#pylirc</a>
+            <a href="/tags/Linux/" rel="tag">#Linux</a>
           
-            <a href="/tags/树莓派/" rel="tag">#树莓派</a>
+            <a href="/tags/vim/" rel="tag">#vim</a>
           
         </div>
       
@@ -280,17 +295,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/09/local-install-pydev-with-eclipse/" rel="next" title="为Eclipse本地安装PyDev">
-                <i class="fa fa-chevron-left"></i> 为Eclipse本地安装PyDev
+              <a href="/2016/02/29/APUE_study_notes-Files_and_Directories/" rel="next" title="APUE学习笔记——文件和目录">
+                <i class="fa fa-chevron-left"></i> APUE学习笔记——文件和目录
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/11/19/using-vlclib-in-vs/" rel="prev" title="C#利用VLC播放网络串流">
-                C#利用VLC播放网络串流 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -317,8 +328,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/11/14/通过pylirc实现红外控制/"
-           data-title="通过pylirc实现红外控制" data-url="http://kaiiak.github.io/2015/11/14/通过pylirc实现红外控制/">
+      <div class="ds-thread" data-thread-key="2016/03/05/personal_vimrc/"
+           data-title="自用vim配置文件" data-url="http://kaiiak.github.io/2016/03/05/personal_vimrc/">
       </div>
     
   </div>
@@ -433,7 +444,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#官方文档"><span class="nav-number">1.</span> <span class="nav-text">官方文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文翻译"><span class="nav-number">2.</span> <span class="nav-text">中文翻译</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例代码"><span class="nav-number"></span> <span class="nav-text">示例代码</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自用的vim配置文件"><span class="nav-number">1.</span> <span class="nav-text">自用的vim配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插件列表"><span class="nav-number">2.</span> <span class="nav-text">插件列表</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
