@@ -65,7 +65,7 @@
 维基百科上对于文件描述符的解释是这样的：
 
 文件描述符在形式上是一个非负整数。实际上，它是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。在程序设计中，一些涉及底层的程序编写往往会围绕着文件描述符展开。但是文件描述符这一概念往往只适用于UNIX、">
-<meta property="og:updated_time" content="2016-03-07T04:29:51.916Z">
+<meta property="og:updated_time" content="2016-03-07T04:37:59.496Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="APUE学习笔记——文件IO">
 <meta name="twitter:description" content="文件描述符所有打开的文件都通过文件描述符(一个非负整数)引用。
@@ -269,7 +269,7 @@
 <p>文件描述符在形式上是一个非负整数。实际上，它是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。在程序设计中，一些涉及底层的程序编写往往会围绕着文件描述符展开。但是文件描述符这一概念往往只适用于UNIX、Linux这样的操作系统。</p>
 </blockquote>
 <p>当读、写一个文件时，使用<code>open</code>或<code>creat</code>返回的文件描述符标识该文件，将其作为参数传给<code>read</code>或<code>write</code>。</p>
-<p>在POSIX.1的应用程序中，文件描述符0与进程的标准输入关联(STDIN_FILENO)、文件描述符1与进程的标准输出关联(STDOUT_FILENO)、文件描述符2与进程的标准错误关联(STDERR_FILENO)，且已经确定化。<br>文件描述符的变化范围是<code>0~OPEN_MAX-1</code>。<br><a id="more"></a></p>
+<p>在POSIX.1的应用程序中，文件描述符0与进程的标准输入关联(STDIN_FILENO)、文件描述符1与进程的标准输出关联(STDOUT_FILENO)、文件描述符2与进程的标准错误关联(STDERR_FILENO)，且已经确定化。<br>文件描述符的变化范围是<code>0~OPEN_MAX-1</code>。</p>
 <h1 id="函数open和openat">函数<code>open</code>和<code>openat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">int</span> oflag, ... <span class="comment">/* mode_t mode */</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">openat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">int</span> oflag, ... <span class="comment">/* mode_t mode */</span>)</span></span>;</span><br><span class="line"><span class="comment">/*</span><br><span class="line"> *path ：文件的名称，可以包含（绝对和相对）路径</span><br><span class="line"> *flags：文件打开模式</span><br><span class="line"> *mode：用来规定对该文件的所有者，文件的用户组及系 统中其他用户的访问权限</span><br><span class="line"> */</span></span><br><span class="line"><span class="comment">/* 两函数的返回值： 若成功，返回文件描述符； 若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 <table>
 <thead>
