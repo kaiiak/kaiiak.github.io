@@ -428,6 +428,107 @@
             
               
                 
+                <a class="post-title-link" href="/2015/10/18/使用Python控制树莓派的GPIO-1/" itemprop="url">
+                  使用Python控制树莓派的GPIO(1)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2015-10-18T17:19:07+08:00" content="2015-10-18">
+              2015-10-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/10/18/使用Python控制树莓派的GPIO-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/18/使用Python控制树莓派的GPIO-1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h3 id="使用的树莓派2B">使用的树莓派2B</h3><p>通过PRI.GPIO来实现Python控制树莓派的GPIO。</p>
+<h2 id="安装">安装</h2><p>在<a href="http://pythonhosted.org/RPIO/" target="_blank" rel="external">官方文档</a>中给出了三种按章方式。分别是</p>
+<h3 id="用_easy_install或者pip来安装：">用 <code>easy_install</code>或者<code>pip</code>来安装：</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-setuptools&#10;sudo easy_install -U RPIO</span><br></pre></td></tr></table></figure>
+<h3 id="从Github上克隆然后安装">从Github上克隆然后安装</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/metachris/RPIO.git&#10;cd RPIO&#10;sudo python setup.py install</span><br></pre></td></tr></table></figure>
+<h3 id="从Github或者别处下载安装">从Github或者别处下载安装</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://github.com/metachris/RPIO/archive/master.tar.gz | tar -xz&#10;cd RPIO-master&#10;sudo python setup.py install</span><br></pre></td></tr></table></figure>
+<h2 id="使用">使用</h2><p><img src="http://ww1.sinaimg.cn/mw690/ae94c92cgw1ex5fscddh0j20fi0bigqz.jpg" alt="树莓派引脚图"><br><img src="http://ww3.sinaimg.cn/mw690/ae94c92cgw1ex6qv7sjpoj20jq0c6gps.jpg" alt="树莓派2B引脚图"></p>
+<p>这是用wiringPi生成的引脚图，用wiringPi控制GPIO会在以后写。</p>
+<p>树莓派的GPIO大致可以分为INPUT和OUTPUT两种状态。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> RPIO</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置为输入位无上拉</span></span><br><span class="line">RPIO.setup(<span class="number">7</span>, RPIO.IN)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置为输出位有上拉. 可以设置为</span></span><br><span class="line"><span class="comment"># PUD_UP(上拉), PUD_DOWN(下拉) or PUD_OFF (default)</span></span><br><span class="line">RPIO.setup(<span class="number">7</span>, RPIO.IN, pull_up_down=RPIO.PUD_UP)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取GPIO7的输入状态</span></span><br><span class="line">input_value = RPIO.input(<span class="number">7</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置GPIO为输出位</span></span><br><span class="line">RPIO.setup(<span class="number">8</span>, RPIO.OUT)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置GPIO8为高电位</span></span><br><span class="line">RPIO.output(<span class="number">8</span>, <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置为输出位并给予一个初始值</span></span><br><span class="line">RPIO.setup(<span class="number">8</span>, RPIO.OUT, initial=RPIO.LOW)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 改变为BOARD编号模式</span></span><br><span class="line">RPIO.setmode(RPIO.BOARD)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在通道17上设置软件上拉</span></span><br><span class="line">RPIO.set_pullupdn(<span class="number">17</span>, RPIO.PUD_UP)  <span class="comment"># new in RPIO</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获得通道8的设置(IN、OUT、ALTo)</span></span><br><span class="line">RPIO.gpio_function(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 复位所有由该程序设置过的通道，</span></span><br><span class="line"><span class="comment"># 并清除 GPIO 中断接口</span></span><br><span class="line">RPIO.cleanup()</span><br></pre></td></tr></table></figure>
+<p>照着上一篇文章写的那样做，并不能成功。因为RPIO的最后一个release版本是2013年的，并不支持我的树莓派2B。</p>
+<p>如果想在树莓派2B上运行，需要做这些工作<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install rpi.gpio&#10;sudo pip freeze</span><br></pre></td></tr></table></figure></p>
+<p>如果有一行<code>RPi.GPIO==0.511</code>就说明安装成功了。</p>
+<p>然后我们在新建<code>led.py</code>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> RPi.GPIO <span class="keyword">as</span> GPIO</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">LED = <span class="number">4</span> </span><br><span class="line"></span><br><span class="line">GPIO.setmode(GPIO.BCM)</span><br><span class="line">GPIO.setup(LED, GPIO.OUT)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"结束程序，请按CTRL+C"</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	<span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">		GPIO.output(LED, <span class="keyword">False</span>)</span><br><span class="line">		<span class="comment">#延时1s</span></span><br><span class="line">		time.sleep(<span class="number">1</span>)</span><br><span class="line">		GPIO.output(LED, <span class="keyword">True</span>)</span><br><span class="line">		time.sleep(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">except</span> KeyboardInterrupt: <span class="comment"># 如果程序被CTRL+C结束</span></span><br><span class="line">	GPIO.cleanup()</span><br></pre></td></tr></table></figure></p>
+<p>前几天搞不懂GPIO.setmode函数中的参数GPIO.BCM和GPIO.BOARD指的是什么。<br>后来知道BOARD指的是主板引脚编号，而BCM指的是BCM芯片的引脚编号，在本文的配图中有。</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/10/12/使用Xshell进行上传和下载/" itemprop="url">
                   使用Xshell进行上传和下载
                 </a>
@@ -521,6 +622,101 @@
             
               
                 
+                <a class="post-title-link" href="/2015/10/11/树莓派直连电脑二三事/" itemprop="url">
+                  树莓派直连电脑二三事
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2015-10-11T20:09:35+08:00" content="2015-10-11">
+              2015-10-11
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/10/11/树莓派直连电脑二三事/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/11/树莓派直连电脑二三事/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h2 id="解决方法">解决方法</h2><p>因为在学校的实验室网络不是很稳定，所以树莓派一直不能直接用网线连接网络。而且wpa_supplication真的很不稳定，莫名其妙的罢工好几次，每次只能重新写镜像。<br>种种原因选择了直连电脑的方法来联网,而我的电脑连接的是信号很弱的无线网，无奈条件太艰苦。</p>
+<p>需要额外准备的东西就是一根直通线啦。好啦，接下来就是设置的时间了。</p>
+<p>首先打开网络与共享中心-&gt;更改适配器设置-&gt;右击无线网络连接-&gt;属性-&gt;共享。<br>如图：<br>        <img src="http://ww2.sinaimg.cn/mw690/ae94c92cgw1ewxgxexpm2j20ah0camy8.jpg" alt="无线网络属性共享"><br>根据别人写的教程，做到这步就可以实现远程登录树莓派和树莓派访问外网了。但是我只能实现远程登录树莓派，访问外网实现不了。经过试验，是没有配置DNS服务器的原因，在本地连接的IPV4属性中添加DNS服务器就可以了。这里我使用的是OpenDNS。<br>        <img src="http://ww3.sinaimg.cn/mw690/ae94c92cgw1ewxgxrj8stj20bi0bxgn5.jpg" alt="IPV4属性"></p>
+<h2 id="原理">原理</h2><p>windows实现直连访问的技术叫做ICS，百科上的解释如下：</p>
+<blockquote>
+<p>ICS即Internet连接共享(InternetConnectionSharing)的英文简称，是Windows系统针对家庭网络或小型的Intranet网络提供的一种Internet连接共享服务。它实际上相当于一种网络地址转换器，所谓网络地址转换器就是当数据包向前传递的过程中，可以转换数据包中的IP地址和TCP/UDP端口等地址信息。有了网络地址转换器，家庭网络或小型的办公网络中的电脑就可以使用私有地址，并且通过网络地址转换器将私有地址转换成ISP分配的单一的公用IP地址从而实现对Internet的连接。ICS方式也称之为Internet转换连接。</p>
+</blockquote>
+<p>这里是<a href="http://windows.microsoft.com/zh-cn/windows/using-internet-connection-sharing#1TC=windows-7" target="_blank" rel="external">在微软的官方帮助文档</a>中对ICS的介绍，使用它也可以连接路由器使用。</p>
+<h3 id="推荐阿里和中科大的的树莓派镜像">推荐阿里和中科大的的树莓派镜像</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deb <span class="symbol">http:</span>/<span class="regexp">/mirrors.aliyun.com/raspbian</span><span class="regexp">/raspbian/</span>   wheezy main contrib non-free rpi</span><br><span class="line">deb <span class="symbol">http:</span>/<span class="regexp">/mirrors.ustc.edu.cn/raspbian</span><span class="regexp">/raspbian/</span>   wheezy main contrib non-free rpi</span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2015/08/05/打算买个极路由刷openWRT/" itemprop="url">
                   打算买个小米路由刷openWRT
                 </a>
@@ -567,6 +763,99 @@
           <span itemprop="articleBody">
             
               <p>主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。<br>所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。<br>哈哈～<br>这是想象之中的，但愿我能坚持下来吧。<br>Thx～<br>然而在极路由和小米路由器mini之间我选择了小米路由mini。<br>毕竟第一次折腾openWRT，不是很敢自己刷。可以直接在他们定制的openWRT系统上折腾。</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/08/01/解决Yilia主题的subnav中链接的问题/" itemprop="url">
+                  解决Yilia主题的subnav中链接的问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2015-08-01T00:11:23+08:00" content="2015-08-01">
+              2015-08-01
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/01/解决Yilia主题的subnav中链接的问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/01/解决Yilia主题的subnav中链接的问题/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h2 id="问题说明">问题说明</h2><p>我很喜欢Yilia这个漂亮的主题，但是当我自己用的时候发现在subnav区生成的链接并不是我想要的。比如我的github地址是<code>github.com/kaiiak</code>，但是实际生成的是<code>kaiiak.github.io/github.com/kaiiak</code>。微博地址也是这样，邮箱地址也是。</p>
+<h2 id="心路历程">心路历程</h2><p>我一点一点试验嘛，今天一晚上翻来覆去改了有30多次。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">subnav:</span><br><span class="line">  github: "https://github.com/kaiiak"</span><br><span class="line">  weibo:  "http://weibo.com/itkaikai"</span><br><span class="line">  #mail:   "itkaikai@gmail.com"</span><br></pre></td></tr></table></figure>
+<p>  这时可以了，我以为是因为链接对齐了呢，可是我把mail那里的<code>#</code>去掉后，发现邮箱那一栏生成的地址还是没变啊。我又陷入了沉思～</p>
+<h2 id="问题解决">问题解决</h2><p>解决的原因是我把git生成的diff看了一遍，发现微博那一栏在没加<code>http://</code>时，生成的html代码是这样的<code>/weibo.com/itkaikai</code>，加了<code>http://</code>后生成的html代码就变成了<code>http://weibo.com/itkaikai</code>了。看到这里，大家一定会明白了。<br>把subnav改成这样子就可以了。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">subnav:</span><br><span class="line">  github: "https://github.com/kaiiak"</span><br><span class="line">  weibo:  "http://weibo.com/itkaikai"</span><br><span class="line">  mail:   "mailto:itkaikai@gmail.com"</span><br></pre></td></tr></table></figure></p>
+<h2 id="后记">后记</h2><p>把时间花费在打磨工具上有点很吃亏啊，还是等有钱买个vps好了。<br>晚安～</p>
 
             
           </span>
