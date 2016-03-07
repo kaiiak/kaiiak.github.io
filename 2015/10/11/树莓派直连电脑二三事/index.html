@@ -54,23 +54,20 @@
 
 
 <meta name="description" content="解决方法因为在学校的实验室网络不是很稳定，所以树莓派一直不能直接用网线连接网络。而且wpa_supplication真的很不稳定，莫名其妙的罢工好几次，每次只能重新写镜像。种种原因选择了直连电脑的方法来联网,而我的电脑连接的是信号很弱的无线网，无奈条件太艰苦。
-需要额外准备的东西就是一根直通线啦。好啦，接下来就是设置的时间了。
-首先打开网络与共享中心-&amp;gt;更改适配器设置-&amp;gt;右击无线网络连">
+需要额外准备的东西就是一根直通线啦。好啦，接下来就是设置的时间了。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="树莓派直连电脑二三事">
 <meta property="og:url" content="http://kaiiak.github.io/2015/10/11/树莓派直连电脑二三事/index.html">
 <meta property="og:site_name" content="KAIIAK">
 <meta property="og:description" content="解决方法因为在学校的实验室网络不是很稳定，所以树莓派一直不能直接用网线连接网络。而且wpa_supplication真的很不稳定，莫名其妙的罢工好几次，每次只能重新写镜像。种种原因选择了直连电脑的方法来联网,而我的电脑连接的是信号很弱的无线网，无奈条件太艰苦。
-需要额外准备的东西就是一根直通线啦。好啦，接下来就是设置的时间了。
-首先打开网络与共享中心-&amp;gt;更改适配器设置-&amp;gt;右击无线网络连">
+需要额外准备的东西就是一根直通线啦。好啦，接下来就是设置的时间了。">
 <meta property="og:image" content="http://ww2.sinaimg.cn/mw690/ae94c92cgw1ewxgxexpm2j20ah0camy8.jpg">
 <meta property="og:image" content="http://ww3.sinaimg.cn/mw690/ae94c92cgw1ewxgxrj8stj20bi0bxgn5.jpg">
-<meta property="og:updated_time" content="2015-10-11T13:22:11.439Z">
+<meta property="og:updated_time" content="2016-03-07T04:30:57.109Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派直连电脑二三事">
 <meta name="twitter:description" content="解决方法因为在学校的实验室网络不是很稳定，所以树莓派一直不能直接用网线连接网络。而且wpa_supplication真的很不稳定，莫名其妙的罢工好几次，每次只能重新写镜像。种种原因选择了直连电脑的方法来联网,而我的电脑连接的是信号很弱的无线网，无奈条件太艰苦。
-需要额外准备的东西就是一根直通线啦。好啦，接下来就是设置的时间了。
-首先打开网络与共享中心-&amp;gt;更改适配器设置-&amp;gt;右击无线网络连">
+需要额外准备的东西就是一根直通线啦。好啦，接下来就是设置的时间了。">
 
 
 
@@ -263,8 +260,7 @@
 
       
         <span itemprop="articleBody"><h2 id="解决方法">解决方法</h2><p>因为在学校的实验室网络不是很稳定，所以树莓派一直不能直接用网线连接网络。而且wpa_supplication真的很不稳定，莫名其妙的罢工好几次，每次只能重新写镜像。<br>种种原因选择了直连电脑的方法来联网,而我的电脑连接的是信号很弱的无线网，无奈条件太艰苦。</p>
-<p>需要额外准备的东西就是一根直通线啦。好啦，接下来就是设置的时间了。</p>
-<p>首先打开网络与共享中心-&gt;更改适配器设置-&gt;右击无线网络连接-&gt;属性-&gt;共享。<br>如图：<br>        <img src="http://ww2.sinaimg.cn/mw690/ae94c92cgw1ewxgxexpm2j20ah0camy8.jpg" alt="无线网络属性共享"><br>根据别人写的教程，做到这步就可以实现远程登录树莓派和树莓派访问外网了。但是我只能实现远程登录树莓派，访问外网实现不了。经过试验，是没有配置DNS服务器的原因，在本地连接的IPV4属性中添加DNS服务器就可以了。这里我使用的是OpenDNS。<br>        <img src="http://ww3.sinaimg.cn/mw690/ae94c92cgw1ewxgxrj8stj20bi0bxgn5.jpg" alt="IPV4属性"></p>
+<p>需要额外准备的东西就是一根直通线啦。好啦，接下来就是设置的时间了。<br><a id="more"></a><br>首先打开网络与共享中心-&gt;更改适配器设置-&gt;右击无线网络连接-&gt;属性-&gt;共享。<br>如图：<br>        <img src="http://ww2.sinaimg.cn/mw690/ae94c92cgw1ewxgxexpm2j20ah0camy8.jpg" alt="无线网络属性共享"><br>根据别人写的教程，做到这步就可以实现远程登录树莓派和树莓派访问外网了。但是我只能实现远程登录树莓派，访问外网实现不了。经过试验，是没有配置DNS服务器的原因，在本地连接的IPV4属性中添加DNS服务器就可以了。这里我使用的是OpenDNS。<br>        <img src="http://ww3.sinaimg.cn/mw690/ae94c92cgw1ewxgxrj8stj20bi0bxgn5.jpg" alt="IPV4属性"></p>
 <h2 id="原理">原理</h2><p>windows实现直连访问的技术叫做ICS，百科上的解释如下：</p>
 <blockquote>
 <p>ICS即Internet连接共享(InternetConnectionSharing)的英文简称，是Windows系统针对家庭网络或小型的Intranet网络提供的一种Internet连接共享服务。它实际上相当于一种网络地址转换器，所谓网络地址转换器就是当数据包向前传递的过程中，可以转换数据包中的IP地址和TCP/UDP端口等地址信息。有了网络地址转换器，家庭网络或小型的办公网络中的电脑就可以使用私有地址，并且通过网络地址转换器将私有地址转换成ISP分配的单一的公用IP地址从而实现对Internet的连接。ICS方式也称之为Internet转换连接。</p>
