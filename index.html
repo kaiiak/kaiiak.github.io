@@ -199,100 +199,15 @@
 
     
     
+      
+      
+        
+        
+        
+      
 
+      
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/" itemprop="url">
-                  未命名
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            發表於
-            <time itemprop="dateCreated" datetime="2016-03-06T19:16:46+08:00" content="2016-03-06">
-              2016-03-06
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <p>title: 安装vim插件YouCompleteMe<br>date: 2016-03-06 17:59:39<br>tags: [Linux,vim,YouCompleteMe]<br><code>YouCompleteMe</code>是<code>vim</code>上非常好用的代码自动补全的插件。但是必须自己本机编译他，提高了门槛。<br>我的环境是<code>ubuntu15.10</code>，照着教程来：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule add https://github.com/Valloric/YouCompleteMe bundle/YouCompleteMe&#10;git submodule update --init --recursive -- bundle/YouCompleteMe</span><br></pre></td></tr></table></figure></p>
-<p>然后编译：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd bundle/YouCompleteMe</span><br><span class="line">./install.sh --clang-completer</span><br></pre></td></tr></table></figure></p>
-<p>但是我编译的时候出现了错误：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[ <span class="number">87</span>%] Building CXX object ycm/CMakeFiles/ycm_core.dir/ClangCompleter/ClangCompleter.cpp.o</span><br><span class="line">In file included from /home/kai/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/BoostParts/boost/type_traits/ice.hpp:<span class="number">15</span>:<span class="number">0</span>,</span><br><span class="line">                 from /home/kai/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/BoostParts/boost/python/detail/def_helper.hpp:<span class="number">9</span>,</span><br><span class="line">                 from /home/kai/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/BoostParts/boost/python/<span class="keyword">class</span>.hpp:<span class="number">29</span>,</span><br><span class="line">                 from /home/kai/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/BoostParts/boost/python.hpp:<span class="number">18</span>,</span><br><span class="line">                 from /home/kai/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/ReleaseGil.h:<span class="number">21</span>,</span><br><span class="line">                 from /home/kai/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/ClangCompleter/ClangCompleter.cpp:<span class="number">28</span>:</span><br><span class="line">/home/kai/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/BoostParts/boost/type_traits/detail/ice_or.hpp:<span class="number">17</span>:<span class="number">71</span>: note: <span class="preprocessor">#<span class="keyword">pragma</span> message: NOTE: Use of this header (ice_or.hpp) is deprecated</span></span><br><span class="line"> <span class="preprocessor"># <span class="keyword">pragma</span> message(<span class="string">"NOTE: Use of this header (ice_or.hpp) is deprecated"</span>)</span></span><br><span class="line">                                                                       ^</span><br></pre></td></tr></table></figure></p>
-<p>然后一直到最后。<br>这个是因为在编译<code>boost</code>时，出现了错误。</p>
-<p>在这之前，脚本会自动下载<code>clang</code>，然后编译编译<code>boost</code>，而且编译出现了错误。这时我想为什么不用本机上已经安装好的的<code>clang</code>和<code>boost</code>呢？<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get instll clang&#10;sudo apt-get install libboost-all-dev</span><br></pre></td></tr></table></figure></p>
-<p>然后执行<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./install.sh --clang-completer --system-libclang --system-boost</span><br></pre></td></tr></table></figure></p>
-<p>而这一切都在<a href="https://github.com/Valloric/YouCompleteMe#freebsdopenbsd" target="_blank" rel="external">官方文档里有说明</a>，我折腾完才看到，所以认真读说明是很重要的。 :(</p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
 
     
       
@@ -2667,7 +2582,7 @@ In file included from /home/kai/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/B
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">標籤</span>
               </a>
           </div>
