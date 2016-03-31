@@ -199,15 +199,164 @@
 
     
     
+
+    
       
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/29/APUE_study_notes-standard_IO_libray/" itemprop="url">
+                  APUE学习笔记——格式化I/O
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2016-03-29T21:53:18+08:00" content="2016-03-29">
+              2016-03-29
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/29/APUE_study_notes-standard_IO_libray/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/29/APUE_study_notes-standard_IO_libray/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
       
-        
-        
-        
       
 
       
-    
+        
+          <span itemprop="articleBody">
+            
+              <h1 id="流和FILE对象">流和FILE对象</h1><p>对于<code>ASCII</code>字符集，一个字符用于一个字节表示。对于国际字符集，一个字符可用于多个字节表示。标准I/O文件流可用于单字节或多字节(“宽”)字符集。流的定向(stream’s orientation)决定了所读、所写的字符是单字节还是多字节。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;wchar.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fwide</span><span class="params">(FILE *fp, <span class="keyword">int</span> mode)</span></span>;</span><br><span class="line"><span class="comment">/*</span><br><span class="line"> * 返回值：若流是宽定向的，返回正值；</span><br><span class="line"> * 若流是字节定向的，返回负值；若流是未定向的，返回0</span><br><span class="line"> * 如果mode参数值为负，fwide将试图使指定的流是字节定向的。</span><br><span class="line"> * 如果mode参数值为正，fwide将试图使指定的流是宽定向的。</span><br><span class="line"> * 如果mode参数值为0，fwide将不试图设置流的定向，但返回标识该流定向的值。</span><br><span class="line"> */</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="标准输入、标准输出和标准错误">标准输入、标准输出和标准错误</h1><p>可以通过预定义文件指针<code>stdin</code>、<code>stdout</code>和<code>stderr</code>加以引用。</p>
+<h1 id="缓冲">缓冲</h1><ul>
+<li>全缓冲。在这种情况下，在填满标准I/O缓冲区才进行实际I/O操作。<pre><code>冲洗(flush)说明标准I/O缓冲区的写操作。也可以直接调用<span class="escape">`f</span>flush<span class="escape">`函</span>数冲洗一个流。在终端驱动程序中，<span class="escape">`f</span>lush(刷清)<span class="escape">`表</span>示丢弃已存储在缓冲区中的数据。
+</code></pre></li>
+<li>行缓冲。在这种情况下，当在输入和输出中遇到换行符时，标准I/O库执行I/O操作。</li>
+<li>不带缓冲。标准I/O库不对字符进行缓冲存储。标准错误流<code>stderr</code>通常是不带缓冲的。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setbuf</span><span class="params">(FILE *<span class="keyword">restrict</span> fp, <span class="keyword">char</span> *<span class="keyword">restrict</span> buf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setvbuf</span><span class="params">(FILE *<span class="keyword">restrict</span> fp, <span class="keyword">char</span> *<span class="keyword">restrict</span> buf, <span class="keyword">int</span> mode, size_t size)</span></span>;</span><br><span class="line"><span class="comment">/*</span><br><span class="line"> * 返回值：若成功，返回0；若出错，返回非0</span><br><span class="line"> */</span></span><br></pre></td></tr></table></figure>
+<p>这两个函数可用于更改缓冲类型。</p>
+<ul>
+<li><code>_IOFBF</code> 全缓冲 </li>
+<li><code>_IOLBF</code> 行缓冲</li>
+<li><code>_IONBF</code> 不带缓冲</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fflush</span><span class="params">(FILE *fp)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若出错，返回EOF */</span></span><br></pre></td></tr></table></figure>
+<h1 id="打开流">打开流</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">FILE *<span class="title">fopen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> ptahname, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> type)</span></span>;</span><br><span class="line"><span class="function">FILE *<span class="title">freopen</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> type, FILE *<span class="keyword">restrict</span> fp)</span></span>;</span><br><span class="line"><span class="function">FILE *<span class="title">fdopen</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *type)</span></span>;</span><br><span class="line"><span class="comment">/* 3个函数的返回值：若成功，返回文件指针；若出错，返回NULL */</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>fopen</code>函数打开路径名为<code>pathname</code>的一个指定的文件。</li>
+<li><code>freopen</code>函数在一个指定的流上打开一个指定的文件，如若该流已经打开，则先关闭该流。</li>
+<li><code>fdopen</code>函数取一个已有的文件描述符，并使一个标准的I/O流与该描述符相结合。</li>
+</ol>
+<p>调用<code>fclose</code>关闭一个打开的流。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fclose</span><span class="params">(FILE *fp)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若返回，返回EOF */</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>在该文件被关闭之前，冲洗缓冲区中的输出数据。</strong></p>
+<h1 id="读和写流">读和写流</h1><ol>
+<li>输入函数<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getc</span><span class="params">(FILE *fp)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fgetc</span><span class="params">(FILE *fp)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getchar</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="comment">/* 3个函数的返回值：若成功，返回下一个字符；若已到达文件尾端或出错，返回EOF */</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>函数<code>getchar</code>等同于<code>getc(stdin)</code>。前两个函数的区别是，<code>getc</code>可被实现为宏，而<code>fgetc</code>不能实现为宏。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ferror</span><span class="params">(FILE *fp)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">feof</span><span class="params">(FILE *fp)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若条件为真，返回非0(真)；否则，返回0(假) */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clearerr</span><span class="params">(FILE *fp)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>为了区别是到达文件结尾还是出错。<br>例程<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    FILE*stream;</span><br><span class="line">    <span class="comment">/*openafileforwriting*/</span></span><br><span class="line">    stream=</span><br><span class="line">    fopen(<span class="string">"DUMMY.FIL"</span>,<span class="string">"w"</span>);</span><br><span class="line">    <span class="comment">/*forceanerrorconditionbyattemptingtoread*/</span></span><br><span class="line">    (<span class="keyword">void</span>)</span><br><span class="line">    getc(stream);</span><br><span class="line">    <span class="keyword">if</span>(ferror(stream))<span class="comment">/*testforanerroronthestream*/</span></span><br><span class="line">    &#123;</span><br><span class="line">    <span class="comment">/*displayanerrormessage*/</span></span><br><span class="line">     </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"ErrorreadingfromDUMMY.FIL\n"</span>);</span><br><span class="line">    <span class="comment">/*resettheerrorandEOFindicators*/</span></span><br><span class="line">     </span><br><span class="line">    clearerr(stream);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    fclose(stream);</span><br><span class="line">    return0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从流中读取数据后，可以调用<code>ungetc</code>将字符再压送回流中。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ungetc</span><span class="params">(<span class="keyword">int</span> c, FILE *fp)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回c；若出错，返回EOF */</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>输出函数<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">putc</span><span class="params">(<span class="keyword">int</span> c, FILE *fp)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputc</span><span class="params">(<span class="keyword">int</span> c, FILE *fp)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">putchar</span><span class="params">(<span class="keyword">int</span> c)</span></span>;</span><br><span class="line"><span class="comment">/* 3个函数返回值：若成功，返回c;若出错，返回EOF */</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="每次一行I/O">每次一行I/O</h1><p>下面两个函数提供每次输入一行的功能。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">fgets</span><span class="params">(<span class="keyword">char</span> *<span class="keyword">restrict</span> buf, <span class="keyword">int</span> n, FILE *<span class="keyword">restrict</span> fp)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">gets</span><span class="params">(<span class="keyword">char</span> *buf)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回buf；若已到达文件尾端或出错，返回NULL */</span></span><br></pre></td></tr></table></figure></p>
+<p><code>fgets</code>函数一直读到下一个换行符为止，但是不超过n-1个字符，读入的字符被送入缓冲区。</p>
+<p><code>fputs</code>和<code>puts</code>提供每次输入一行的功能。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputs</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> str, FILE *<span class="keyword">restrict</span> fp)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">puts</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回非负值；若出错，返回EOF */</span></span><br></pre></td></tr></table></figure></p>
+<p>函数<code>fputs</code>将一个以null字节终止的字符串写到指定的流，尾端的终止符null不写出。</p>
+<h1 id="二进制I/O">二进制I/O</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">size_t</span> fread(<span class="keyword">void</span> *<span class="keyword">restrict</span> ptr, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> nboj, FILE *<span class="keyword">restrict</span> fp);</span><br><span class="line"><span class="keyword">size_t</span> fwrite(<span class="keyword">const</span> <span class="keyword">void</span> *<span class="keyword">restrict</span> ptr, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> nobj, FILE *<span class="keyword">restrict</span> fp);</span><br><span class="line"><span class="comment">/* 两个函数的返回值：读或写的对象数 */</span></span><br></pre></td></tr></table></figure>
+<p><strong>指定size为每个数组元素的长度，nobj为欲写元素个数</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 写数组 */</span></span><br><span class="line"><span class="keyword">float</span> data[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (fwrite(&amp;data[<span class="number">2</span>], <span class="keyword">sizeof</span>(<span class="keyword">float</span>), <span class="number">4</span>, fp) != <span class="number">4</span>)</span><br><span class="line">    err_sys(<span class="string">"fwrite error"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 写一个结构体 */</span></span><br><span class="line"><span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="keyword">short</span>   count;</span><br><span class="line">    <span class="keyword">long</span>    total;</span><br><span class="line">    <span class="keyword">char</span>    name[NAMESIZE];</span><br><span class="line">&#125; item;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (fwrite(&amp;item, <span class="keyword">sizeof</span>(item), <span class="number">1</span>, fp) != <span class="number">1</span>)</span><br><span class="line">    err_sys(<span class="string">"fwrite error"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><strong>使用二进制I/O的基本问题，它只能用于读在同一个系统上已写的数据</strong></p>
+<h1 id="定位流(Positioning_a_Stream)">定位流(Positioning a Stream)</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">ftell</span><span class="params">(FILE *fp)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回当前文件位置指示；若出错，返回-1L */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fseek</span><span class="params">(FILE *fp, <span class="keyword">long</span> offset, <span class="keyword">int</span> whence)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rewind</span><span class="params">(FILE *fp)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><code>whence</code>的值与<code>lseek</code>函数的相同：<code>SEEK_SET</code>表示从文件的起始位置开始，<code>SEEK_CUR</code>表示从当前文件位置开始，<code>SEEK_END</code>表示从文件的尾端开始。<code>offset</code>，文件偏移量。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">off_t</span> ftello(FILE *fp);</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回当前文件位置；若出错，返回(off_t)-1 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fseeko</span><span class="params">(FILE *fp, off_t offset, <span class="keyword">int</span> whence)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fgetpos</span><span class="params">(FILE *<span class="keyword">restrict</span> fp, fpos_t *<span class="keyword">restrict</span> pos)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fsetpos</span><span class="params">(FILE *fp, <span class="keyword">const</span> fpos_t *pos)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回非0 */</span></span><br></pre></td></tr></table></figure>
+<h1 id="格式化I/O">格式化I/O</h1><ol>
+<li>格式化输出<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">printf</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> format, ...)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fprintf</span><span class="params">(FILE *<span class="keyword">restrict</span> fp, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> format, ...)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dprintf</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> format, ...)</span></span>;</span><br><span class="line"><span class="comment">/* 3个函数返回值：若成功，返回输入字符数；若出错，返回负值 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sprintf</span><span class="params">(<span class="keyword">char</span> *<span class="keyword">restrict</span> buf, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> format, ...)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回输入数组的字符数；若编码出错，返回负值 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">snprintf</span><span class="params">(<span class="keyword">char</span> *<span class="keyword">restrict</span> buf, size_t n, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> format, ...)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若缓冲区足够大，返回将要存入数组的字符数；若编码出错，返回负值 */</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>printf将格式化数据写到标准输出，fprintf写至指定的流，dprintf写至制定的文件描述符，sprintf将格式化的字符送入数组buf。</strong></p>
+<p>下面5种<code>printf</code>族的变体，将可变参数表(…)替换成了arg。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">vprintf</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> format, va_list arg)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">vfprintf</span><span class="params">(FILE *<span class="keyword">restrict</span> fp, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> format, va_list arg)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">vdprintf</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> format, va_list arg)</span></span>;</span><br><span class="line"><span class="comment">/* 3个函数返回值：若成功，返回输入字符数；若出错，返回负值 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">vsprintf</span><span class="params">(<span class="keyword">char</span> *<span class="keyword">restrict</span> buf, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> format, va_list arg)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回输入数组的字符数；若编码出错，返回负值 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">vsnprintf</span><span class="params">(<span class="keyword">char</span> *<span class="keyword">restrict</span> buf, size_t n, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> format, va_list arg)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若缓冲区足够大，返回将要存入数组的字符数；若编码出错，返回负值 */</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>格式化输入<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">scanf</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> format, ...)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fscanf</span><span class="params">(FILE *<span class="keyword">restrict</span> fp, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> format, ...)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sscanf</span><span class="params">(<span class="keyword">const</span> *<span class="keyword">restrict</span> buf, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> format, ...)</span></span>;</span><br><span class="line"><span class="comment">/* 3个函数返回值：赋值的输入项数；若输入出错或在任一转换前已到达文件尾端，返回EOF */</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="临时文件">临时文件</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">tmpnam</span><span class="params">(<span class="keyword">char</span> *ptr)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：指向唯一路径名的指针 */</span></span><br><span class="line"></span><br><span class="line"><span class="function">FILE *<span class="title">tmpfile</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回文件指针；若出错，返回NULL */</span></span><br></pre></td></tr></table></figure>
+<p><code>tmpnam</code>函数产生一个与现有文件名不同的一个有效路径名字符串。如果<code>ptr</code>是NULL，则产生的路径名存放在一个静态区中，指向该静态区的指针作为函数值返回。后续调用<code>tmpnam</code>会从写该静态区。如过<code>ptr</code>不是NULL，则认为它应该指向长度至少是<code>L_tmpnam</code>个字符的数组。所产生的路径名存放在该数组中，<code>ptr</code>也作为函数值返回。<br><code>tmpfile</code>创建一个临时二进制文件(wb+)，在关闭该文件或程序结束时将自动删除这种文件。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">mkdtemp</span><span class="params">(<span class="keyword">char</span> *<span class="keyword">template</span>)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回指向目录名的指针；若出错，返回NULL */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mkstemp</span><span class="params">(<span class="keyword">char</span> *<span class="keyword">template</span>)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回文件描述符；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<p><code>mkdtemp</code>函数创建了一个目录，该目录有唯一的名字；<code>mkstemp</code>函数创建了一个文件，该文件有一个唯一的名字。<strong>名字是通过template字符串进行选择的。这个字符串后6位设置为XXXXXX的路径名。</strong></p>
+<h1 id="内存流">内存流</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">FILE *<span class="title">fmemopen</span><span class="params">(<span class="keyword">void</span> *<span class="keyword">restrict</span> buf, size_t size, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> type)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回流指针；若出错，返回NULL */</span></span><br></pre></td></tr></table></figure>
+<p><code>fmemopen</code>函数允许调用者提供缓冲区用于内存流：<code>buf</code>参数指向缓冲区的开始位置，<code>size</code>参数指定了缓冲区大小的字节数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function">FILE *<span class="title">open_memstream</span><span class="params">(<span class="keyword">char</span> **bufp, size_t *sizep)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;wchar.h&gt;</span></span></span><br><span class="line"><span class="function">FILE *<span class="title">open_wmemstream</span><span class="params">(wchar_t **bufp, size_t *sizep)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回流指针；若出错，返回NULL */</span></span><br></pre></td></tr></table></figure>
+<p><code>open_memstream</code>函数创建的流是面向字节的，<code>open_wmemstream</code>函数创建的流是面向宽字节的。</p>
+<ul>
+<li>创建的流只能打开；</li>
+<li>不能指定自己的缓冲区，但可以分别通过<code>bufp</code>和<code>sizep</code>参数访问缓冲区地址和大小；</li>
+<li>关闭后需要自行释放缓冲区；</li>
+<li>对流添加字节会增加缓冲区大小。</li>
+</ul>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -1495,95 +1644,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/04/sqlite-create-datebase/" itemprop="url">
-                  Sqlite创建数据库
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            發表於
-            <time itemprop="dateCreated" datetime="2015-11-04T21:53:54+08:00" content="2015-11-04">
-              2015-11-04
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/11/04/sqlite-create-datebase/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/04/sqlite-create-datebase/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <p>其实很简单，但刚开始一点都不会。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sqlite test.db&#10;SQLite version 2.8.17&#10;Enter &#34;.help&#34; for instructions&#10;sqlite&#62; .database&#10;seq  name             file                                                      &#10;---  ---------  -------------------------&#10;0    main        /home/pi/code/testDB.db</span><br></pre></td></tr></table></figure></p>
-<p>这样就创建成功了。</p>
-
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1630,7 +1690,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
