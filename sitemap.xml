@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://kaiiak.github.io/2016/04/07/APUE_study_notes-process-environment/</loc>
+    <lastmod>2016-04-27T13:46:01.154Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://kaiiak.github.io/2016/03/29/APUE_study_notes-standard_IO_libray/</loc>
     <lastmod>2016-03-31T07:30:28.030Z</lastmod>
   </url>

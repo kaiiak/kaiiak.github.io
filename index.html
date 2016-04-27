@@ -143,7 +143,7 @@
             
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
-            Home
+            首頁
           </a>
         </li>
       
@@ -153,7 +153,7 @@
             
               <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
             
-            Sobre
+            關於
           </a>
         </li>
       
@@ -163,7 +163,7 @@
             
               <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
             
-            Arquivos
+            歸檔
           </a>
         </li>
       
@@ -173,7 +173,7 @@
             
               <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
             
-            Tags
+            標籤
           </a>
         </li>
       
@@ -199,15 +199,134 @@
 
     
     
+
+    
       
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/07/APUE_study_notes-process-environment/" itemprop="url">
+                  APUE学习笔记——进程环境
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2016-04-07T23:35:06+08:00" content="2016-04-07">
+              2016-04-07
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/07/APUE_study_notes-process-environment/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/07/APUE_study_notes-process-environment/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
       
-        
-        
-        
       
 
       
-    
+        
+          <span itemprop="articleBody">
+            
+              <h1 id="进程终止">进程终止</h1><ol>
+<li><p>退出函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">exit</span><span class="params">(<span class="keyword">int</span> status)</span></span>;</span><br><span class="line"><span class="keyword">void</span> _Exit(<span class="keyword">int</span> status);</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> _exit(<span class="keyword">int</span> status);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数<code>atexit</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">atexit</span><span class="params">(<span class="keyword">void</span> (*func)</span><span class="params">(<span class="keyword">void</span>)</span>)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其中，<code>atexit</code>的参数是一个函数地址，当调用此函数时无需向它传递任何参数，也不期望它返回一个值。<code>exit</code>调用这些函数的顺序与它们等级时候的顺序相反。同一函数如若登记多次也会被调用多次。</p>
+<h1 id="环境表">环境表</h1><p>环境表也是一个字符指针数组，其中每个指针包含一个以<code>null</code>结束的C字符串的地址。全局变量<code>environ</code>则包含了该指针的数组的地址：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">char</span> **environ;</span><br></pre></td></tr></table></figure></p>
+<p>我们称<code>environ</code>为<code>环境指针(environment pointer)</code>，指针数组为环境表，其中各指针指向的字符串为环境字符串。<br>通常用<code>getenv</code>和<code>putenv</code>函数来访问特定的环境变量，而不是<code>environ</code>变量。</p>
+<h1 id="C程序的存储空间布局">C程序的存储空间布局</h1><ul>
+<li>正文段。</li>
+<li>初始化数据段。</li>
+<li>未初始化数据段。</li>
+<li>栈。</li>
+<li>堆。</li>
+</ul>
+<h1 id="存储空间分配">存储空间分配</h1><ol>
+<li><code>malloc</code>，分配指定字节的存储区。此存储区中的初始值不确定。</li>
+<li><code>calloc</code>,为指定数量指定长度的对象分配存储空间。该空间中的每一位(bit)都初始化为0。</li>
+<li><code>realloc</code>,增加或减少以前分配区的长度。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">malloc</span><span class="params">(size_t size)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">calloc</span><span class="params">(size_t nobj, size_t size)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">realloc</span><span class="params">(size_t nobj, size_t newsize)</span></span>;</span><br><span class="line"><span class="comment">/*</span><br><span class="line"> * 3个函数返回值：若成功，返回非空指针；若出错，返回NULL</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">free</span><span class="params">(<span class="keyword">void</span> *ptr)</span></span>;</span><br></pre></td></tr></table></figure>
+<h1 id="环境变量">环境变量</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span> **<span class="title">getenv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *name)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：指向与name关联的value的指针；若未找到，返回NULL */</span></span><br></pre></td></tr></table></figure>
+<p><code>getenv</code>,可以用其取环境变量值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">putenv</span><span class="params">(<span class="keyword">char</span> *str)</span></span>;</span><br><span class="line"><span class="comment">/* 函数返回值：若成功，返回0；若出错，返回非0 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setenv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *name, <span class="keyword">const</span> <span class="keyword">char</span> *value, <span class="keyword">int</span> rewrite)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">unsetenv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *name)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>putenv</code>取形式为<code>name=value</code>的字符串，将其放到环境中。</li>
+<li><code>setenv</code>将<code>name</code>设置为<code>value</code>。如果在环境中<code>name</code>已存在,那么(a)若<code>rewrite</code>非0，则首先删除其现有的定义;(b)若<code>rewrite</code>为0，则不删除其现有定义(<code>name</code>不设置为新<code>value</code>,而且也不出错)。</li>
+<li><code>unsetenv</code>删除<code>name</code>的定义。即使不存在这种定义与不出错。</li>
+</ul>
+<h1 id="函数setjmp和longjmp">函数<code>setjmp</code>和<code>longjmp</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;setjmp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setjmp</span><span class="params">(jmp_buf env)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若直接调用，返回0；若从longjmp返回，则为非0 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">longjmp</span><span class="params">(jmp_buf env, <span class="keyword">int</span> val)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>在希望返回到的位置调用<code>setjmp</code>。当调用<code>longjmp</code>是，第一个参数是调用<code>setjmp</code>时的<code>env</code>;第二个参数是具有非0值的<code>val</code>,它将称为从<code>setjmp</code>处返回的值。<br>在课本的<a href="https://github.com/kaiiak/APUE/blob/master/chapter7/7.13.c" target="_blank" rel="external">例程7.13</a>中，全局变量、静态变量和易失变量(volatile variables)不受优化的影响。如果要编写一个使用非局部跳转的可移植程序，则必须使用<code>volatile</code>属性。但是一个系统移植到另一个系统，其他任何事情都可能改变。</p>
+<h1 id="函数getrlimit和setrlimit">函数<code>getrlimit</code>和<code>setrlimit</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getrlimit</span><span class="params">(<span class="keyword">int</span> resource, <span class="keyword">struct</span> rlimit *rlptr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setrlimit</span><span class="params">(<span class="keyword">int</span> resource, <span class="keyword">const</span> <span class="keyword">struct</span> rlimit *rlptr)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回非0 */</span></span><br></pre></td></tr></table></figure>
+<p>这两个函数的每一次调用都指定一个资源以及一个指向下列结构的指针。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> rlimit &#123;</span><br><span class="line">    <span class="keyword">rlim_t</span> rlim_cur;    <span class="comment">/* soft limit: current limit */</span></span><br><span class="line">    <span class="keyword">rlim_t</span> rlim_max;    <span class="comment">/* hard limit: maximum value for rlim_cur */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>任何一个进程都可以将一个限制值更改为小于或等于其硬限制值。</li>
+<li>任何一个进程都可以降低其硬限制值，但它必须大于或等于其软限制值。</li>
+<li>只有超级用户进程才可以提高硬限制值。</li>
+</ol>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
 
     
       
@@ -241,7 +360,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            Postado em
+            發表於
             <time itemprop="dateCreated" datetime="2016-03-29T21:53:18+08:00" content="2016-03-29">
               2016-03-29
             </time>
@@ -399,7 +518,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            Postado em
+            發表於
             <time itemprop="dateCreated" datetime="2016-03-06T17:59:39+08:00" content="2016-03-06">
               2016-03-06
             </time>
@@ -493,7 +612,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            Postado em
+            發表於
             <time itemprop="dateCreated" datetime="2016-03-05T16:49:30+08:00" content="2016-03-05">
               2016-03-05
             </time>
@@ -603,7 +722,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            Postado em
+            發表於
             <time itemprop="dateCreated" datetime="2016-02-29T21:48:30+08:00" content="2016-02-29">
               2016-02-29
             </time>
@@ -1005,7 +1124,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            Postado em
+            發表於
             <time itemprop="dateCreated" datetime="2016-02-25T08:36:08+08:00" content="2016-02-25">
               2016-02-25
             </time>
@@ -1234,7 +1353,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            Postado em
+            發表於
             <time itemprop="dateCreated" datetime="2016-01-28T22:38:58+08:00" content="2016-01-28">
               2016-01-28
             </time>
@@ -1328,7 +1447,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            Postado em
+            發表於
             <time itemprop="dateCreated" datetime="2016-01-01T14:21:25+08:00" content="2016-01-01">
               2016-01-01
             </time>
@@ -1416,7 +1535,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            Postado em
+            發表於
             <time itemprop="dateCreated" datetime="2015-11-19T21:08:23+08:00" content="2015-11-19">
               2015-11-19
             </time>
@@ -1505,7 +1624,7 @@
 
         <div class="post-meta">
           <span class="post-time">
-            Postado em
+            發表於
             <time itemprop="dateCreated" datetime="2015-11-14T20:39:40+08:00" content="2015-11-14">
               2015-11-14
             </time>
@@ -1545,94 +1664,6 @@
 <h2 id="中文翻译">中文翻译</h2><p>自己尝试翻译一下，英语渣渣，有不正确的地方请指正。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyLirc v0.0.5&#10;&#10;&#20171;&#32461;&#10;&#10;pyLirc&#26159;&#19968;&#20010;&#19982;LIRC&#20132;&#20114;&#32473;&#10;Python&#31243;&#24207;&#20174;&#36828;&#31243;&#25509;&#25910;&#36828;&#31243;&#21629;&#20196;&#30340;&#33021;&#21147;&#10;&#30340;Python&#27169;&#22359;&#12290;&#10;&#10;&#36825;&#26159;&#27809;&#26377;&#22826;&#22810;&#30340;&#25991;&#26723;&#65292;&#27605;&#31455;&#23427;&#26159;&#19968;&#20010;&#26032;&#39033;&#30446;&#65292;&#10;&#29616;&#22312;&#21453;&#27491;&#27809;&#26377;&#22826;&#22810;&#30340;&#25991;&#26723;&#12290;&#10;&#10;&#21021;&#22987;&#21270;&#10;&#10;&#22312;&#25509;&#21463;&#26469;&#33258;lirc&#30340;&#21629;&#20196;&#20043;&#21069;&#65292;&#20320;&#24212;&#35813;&#21021;&#22987;&#21270;&#26412;&#27169;&#22359;&#12290;&#22312; import pylirc&#20043;&#21518;&#65292;&#20351;&#29992; pylirc.inti()&#20989;&#25968;&#65306;&#10;&#9;import pylirc&#10;&#9;integer = pylirc.init(string name[, string configuration [, integer blocking ]])&#10;&#36820;&#22238;&#20540;&#26159;&#23458;&#25143;&#31471;&#24211;&#20013;lirc_init()&#20989;&#25968;&#30340;&#36820;&#22238;&#20540;&#65292;&#26159;&#19968;&#20010;socket&#65292;&#22914;&#26524;&#36820;&#22238;&#20540;&#26159;0&#65292;&#21017;&#21021;&#22987;&#21270;&#22833;&#36133;&#12290;</span><br></pre></td></tr></table></figure>
 <h1 id="示例代码">示例代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">import</span> pylirc</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Buttons</span>:</span></span><br><span class="line">    SELECT = <span class="number">0</span></span><br><span class="line">    RIGHT = <span class="number">1</span></span><br><span class="line">    DOWN = <span class="number">2</span></span><br><span class="line">    UP = <span class="number">3</span></span><br><span class="line">    LEFT = <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, app, conf)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> pylirc.init(app, conf, <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">"Unable to init pylirc"</span>);</span><br><span class="line">        pylirc.blocking(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">readButton</span><span class="params">(self)</span>:</span></span><br><span class="line">        btn = pylirc.nextcode()</span><br><span class="line">        <span class="keyword">if</span> btn:</span><br><span class="line">            <span class="keyword">return</span> btn[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">None</span></span><br></pre></td></tr></table></figure>
-            
-          </span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/09/local-install-pydev-with-eclipse/" itemprop="url">
-                  为Eclipse本地安装PyDev
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            Postado em
-            <time itemprop="dateCreated" datetime="2015-11-09T19:05:57+08:00" content="2015-11-09">
-              2015-11-09
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/11/09/local-install-pydev-with-eclipse/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/09/local-install-pydev-with-eclipse/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-              <h3 id="由于众所周知的原因，国内的网络环境一直不是很好。最近我在Eclipse上安装Pydev也不可以了。所以，打算用本地安装的方法来解决。">由于众所周知的原因，国内的网络环境一直不是很好。最近我在Eclipse上安装Pydev也不可以了。所以，打算用本地安装的方法来解决。</h3><p>可以在<a href="http://sourceforge.net/projects/pydev" target="_blank" rel="external">这里</a>下载到最新的PyDev for Eclipse。<br>然后，将压缩包内的<code>features</code>和<code>plugins</code>文件夹拷贝到eclipse的安装目录下。重启eclipse，在<code>Help</code>-&gt;<code>About Eclipse</code>-&gt;<code>Installation Details</code>中看到PyDev的信息。</p>
-
             
           </span>
         
@@ -1699,22 +1730,22 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
-              <span class="site-state-item-name">publicações</span>
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">文章</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             
               <span class="site-state-item-count">0</span>
-              <span class="site-state-item-name">categorias</span>
+              <span class="site-state-item-name">分類</span>
               
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
               <span class="site-state-item-count">21</span>
-              <span class="site-state-item-name">tags</span>
+              <span class="site-state-item-name">標籤</span>
               </a>
           </div>
 
@@ -1782,11 +1813,11 @@
 </div>
 
 <div class="powered-by">
-  Desenvolvido com amor com <a class="theme-link" href="http://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
 </div>
 
 <div class="theme-info">
-  Tema -
+  主題 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>
