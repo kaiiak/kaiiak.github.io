@@ -4,9 +4,9 @@
   <title><![CDATA[KAIIAK]]></title>
   <subtitle><![CDATA[啦啦啦，我是卖萌的小行家]]></subtitle>
   <link href="/atom.xml" rel="self"/>
-  <link href="http://kaiiak.github.io//"/>
+  <link href="https://kaiiak.github.io//"/>
   <updated>2016-06-04T12:13:51.576Z</updated>
-  <id>http://kaiiak.github.io//</id>
+  <id>https://kaiiak.github.io//</id>
   
   <author>
     <name><![CDATA[Kai]]></name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title><![CDATA[APUE学习笔记——进程控制]]></title>
-    <link href="http://kaiiak.github.io/2016/04/27/APUE_study_notes-process-control/"/>
-    <id>http://kaiiak.github.io/2016/04/27/APUE_study_notes-process-control/</id>
+    <link href="https://kaiiak.github.io/2016/04/27/APUE_study_notes-process-control/"/>
+    <id>https://kaiiak.github.io/2016/04/27/APUE_study_notes-process-control/</id>
     <published>2016-04-27T15:08:52.000Z</published>
     <updated>2016-06-04T12:13:51.576Z</updated>
     <content type="html"><![CDATA[<h1 id="进程标识">进程标识</h1><p>每个进程都有一个非负整型表示的唯一进程ID。</p>
@@ -216,16 +216,16 @@
 <li>ID为0的进程通常是调度进程，常常被称为<code>交换进程(swapper)</code>。该进程是内核的一部分，它并不执行任何磁盘上的程序，因此被称为系]]>
     </summary>
     
-      <category term="APUE" scheme="http://kaiiak.github.io/tags/APUE/"/>
+      <category term="APUE" scheme="https://kaiiak.github.io/tags/APUE/"/>
     
-      <category term="Linux" scheme="http://kaiiak.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://kaiiak.github.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[APUE学习笔记——进程环境]]></title>
-    <link href="http://kaiiak.github.io/2016/04/07/APUE_study_notes-process-environment/"/>
-    <id>http://kaiiak.github.io/2016/04/07/APUE_study_notes-process-environment/</id>
+    <link href="https://kaiiak.github.io/2016/04/07/APUE_study_notes-process-environment/"/>
+    <id>https://kaiiak.github.io/2016/04/07/APUE_study_notes-process-environment/</id>
     <published>2016-04-07T15:35:06.000Z</published>
     <updated>2016-04-27T13:46:01.154Z</updated>
     <content type="html"><![CDATA[<h1 id="进程终止">进程终止</h1><ol>
@@ -276,16 +276,16 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><s]]>
     </summary>
     
-      <category term="APUE" scheme="http://kaiiak.github.io/tags/APUE/"/>
+      <category term="APUE" scheme="https://kaiiak.github.io/tags/APUE/"/>
     
-      <category term="Linux" scheme="http://kaiiak.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://kaiiak.github.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[APUE学习笔记——格式化I/O]]></title>
-    <link href="http://kaiiak.github.io/2016/03/29/APUE_study_notes-standard_IO_libray/"/>
-    <id>http://kaiiak.github.io/2016/03/29/APUE_study_notes-standard_IO_libray/</id>
+    <link href="https://kaiiak.github.io/2016/03/29/APUE_study_notes-standard_IO_libray/"/>
+    <id>https://kaiiak.github.io/2016/03/29/APUE_study_notes-standard_IO_libray/</id>
     <published>2016-03-29T13:53:18.000Z</published>
     <updated>2016-03-31T07:30:28.030Z</updated>
     <content type="html"><![CDATA[<h1 id="流和FILE对象">流和FILE对象</h1><p>对于<code>ASCII</code>字符集，一个字符用于一个字节表示。对于国际字符集，一个字符可用于多个字节表示。标准I/O文件流可用于单字节或多字节(“宽”)字符集。流的定向(stream’s orientation)决定了所读、所写的字符是单字节还是多字节。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;wchar.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fwide</span><span class="params">(FILE *fp, <span class="keyword">int</span> mode)</span></span>;</span><br><span class="line"><span class="comment">/*</span><br><span class="line"> * 返回值：若流是宽定向的，返回正值；</span><br><span class="line"> * 若流是字节定向的，返回负值；若流是未定向的，返回0</span><br><span class="line"> * 如果mode参数值为负，fwide将试图使指定的流是字节定向的。</span><br><span class="line"> * 如果mode参数值为正，fwide将试图使指定的流是宽定向的。</span><br><span class="line"> * 如果mode参数值为0，fwide将不试图设置流的定向，但返回标识该流定向的值。</span><br><span class="line"> */</span></span><br></pre></td></tr></table></figure></p>
@@ -364,16 +364,16 @@
     <![CDATA[<h1 id="流和FILE对象">流和FILE对象</h1><p>对于<code>ASCII</code>字符集，一个字符用于一个字节表示。对于国际字符集，一个字符可用于多个字节表示。标准I/O文件流可用于单字节或多字节(“宽”)字符集。流的定向(stream’s orient]]>
     </summary>
     
-      <category term="APUE" scheme="http://kaiiak.github.io/tags/APUE/"/>
+      <category term="APUE" scheme="https://kaiiak.github.io/tags/APUE/"/>
     
-      <category term="Linux" scheme="http://kaiiak.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://kaiiak.github.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[安装vim插件YouCompleteMe]]></title>
-    <link href="http://kaiiak.github.io/2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/"/>
-    <id>http://kaiiak.github.io/2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/</id>
+    <link href="https://kaiiak.github.io/2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/"/>
+    <id>https://kaiiak.github.io/2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/</id>
     <published>2016-03-06T09:59:39.000Z</published>
     <updated>2016-03-07T04:17:03.299Z</updated>
     <content type="html"><![CDATA[<p><code>YouCompleteMe</code>是<code>vim</code>上非常好用的代码自动补全的插件。但是必须自己本机编译他，提高了门槛。<br>我的环境是<code>ubuntu15.10</code>，照着教程来：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule add https://github.com/Valloric/YouCompleteMe bundle/YouCompleteMe&#10;git submodule update --init --recursive -- bundle/YouCompleteMe</span><br></pre></td></tr></table></figure></p>
@@ -388,18 +388,18 @@
     <![CDATA[<p><code>YouCompleteMe</code>是<code>vim</code>上非常好用的代码自动补全的插件。但是必须自己本机编译他，提高了门槛。<br>我的环境是<code>ubuntu15.10</code>，照着教程来：<br><figure class="h]]>
     </summary>
     
-      <category term="Linux" scheme="http://kaiiak.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://kaiiak.github.io/tags/Linux/"/>
     
-      <category term="YouCompleteMe" scheme="http://kaiiak.github.io/tags/YouCompleteMe/"/>
+      <category term="YouCompleteMe" scheme="https://kaiiak.github.io/tags/YouCompleteMe/"/>
     
-      <category term="vim" scheme="http://kaiiak.github.io/tags/vim/"/>
+      <category term="vim" scheme="https://kaiiak.github.io/tags/vim/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[自用vim配置文件]]></title>
-    <link href="http://kaiiak.github.io/2016/03/05/personal_vimrc/"/>
-    <id>http://kaiiak.github.io/2016/03/05/personal_vimrc/</id>
+    <link href="https://kaiiak.github.io/2016/03/05/personal_vimrc/"/>
+    <id>https://kaiiak.github.io/2016/03/05/personal_vimrc/</id>
     <published>2016-03-05T08:49:30.000Z</published>
     <updated>2016-03-07T04:37:45.745Z</updated>
     <content type="html"><![CDATA[<h1 id="使用Pathogen管理插件">使用<code>Pathogen</code>管理插件</h1><p>推荐<a href="http://lostjs.com/2012/02/04/use-pathogen-and-git-to-manage-vimfiles/" target="_blank" rel="external">这篇教程</a>，使用<code>Pahtogen</code>+<code>Git</code>的方式管理插件和vim配置，方便vim的迁移和团队配置的统一。</p>
@@ -430,16 +430,16 @@
     <![CDATA[<h1 id="使用Pathogen管理插件">使用<code>Pathogen</code>管理插件</h1><p>推荐<a href="http://lostjs.com/2012/02/04/use-pathogen-and-git-to-manage-vimfiles/"]]>
     </summary>
     
-      <category term="Linux" scheme="http://kaiiak.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://kaiiak.github.io/tags/Linux/"/>
     
-      <category term="vim" scheme="http://kaiiak.github.io/tags/vim/"/>
+      <category term="vim" scheme="https://kaiiak.github.io/tags/vim/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[APUE学习笔记——文件和目录]]></title>
-    <link href="http://kaiiak.github.io/2016/02/29/APUE_study_notes-Files_and_Directories/"/>
-    <id>http://kaiiak.github.io/2016/02/29/APUE_study_notes-Files_and_Directories/</id>
+    <link href="https://kaiiak.github.io/2016/02/29/APUE_study_notes-Files_and_Directories/"/>
+    <id>https://kaiiak.github.io/2016/02/29/APUE_study_notes-Files_and_Directories/</id>
     <published>2016-02-29T13:48:30.000Z</published>
     <updated>2016-03-07T04:38:05.092Z</updated>
     <content type="html"><![CDATA[<h1 id="函数stat、fstat、fstatat、lstat">函数<code>stat</code>、<code>fstat</code>、<code>fstatat</code>、<code>lstat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">stat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fstat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">struct</span> stat *buf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lstat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lstat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 所有4个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line">sturct stat &#123; </span><br><span class="line">    <span class="keyword">mode_t</span>          st_mode;        <span class="comment">/* file type &amp; mode (permissions) */</span></span><br><span class="line">    <span class="keyword">ino_t</span>           st_ino;         <span class="comment">/* i-node number (serial number) */</span></span><br><span class="line">    <span class="keyword">dev_t</span>           st_dev;         <span class="comment">/* device number (file system) */</span></span><br><span class="line">    <span class="keyword">dev_t</span>           st_rdev;        <span class="comment">/* device number for special files */</span></span><br><span class="line">    <span class="keyword">nlink_t</span>         st_nlink;       <span class="comment">/* number of links */</span></span><br><span class="line">    <span class="keyword">uid_t</span>           st_uid;         <span class="comment">/* user ID of links */</span></span><br><span class="line">    <span class="keyword">gid_t</span>           st_gid;         <span class="comment">/* group ID of owner */</span></span><br><span class="line">    <span class="keyword">off_t</span>           st_size;        <span class="comment">/* size in bytes, for regular files  */</span></span><br><span class="line">    <span class="keyword">struct</span> timespec st_atime;       <span class="comment">/* time of last access */</span></span><br><span class="line">    <span class="keyword">struct</span> timespec st_mtime;       <span class="comment">/* time of last modification */</span></span><br><span class="line">    <span class="keyword">struct</span> timespec st_ctime;       <span class="comment">/* time of last file status change */</span></span><br><span class="line">    <span class="keyword">blksize_t</span>       st_blksize;     <span class="comment">/* best I/O block size */</span></span><br><span class="line">    <span class="keyword">blkcnt_t</span>        st_blocks;      <span class="comment">/* number of disk blocks allocated */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -762,16 +762,16 @@
     <![CDATA[<h1 id="函数stat、fstat、fstatat、lstat">函数<code>stat</code>、<code>fstat</code>、<code>fstatat</code>、<code>lstat</code></h1><figure class="highli]]>
     </summary>
     
-      <category term="APUE" scheme="http://kaiiak.github.io/tags/APUE/"/>
+      <category term="APUE" scheme="https://kaiiak.github.io/tags/APUE/"/>
     
-      <category term="Linux" scheme="http://kaiiak.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://kaiiak.github.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[APUE学习笔记——文件IO]]></title>
-    <link href="http://kaiiak.github.io/2016/02/25/APUE_study_notes-Files_IO/"/>
-    <id>http://kaiiak.github.io/2016/02/25/APUE_study_notes-Files_IO/</id>
+    <link href="https://kaiiak.github.io/2016/02/25/APUE_study_notes-Files_IO/"/>
+    <id>https://kaiiak.github.io/2016/02/25/APUE_study_notes-Files_IO/</id>
     <published>2016-02-25T00:36:08.000Z</published>
     <updated>2016-03-16T13:50:57.360Z</updated>
     <content type="html"><![CDATA[<h1 id="文件描述符">文件描述符</h1><p>所有打开的文件都通过文件描述符(一个非负整数)引用。</p>
@@ -924,16 +924,16 @@
 <p>文件描述符在形式上是一个非负整数。实际上，它是一个索引值，指向内核为每一个]]>
     </summary>
     
-      <category term="APUE" scheme="http://kaiiak.github.io/tags/APUE/"/>
+      <category term="APUE" scheme="https://kaiiak.github.io/tags/APUE/"/>
     
-      <category term="Linux" scheme="http://kaiiak.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://kaiiak.github.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[编译apue.3e并解决编译错误]]></title>
-    <link href="http://kaiiak.github.io/2016/01/28/%E7%BC%96%E8%AF%91apue-3e%E5%B9%B6%E8%A7%A3%E5%86%B3%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF/"/>
-    <id>http://kaiiak.github.io/2016/01/28/编译apue-3e并解决编译错误/</id>
+    <link href="https://kaiiak.github.io/2016/01/28/%E7%BC%96%E8%AF%91apue-3e%E5%B9%B6%E8%A7%A3%E5%86%B3%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF/"/>
+    <id>https://kaiiak.github.io/2016/01/28/编译apue-3e并解决编译错误/</id>
     <published>2016-01-28T14:38:58.000Z</published>
     <updated>2016-02-12T12:15:10.705Z</updated>
     <content type="html"><![CDATA[<h2 id="下载源代码">下载源代码</h2><p>我们在学习APUE这本书的时候，总会见到书上的源代码总会引用<code>apue.h</code>这个头文件，这个并不是Linux系统自带的。所以，我们要自己编译。<br>我们在<a href="http://www.apuebook.com/src.3e.tar.gz" target="_blank" rel="external">http://www.apuebook.com/src.3e.tar.gz</a>下载源代码后，解压。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf src.3e.tar.gz</span><br></pre></td></tr></table></figure></p>
@@ -948,16 +948,16 @@
     <![CDATA[<h2 id="下载源代码">下载源代码</h2><p>我们在学习APUE这本书的时候，总会见到书上的源代码总会引用<code>apue.h</code>这个头文件，这个并不是Linux系统自带的。所以，我们要自己编译。<br>我们在<a href="http://www.apu]]>
     </summary>
     
-      <category term="APUE" scheme="http://kaiiak.github.io/tags/APUE/"/>
+      <category term="APUE" scheme="https://kaiiak.github.io/tags/APUE/"/>
     
-      <category term="Linux" scheme="http://kaiiak.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://kaiiak.github.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Happy New Year]]></title>
-    <link href="http://kaiiak.github.io/2016/01/01/Happy-New-Year/"/>
-    <id>http://kaiiak.github.io/2016/01/01/Happy-New-Year/</id>
+    <link href="https://kaiiak.github.io/2016/01/01/Happy-New-Year/"/>
+    <id>https://kaiiak.github.io/2016/01/01/Happy-New-Year/</id>
     <published>2016-01-01T06:21:25.000Z</published>
     <updated>2016-01-01T06:44:56.890Z</updated>
     <content type="html"><![CDATA[<h2 id="新年快乐～">新年快乐～</h2><p>在新的一年里，希望我能入门C++，哈哈哈哈哈哈哈哈哈哈哈哈</p>
@@ -967,14 +967,14 @@
 ]]>
     </summary>
     
-      <category term="随笔" scheme="http://kaiiak.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+      <category term="随笔" scheme="https://kaiiak.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[C#利用VLC播放网络串流]]></title>
-    <link href="http://kaiiak.github.io/2015/11/19/using-vlclib-in-vs/"/>
-    <id>http://kaiiak.github.io/2015/11/19/using-vlclib-in-vs/</id>
+    <link href="https://kaiiak.github.io/2015/11/19/using-vlclib-in-vs/"/>
+    <id>https://kaiiak.github.io/2015/11/19/using-vlclib-in-vs/</id>
     <published>2015-11-19T13:08:23.000Z</published>
     <updated>2015-12-01T11:31:26.444Z</updated>
     <content type="html"><![CDATA[<p><a href="http://www.videolan.org" target="_blank" rel="external">VLC的官方网站</a>，VLC的源代码是用C语言实现的。我们这里用<code>C#</code>的封装——nVLC。<br><a href="http://www.codeproject.com/Articles/109639/nVLC" target="_blank" rel="external">nVLC</a>。</p>
@@ -984,16 +984,16 @@
     <![CDATA[<p><a href="http://www.videolan.org" target="_blank" rel="external">VLC的官方网站</a>，VLC的源代码是用C语言实现的。我们这里用<code>C#</code>的封装——nVLC。<br><a href="]]>
     </summary>
     
-      <category term="CSharp" scheme="http://kaiiak.github.io/tags/CSharp/"/>
+      <category term="CSharp" scheme="https://kaiiak.github.io/tags/CSharp/"/>
     
-      <category term="vlc" scheme="http://kaiiak.github.io/tags/vlc/"/>
+      <category term="vlc" scheme="https://kaiiak.github.io/tags/vlc/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[通过pylirc实现红外控制]]></title>
-    <link href="http://kaiiak.github.io/2015/11/14/%E9%80%9A%E8%BF%87pylirc%E5%AE%9E%E7%8E%B0%E7%BA%A2%E5%A4%96%E6%8E%A7%E5%88%B6/"/>
-    <id>http://kaiiak.github.io/2015/11/14/通过pylirc实现红外控制/</id>
+    <link href="https://kaiiak.github.io/2015/11/14/%E9%80%9A%E8%BF%87pylirc%E5%AE%9E%E7%8E%B0%E7%BA%A2%E5%A4%96%E6%8E%A7%E5%88%B6/"/>
+    <id>https://kaiiak.github.io/2015/11/14/通过pylirc实现红外控制/</id>
     <published>2015-11-14T12:39:40.000Z</published>
     <updated>2016-03-07T04:36:58.427Z</updated>
     <content type="html"><![CDATA[<h2 id="官方文档">官方文档</h2><p>在2005年更新的官方文档，点击<a href="http://bazaar.launchpad.net/~rockstar/pylirc2/trunk/view/head:/doc/simple.txt" target="_blank" rel="external">这里</a>.</p>
@@ -1005,16 +1005,16 @@
     <![CDATA[<h2 id="官方文档">官方文档</h2><p>在2005年更新的官方文档，点击<a href="http://bazaar.launchpad.net/~rockstar/pylirc2/trunk/view/head:/doc/simple.txt" target="_b]]>
     </summary>
     
-      <category term="pylirc" scheme="http://kaiiak.github.io/tags/pylirc/"/>
+      <category term="pylirc" scheme="https://kaiiak.github.io/tags/pylirc/"/>
     
-      <category term="树莓派" scheme="http://kaiiak.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+      <category term="树莓派" scheme="https://kaiiak.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[为Eclipse本地安装PyDev]]></title>
-    <link href="http://kaiiak.github.io/2015/11/09/local-install-pydev-with-eclipse/"/>
-    <id>http://kaiiak.github.io/2015/11/09/local-install-pydev-with-eclipse/</id>
+    <link href="https://kaiiak.github.io/2015/11/09/local-install-pydev-with-eclipse/"/>
+    <id>https://kaiiak.github.io/2015/11/09/local-install-pydev-with-eclipse/</id>
     <published>2015-11-09T11:05:57.000Z</published>
     <updated>2015-11-09T11:31:35.282Z</updated>
     <content type="html"><![CDATA[<h3 id="由于众所周知的原因，国内的网络环境一直不是很好。最近我在Eclipse上安装Pydev也不可以了。所以，打算用本地安装的方法来解决。">由于众所周知的原因，国内的网络环境一直不是很好。最近我在Eclipse上安装Pydev也不可以了。所以，打算用本地安装的方法来解决。</h3><p>可以在<a href="http://sourceforge.net/projects/pydev" target="_blank" rel="external">这里</a>下载到最新的PyDev for Eclipse。<br>然后，将压缩包内的<code>features</code>和<code>plugins</code>文件夹拷贝到eclipse的安装目录下。重启eclipse，在<code>Help</code>-&gt;<code>About Eclipse</code>-&gt;<code>Installation Details</code>中看到PyDev的信息。</p>
@@ -1023,16 +1023,16 @@
     <![CDATA[<h3 id="由于众所周知的原因，国内的网络环境一直不是很好。最近我在Eclipse上安装Pydev也不可以了。所以，打算用本地安装的方法来解决。">由于众所周知的原因，国内的网络环境一直不是很好。最近我在Eclipse上安装Pydev也不可以了。所以，打算用本地安装的方法来解]]>
     </summary>
     
-      <category term="Eclipse" scheme="http://kaiiak.github.io/tags/Eclipse/"/>
+      <category term="Eclipse" scheme="https://kaiiak.github.io/tags/Eclipse/"/>
     
-      <category term="PyDev" scheme="http://kaiiak.github.io/tags/PyDev/"/>
+      <category term="PyDev" scheme="https://kaiiak.github.io/tags/PyDev/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Sqlite创建数据库]]></title>
-    <link href="http://kaiiak.github.io/2015/11/04/sqlite-create-datebase/"/>
-    <id>http://kaiiak.github.io/2015/11/04/sqlite-create-datebase/</id>
+    <link href="https://kaiiak.github.io/2015/11/04/sqlite-create-datebase/"/>
+    <id>https://kaiiak.github.io/2015/11/04/sqlite-create-datebase/</id>
     <published>2015-11-04T13:53:54.000Z</published>
     <updated>2015-11-06T13:30:46.995Z</updated>
     <content type="html"><![CDATA[<p>其实很简单，但刚开始一点都不会。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sqlite test.db&#10;SQLite version 2.8.17&#10;Enter &#34;.help&#34; for instructions&#10;sqlite&#62; .database&#10;seq  name             file                                                      &#10;---  ---------  -------------------------&#10;0    main        /home/pi/code/testDB.db</span><br></pre></td></tr></table></figure></p>
@@ -1042,14 +1042,14 @@
     <![CDATA[<p>其实很简单，但刚开始一点都不会。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="cod]]>
     </summary>
     
-      <category term="sqlite" scheme="http://kaiiak.github.io/tags/sqlite/"/>
+      <category term="sqlite" scheme="https://kaiiak.github.io/tags/sqlite/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[ZOJ_1003:Crashing Ballon]]></title>
-    <link href="http://kaiiak.github.io/2015/11/04/crashing-ballon/"/>
-    <id>http://kaiiak.github.io/2015/11/04/crashing-ballon/</id>
+    <link href="https://kaiiak.github.io/2015/11/04/crashing-ballon/"/>
+    <id>https://kaiiak.github.io/2015/11/04/crashing-ballon/</id>
     <published>2015-11-04T12:15:01.000Z</published>
     <updated>2015-11-04T13:07:12.484Z</updated>
     <content type="html"><![CDATA[<h1 id="题目">题目</h1><blockquote>
@@ -1073,18 +1073,18 @@
 <p>On every June 1st, the Children’s Day, there will be a game named “crashing balloon” on TV.   The rule is]]>
     </summary>
     
-      <category term="ACM" scheme="http://kaiiak.github.io/tags/ACM/"/>
+      <category term="ACM" scheme="https://kaiiak.github.io/tags/ACM/"/>
     
-      <category term="C" scheme="http://kaiiak.github.io/tags/C/"/>
+      <category term="C" scheme="https://kaiiak.github.io/tags/C/"/>
     
-      <category term="ZOJ" scheme="http://kaiiak.github.io/tags/ZOJ/"/>
+      <category term="ZOJ" scheme="https://kaiiak.github.io/tags/ZOJ/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[关于树莓派lirc的配置]]></title>
-    <link href="http://kaiiak.github.io/2015/10/31/%E5%85%B3%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BElirc%E7%9A%84%E9%85%8D%E7%BD%AE/"/>
-    <id>http://kaiiak.github.io/2015/10/31/关于树莓派lirc的配置/</id>
+    <link href="https://kaiiak.github.io/2015/10/31/%E5%85%B3%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BElirc%E7%9A%84%E9%85%8D%E7%BD%AE/"/>
+    <id>https://kaiiak.github.io/2015/10/31/关于树莓派lirc的配置/</id>
     <published>2015-10-31T13:10:19.000Z</published>
     <updated>2015-11-01T12:02:55.707Z</updated>
     <content type="html"><![CDATA[<h2 id="记录原因">记录原因</h2><p>这是我正在DIY的一个<a href="https://github.com/kaiiak/NineSky/blob/master/README.md" target="_blank" rel="external">基于树莓派智能家居</a>的过程中，配置lirc的一个小问题的总结。<br>因为在网上搜索到的类似的博客给出的解决方式都不可行，所以打算记录下来，方便后来者。</p>
@@ -1104,18 +1104,18 @@
     <![CDATA[<h2 id="记录原因">记录原因</h2><p>这是我正在DIY的一个<a href="https://github.com/kaiiak/NineSky/blob/master/README.md" target="_blank" rel="external">基于树莓派智]]>
     </summary>
     
-      <category term="Linux" scheme="http://kaiiak.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://kaiiak.github.io/tags/Linux/"/>
     
-      <category term="lirc" scheme="http://kaiiak.github.io/tags/lirc/"/>
+      <category term="lirc" scheme="https://kaiiak.github.io/tags/lirc/"/>
     
-      <category term="树莓派" scheme="http://kaiiak.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+      <category term="树莓派" scheme="https://kaiiak.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[使用Python控制树莓派的GPIO(1)]]></title>
-    <link href="http://kaiiak.github.io/2015/10/18/%E4%BD%BF%E7%94%A8Python%E6%8E%A7%E5%88%B6%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9A%84GPIO-1/"/>
-    <id>http://kaiiak.github.io/2015/10/18/使用Python控制树莓派的GPIO-1/</id>
+    <link href="https://kaiiak.github.io/2015/10/18/%E4%BD%BF%E7%94%A8Python%E6%8E%A7%E5%88%B6%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9A%84GPIO-1/"/>
+    <id>https://kaiiak.github.io/2015/10/18/使用Python控制树莓派的GPIO-1/</id>
     <published>2015-10-18T09:19:07.000Z</published>
     <updated>2016-03-07T04:37:13.411Z</updated>
     <content type="html"><![CDATA[<h3 id="使用的树莓派2B">使用的树莓派2B</h3><p>通过PRI.GPIO来实现Python控制树莓派的GPIO。</p>
@@ -1138,18 +1138,18 @@
 <h2 id="安装">安装</h2><p>在<a href="http://pythonhosted.org/RPIO/" target="]]>
     </summary>
     
-      <category term="PRI.GPIO" scheme="http://kaiiak.github.io/tags/PRI-GPIO/"/>
+      <category term="PRI.GPIO" scheme="https://kaiiak.github.io/tags/PRI-GPIO/"/>
     
-      <category term="Pyhon" scheme="http://kaiiak.github.io/tags/Pyhon/"/>
+      <category term="Pyhon" scheme="https://kaiiak.github.io/tags/Pyhon/"/>
     
-      <category term="树莓派" scheme="http://kaiiak.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+      <category term="树莓派" scheme="https://kaiiak.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[使用Xshell进行上传和下载]]></title>
-    <link href="http://kaiiak.github.io/2015/10/12/%E4%BD%BF%E7%94%A8Xshell%E8%BF%9B%E8%A1%8C%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD/"/>
-    <id>http://kaiiak.github.io/2015/10/12/使用Xshell进行上传和下载/</id>
+    <link href="https://kaiiak.github.io/2015/10/12/%E4%BD%BF%E7%94%A8Xshell%E8%BF%9B%E8%A1%8C%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD/"/>
+    <id>https://kaiiak.github.io/2015/10/12/使用Xshell进行上传和下载/</id>
     <published>2015-10-12T13:13:53.000Z</published>
     <updated>2015-10-12T13:28:27.428Z</updated>
     <content type="html"><![CDATA[<p>在日常使用Xshell进行远程登录的时候，我们想通过Xshell在Windows和Linux之间便捷的进行文件传输，这时候我们可以使用 <code>rz</code> 或 <code>sz</code> 命令。</p>
@@ -1164,16 +1164,16 @@
 <p>在树莓派上安装<code>rz</code>和<]]>
     </summary>
     
-      <category term="Linux" scheme="http://kaiiak.github.io/tags/Linux/"/>
+      <category term="Linux" scheme="https://kaiiak.github.io/tags/Linux/"/>
     
-      <category term="Xshell" scheme="http://kaiiak.github.io/tags/Xshell/"/>
+      <category term="Xshell" scheme="https://kaiiak.github.io/tags/Xshell/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[树莓派直连电脑二三事]]></title>
-    <link href="http://kaiiak.github.io/2015/10/11/%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9B%B4%E8%BF%9E%E7%94%B5%E8%84%91%E4%BA%8C%E4%B8%89%E4%BA%8B/"/>
-    <id>http://kaiiak.github.io/2015/10/11/树莓派直连电脑二三事/</id>
+    <link href="https://kaiiak.github.io/2015/10/11/%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9B%B4%E8%BF%9E%E7%94%B5%E8%84%91%E4%BA%8C%E4%B8%89%E4%BA%8B/"/>
+    <id>https://kaiiak.github.io/2015/10/11/树莓派直连电脑二三事/</id>
     <published>2015-10-11T12:09:35.000Z</published>
     <updated>2016-03-07T04:37:04.882Z</updated>
     <content type="html"><![CDATA[<h2 id="解决方法">解决方法</h2><p>因为在学校的实验室网络不是很稳定，所以树莓派一直不能直接用网线连接网络。而且wpa_supplication真的很不稳定，莫名其妙的罢工好几次，每次只能重新写镜像。<br>种种原因选择了直连电脑的方法来联网,而我的电脑连接的是信号很弱的无线网，无奈条件太艰苦。</p>
@@ -1189,14 +1189,14 @@
     <![CDATA[<h2 id="解决方法">解决方法</h2><p>因为在学校的实验室网络不是很稳定，所以树莓派一直不能直接用网线连接网络。而且wpa_supplication真的很不稳定，莫名其妙的罢工好几次，每次只能重新写镜像。<br>种种原因选择了直连电脑的方法来联网,而我的电脑连接的是信]]>
     </summary>
     
-      <category term="树莓派" scheme="http://kaiiak.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+      <category term="树莓派" scheme="https://kaiiak.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[打算买个小米路由刷openWRT]]></title>
-    <link href="http://kaiiak.github.io/2015/08/05/%E6%89%93%E7%AE%97%E4%B9%B0%E4%B8%AA%E6%9E%81%E8%B7%AF%E7%94%B1%E5%88%B7openWRT/"/>
-    <id>http://kaiiak.github.io/2015/08/05/打算买个极路由刷openWRT/</id>
+    <link href="https://kaiiak.github.io/2015/08/05/%E6%89%93%E7%AE%97%E4%B9%B0%E4%B8%AA%E6%9E%81%E8%B7%AF%E7%94%B1%E5%88%B7openWRT/"/>
+    <id>https://kaiiak.github.io/2015/08/05/打算买个极路由刷openWRT/</id>
     <published>2015-08-05T09:28:20.000Z</published>
     <updated>2015-08-05T13:07:03.017Z</updated>
     <content type="html"><![CDATA[<p>主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。<br>所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。<br>哈哈～<br>这是想象之中的，但愿我能坚持下来吧。<br>Thx～<br>然而在极路由和小米路由器mini之间我选择了小米路由mini。<br>毕竟第一次折腾openWRT，不是很敢自己刷。可以直接在他们定制的openWRT系统上折腾。</p>
@@ -1205,14 +1205,14 @@
     <![CDATA[<p>主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。<br>所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。<br>哈哈～<br>这是想象之中的，但愿我能坚持下来吧。<b]]>
     </summary>
     
-      <category term="openWRT" scheme="http://kaiiak.github.io/tags/openWRT/"/>
+      <category term="openWRT" scheme="https://kaiiak.github.io/tags/openWRT/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[解决Yilia主题的subnav中链接的问题]]></title>
-    <link href="http://kaiiak.github.io/2015/08/01/%E8%A7%A3%E5%86%B3Yilia%E4%B8%BB%E9%A2%98%E7%9A%84subnav%E4%B8%AD%E9%93%BE%E6%8E%A5%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-    <id>http://kaiiak.github.io/2015/08/01/解决Yilia主题的subnav中链接的问题/</id>
+    <link href="https://kaiiak.github.io/2015/08/01/%E8%A7%A3%E5%86%B3Yilia%E4%B8%BB%E9%A2%98%E7%9A%84subnav%E4%B8%AD%E9%93%BE%E6%8E%A5%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>https://kaiiak.github.io/2015/08/01/解决Yilia主题的subnav中链接的问题/</id>
     <published>2015-07-31T16:11:23.000Z</published>
     <updated>2016-03-07T04:37:18.578Z</updated>
     <content type="html"><![CDATA[<h2 id="问题说明">问题说明</h2><p>我很喜欢Yilia这个漂亮的主题，但是当我自己用的时候发现在subnav区生成的链接并不是我想要的。比如我的github地址是<code>github.com/kaiiak</code>，但是实际生成的是<code>kaiiak.github.io/github.com/kaiiak</code>。微博地址也是这样，邮箱地址也是。</p>
@@ -1226,7 +1226,7 @@
     <![CDATA[<h2 id="问题说明">问题说明</h2><p>我很喜欢Yilia这个漂亮的主题，但是当我自己用的时候发现在subnav区生成的链接并不是我想要的。比如我的github地址是<code>github.com/kaiiak</code>，但是实际生成的是<code>kaiiak]]>
     </summary>
     
-      <category term="Hexo主题" scheme="http://kaiiak.github.io/tags/Hexo%E4%B8%BB%E9%A2%98/"/>
+      <category term="Hexo主题" scheme="https://kaiiak.github.io/tags/Hexo%E4%B8%BB%E9%A2%98/"/>
     
   </entry>
   
