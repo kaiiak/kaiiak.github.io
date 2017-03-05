@@ -7,7 +7,7 @@ title: KAIIAK
 subtitle: 啦啦啦~我是卖萌的小行家~
 description:
 author: kaiiak
-language: zh-CN
+language: zh-Hans
 timezone:
 
 # URL
@@ -65,7 +65,7 @@ pagination_dir: page
 Plugins:
 - hexo-generator-feed
 ## Themes: https://hexo.io/themes/
-theme: yilia
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
