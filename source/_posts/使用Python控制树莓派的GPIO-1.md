@@ -1,6 +1,6 @@
 title: 使用Python控制树莓派的GPIO(1)
 date: 2015-10-18 17:19:07
-tags: [Pyhon,树莓派,PRI.GPIO]
+tags: [Python,树莓派,PRI.GPIO]
 ---
 ### 使用的树莓派2B
 
