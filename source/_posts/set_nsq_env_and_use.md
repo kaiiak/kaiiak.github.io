@@ -37,7 +37,7 @@ services:
     ports:
       - "4151:4151"
       - "4150:4150"
-    command: /nsqd --broadcast-address=nsq --lookupd-tcp-address=nsqlookupd:4160 --data-path=/data
+    command: /nsqd --broadcast-address=nsqd --lookupd-tcp-address=nsqlookupd:4160 --data-path=/data
   nsqadmin:
     image: nsqio/nsq
     depends_on:
