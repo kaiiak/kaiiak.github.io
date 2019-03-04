@@ -3,7 +3,11 @@ title: 关于我
 date: 2017-03-05 21:47:53
 comments: false
 ---
-##   
-##  
-##  
-<center>写了点golang和c，到现在 依旧是一事无成。</center>
+
+- 精通`golang`
+- 熟悉`mysql`,`redis`
+- 熟悉 `http协议`
+- 了解常用的消息队列
+- 了解`linux c`
+- 对分布式系统有初步的研究
+<!-- - 了解`etcd` -->
