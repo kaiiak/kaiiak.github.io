@@ -9,5 +9,6 @@ comments: false
 - 熟悉 `http协议`
 - 了解常用的消息队列
 - 了解`linux c`
+- 了解`elasticsearch`
 - 对分布式系统有初步的研究
 <!-- - 了解`etcd` -->
