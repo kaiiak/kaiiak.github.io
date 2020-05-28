@@ -8,7 +8,7 @@ subtitle: 啦啦啦~我是卖萌的小行家~
 description:
 author: kaiiak
 language: zh-Hans
-timezone:
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
