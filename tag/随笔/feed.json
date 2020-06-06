@@ -1,0 +1,28 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "KAIIAK • All posts by \"随笔\" tag",
+    "description": null,
+    "home_page_url": "https://blog.iakmai.com",
+    "items": [
+        {
+            "id": "https://blog.iakmai.com/2016/01/01/Happy-New-Year/",
+            "url": "https://blog.iakmai.com/2016/01/01/Happy-New-Year/",
+            "title": "Happy New Year",
+            "date_published": "2016-01-01T06:21:25.000Z",
+            "content_html": "<h2 id=\"新年快乐～\"><a href=\"#新年快乐～\" class=\"headerlink\" title=\"新年快乐～\"></a>新年快乐～</h2><p>在新的一年里，希望我能入门C++，哈哈哈哈哈哈哈哈哈哈哈哈</p>\n",
+            "tags": [
+                "随笔"
+            ]
+        },
+        {
+            "id": "https://blog.iakmai.com/2015/07/30/%E7%AC%AC%E4%B8%80%E7%AF%87/",
+            "url": "https://blog.iakmai.com/2015/07/30/%E7%AC%AC%E4%B8%80%E7%AF%87/",
+            "title": "第一篇",
+            "date_published": "2015-07-30T15:59:17.000Z",
+            "content_html": "<h2 id=\"第一次在github上写博客\"><a href=\"#第一次在github上写博客\" class=\"headerlink\" title=\"第一次在github上写博客\"></a>第一次在github上写博客</h2><p>哈哈，有点小兴奋呢</p>\n<h3 id=\"测试下代码高亮\"><a href=\"#测试下代码高亮\" class=\"headerlink\" title=\"测试下代码高亮\"></a>测试下代码高亮</h3><figure class=\"highlight c\"><table><tr><td class=\"gutter\"><pre><span class=\"line\">1</span><br><span class=\"line\">2</span><br><span class=\"line\">3</span><br><span class=\"line\">4</span><br><span class=\"line\">5</span><br><span class=\"line\">6</span><br><span class=\"line\">7</span><br><span class=\"line\">8</span><br></pre></td><td class=\"code\"><pre><span class=\"line\"></span><br><span class=\"line\"><span class=\"meta\">#<span class=\"meta-keyword\">include</span> <span class=\"meta-string\">&lt;stdio.h&gt;</span></span></span><br><span class=\"line\"></span><br><span class=\"line\"><span class=\"function\"><span class=\"keyword\">int</span> <span class=\"title\">main</span><span class=\"params\">()</span></span></span><br><span class=\"line\"><span class=\"function\"></span>&#123;</span><br><span class=\"line\">\t<span class=\"built_in\">printf</span>(<span class=\"string\">\"Hello World!\\n\"</span>);</span><br><span class=\"line\">\t<span class=\"keyword\">return</span> <span class=\"number\">0</span>;</span><br><span class=\"line\">&#125;</span><br></pre></td></tr></table></figure>\n\n<p>最近在做ACM和准备电赛，多多加油！</p>\n",
+            "tags": [
+                "随笔"
+            ]
+        }
+    ]
+}

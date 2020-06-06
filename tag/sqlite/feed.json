@@ -1,0 +1,18 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "KAIIAK • All posts by \"sqlite\" tag",
+    "description": null,
+    "home_page_url": "https://blog.iakmai.com",
+    "items": [
+        {
+            "id": "https://blog.iakmai.com/2015/11/04/sqlite-create-datebase/",
+            "url": "https://blog.iakmai.com/2015/11/04/sqlite-create-datebase/",
+            "title": "Sqlite创建数据库",
+            "date_published": "2015-11-04T13:53:54.000Z",
+            "content_html": "<p>其实很简单，但刚开始一点都不会。</p>\n<figure class=\"highlight shell\"><table><tr><td class=\"gutter\"><pre><span class=\"line\">1</span><br><span class=\"line\">2</span><br><span class=\"line\">3</span><br><span class=\"line\">4</span><br><span class=\"line\">5</span><br><span class=\"line\">6</span><br><span class=\"line\">7</span><br></pre></td><td class=\"code\"><pre><span class=\"line\"><span class=\"meta\">$</span><span class=\"bash\">sqlite test.db</span></span><br><span class=\"line\">SQLite version 2.8.17</span><br><span class=\"line\">Enter \".help\" for instructions</span><br><span class=\"line\"><span class=\"meta\">sqlite&gt;</span><span class=\"bash\"> .database</span></span><br><span class=\"line\">seq  name             file                                                      </span><br><span class=\"line\">---  ---------  -------------------------</span><br><span class=\"line\">0    main        /home/pi/code/testDB.db</span><br></pre></td></tr></table></figure>\n<p>这样就创建成功了。</p>\n",
+            "tags": [
+                "sqlite"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>KAIIAK • Posts by &#34;openwrt&#34; tag</title>
+        <link>https://blog.iakmai.com</link>
+        <description></description>
+        <language>zh-Hans</language>
+        <pubDate>Wed, 05 Aug 2015 17:28:20 +0800</pubDate>
+        <lastBuildDate>Wed, 05 Aug 2015 17:28:20 +0800</lastBuildDate>
+        <category>Linux</category>
+        <category>APUE</category>
+        <category>随笔</category>
+        <category>vim</category>
+        <category>YouCompleteMe</category>
+        <category>C</category>
+        <category>ACM</category>
+        <category>ZOJ</category>
+        <category>GOLANG</category>
+        <category>SMTP</category>
+        <category>Eclipse</category>
+        <category>PyDev</category>
+        <category>NSQ</category>
+        <category>DOCKER</category>
+        <category>sqlite</category>
+        <category>tree</category>
+        <category>vlc</category>
+        <category>CSharp</category>
+        <category>Python</category>
+        <category>树莓派</category>
+        <category>PRI.GPIO</category>
+        <category>Xshell</category>
+        <category>lirc</category>
+        <category>openWRT</category>
+        <category>Hexo主题</category>
+        <category>pylirc</category>
+        <category>FFMPEG</category>
+        <item>
+            <guid isPermalink="true">https://blog.iakmai.com/2015/08/05/%E6%89%93%E7%AE%97%E4%B9%B0%E4%B8%AA%E6%9E%81%E8%B7%AF%E7%94%B1%E5%88%B7openWRT/</guid>
+            <title>打算买个小米路由刷openWRT</title>
+            <link>https://blog.iakmai.com/2015/08/05/%E6%89%93%E7%AE%97%E4%B9%B0%E4%B8%AA%E6%9E%81%E8%B7%AF%E7%94%B1%E5%88%B7openWRT/</link>
+            <category>openWRT</category>
+            <pubDate>Wed, 05 Aug 2015 17:28:20 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。&lt;br&gt;所以买个路由器刷openWRT，然后破解客户端，在openWRT上编写破解程序用路由器分享wifi。毕竟动态域名也是要一个外网ip的。&lt;br&gt;哈哈～&lt;br&gt;这是想象之中的，但愿我能坚持下来吧。&lt;br&gt;Thx～&lt;br&gt;然而在极路由和小米路由器mini之间我选择了小米路由mini。&lt;br&gt;毕竟第一次折腾openWRT，不是很敢自己刷。可以直接在他们定制的openWRT系统上折腾。&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

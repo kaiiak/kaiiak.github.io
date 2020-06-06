@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,vim," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="使用Pathogen管理插件推荐这篇教程，使用Pahtogen+Git的方式管理插件和vim配置，方便vim的迁移和团队配置的统一。 自用的vim配置文件123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自用vim配置文件">
+<meta property="og:url" content="https://blog.iakmai.com/2016/03/05/personal_vimrc/index.html">
+<meta property="og:site_name" content="KAIIAK">
+<meta property="og:description" content="使用Pathogen管理插件推荐这篇教程，使用Pahtogen+Git的方式管理插件和vim配置，方便vim的迁移和团队配置的统一。 自用的vim配置文件123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566">
+<meta property="article:published_time" content="2016-03-05T08:49:30.000Z">
+<meta property="article:modified_time" content="2020-05-26T15:44:49.379Z">
+<meta property="article:author" content="kaiiak">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="vim">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.iakmai.com/2016/03/05/personal_vimrc/"/>
+
+
+
+
+
+  <title>自用vim配置文件 | KAIIAK</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-122316693-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KAIIAK</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">啦啦啦~我是卖萌的小行家~</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.iakmai.com/2016/03/05/personal_vimrc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kaiiak">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KAIIAK">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">自用vim配置文件</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-05T16:49:30+08:00">
+                2016-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/03/05/personal_vimrc/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/03/05/personal_vimrc/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="使用Pathogen管理插件"><a href="#使用Pathogen管理插件" class="headerlink" title="使用Pathogen管理插件"></a>使用<code>Pathogen</code>管理插件</h1><p>推荐<a href="http://lostjs.com/2012/02/04/use-pathogen-and-git-to-manage-vimfiles/" target="_blank" rel="noopener">这篇教程</a>，使用<code>Pahtogen</code>+<code>Git</code>的方式管理插件和vim配置，方便vim的迁移和团队配置的统一。</p>
+<h1 id="自用的vim配置文件"><a href="#自用的vim配置文件" class="headerlink" title="自用的vim配置文件"></a>自用的vim配置文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">&quot; 编码</span><br><span class="line">set encoding&#x3D;utf-8</span><br><span class="line"></span><br><span class="line">&quot; 避免以前版本的一些bug和局限</span><br><span class="line">set nocompatible</span><br><span class="line"></span><br><span class="line">&quot; 逐步搜索模式，对当前键入的字符进行搜索而不必等待键入完成,&#x2F;b寻找b开头的。</span><br><span class="line">set incsearch</span><br><span class="line"></span><br><span class="line">&quot;自动识别文件类型</span><br><span class="line">&quot; set filetype</span><br><span class="line"></span><br><span class="line">&quot; 搜索时高亮显示找到文本</span><br><span class="line">set hlsearch</span><br><span class="line"></span><br><span class="line">&quot; 在Insert模式下退格键何时可以删除光标之前的字符。三项内容分别指定了Vim可以删除位于行首的空格,断行,以及开始进入Insert模式之前的位置。</span><br><span class="line">set backspace&#x3D;indent,eol,start</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&quot; 设置tab键为4个空格，设置当行之间交错时使用4个空格</span><br><span class="line">set tabstop&#x3D;4</span><br><span class="line">set shiftwidth&#x3D;4</span><br><span class="line"></span><br><span class="line">&quot; 匹配模式，左括号匹配右括号</span><br><span class="line">set showmatch</span><br><span class="line"></span><br><span class="line">&quot; 在覆盖一个文件之前备份该文件。但是对VMS系统除外,因为该系统已经为文件保存了老的版本。备份文件名由当前文件名加后辍&quot;~&quot;组成。</span><br><span class="line">&quot; if has(&quot;vms&quot;)</span><br><span class="line">&quot; set nobackup</span><br><span class="line">&quot; else</span><br><span class="line">&quot; set backup</span><br><span class="line">&quot; endif</span><br><span class="line"></span><br><span class="line">&quot; 设置冒号命令和搜索命令的命令历史列表的长度。</span><br><span class="line">set history&#x3D;1000</span><br><span class="line"></span><br><span class="line">&quot; 总是在Vim窗口的右下角显示当前光标的行列信息。</span><br><span class="line">set ruler</span><br><span class="line"></span><br><span class="line">&quot; 在Vim窗口的右下角显示一个完整的命令已经完成的部分。比如说你键入&quot;2f&quot;,Vim就会在你键入下一个要查找的字符之前显示已经键入的&quot;2f&quot;。一旦你接下来再键入一个字符比如&quot;w&quot;,那么一个完整的命令&quot;2fw&quot;就会被Vim 执行,同时刚才显示的&quot;2f&quot;也将消失。</span><br><span class="line">set showcmd</span><br><span class="line"></span><br><span class="line">&quot; 语法高亮</span><br><span class="line">syntax on</span><br><span class="line"></span><br><span class="line">&quot; 显示行号</span><br><span class="line">set nu</span><br><span class="line"></span><br><span class="line">&quot; 显示空格和TAB</span><br><span class="line">set list</span><br><span class="line">set listchars&#x3D;tab:&gt;-,trail:-</span><br><span class="line"></span><br><span class="line">&quot; 凸显当前行</span><br><span class="line">set cursorline</span><br><span class="line"></span><br><span class="line">&quot; 检测文件类型</span><br><span class="line">filetype on</span><br><span class="line"></span><br><span class="line">&quot; 启用鼠标</span><br><span class="line">set mouse&#x3D;a</span><br><span class="line"></span><br><span class="line">&quot; 配色方案</span><br><span class="line">&quot;colorscheme torte</span><br><span class="line"></span><br><span class="line">&quot; 以下为插件</span><br><span class="line"></span><br><span class="line">&quot; 管理插件的插件pathogen</span><br><span class="line">call pathogen#infect()</span><br><span class="line"></span><br><span class="line">&quot; Powerline</span><br><span class="line">set guifont&#x3D;PowerlineSymbols\ for\ Powerline</span><br><span class="line">set nocompatible</span><br><span class="line">set laststatus&#x3D;2</span><br><span class="line">set t_Co&#x3D;256</span><br><span class="line">let g:Powerline_symbols &#x3D; &#39;fancy&#39;</span><br><span class="line"></span><br><span class="line">&quot; NERDTree</span><br><span class="line">map &lt;F10&gt; :NERDTreeToggle&lt;CR&gt;</span><br><span class="line"></span><br><span class="line">&quot; C的编译和运行 </span><br><span class="line">map &lt;F5&gt; :call CompileRunGcc()&lt;CR&gt; </span><br><span class="line">func! CompileRunGcc() </span><br><span class="line">exec &quot;w&quot; </span><br><span class="line">exec &quot;!gcc % -o %&lt;&quot; </span><br><span class="line">exec &quot;! .&#x2F;%&lt;&quot; </span><br><span class="line">endfunc </span><br><span class="line"></span><br><span class="line">&quot; C++的编译和运行 </span><br><span class="line">map &lt;F6&gt; :call CompileRunGpp()&lt;CR&gt; </span><br><span class="line">func! CompileRunGpp() </span><br><span class="line">exec &quot;w&quot; </span><br><span class="line">exec &quot;!g++ % -o %&lt;&quot; </span><br><span class="line">exec &quot;! .&#x2F;%&lt;&quot; </span><br><span class="line">endfunc</span><br></pre></td></tr></table></figure>
+
+<h1 id="插件列表"><a href="#插件列表" class="headerlink" title="插件列表"></a>插件列表</h1><table>
+<thead>
+<tr>
+<th>插件名称</th>
+<th align="left">项目地址</th>
+<th align="left">教程地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pathogen</code></td>
+<td align="left"><a href="http://www.vim.org/scripts/script.php?script_id=2332" target="_blank" rel="noopener">项目地址</a></td>
+<td align="left"><a href="https://github.com/tpope/vim-pathogen" target="_blank" rel="noopener">教程地址</a></td>
+</tr>
+<tr>
+<td><code>NERDTree</code></td>
+<td align="left"><a href="http://www.vim.org/scripts/script.php?script_id=1658" target="_blank" rel="noopener">项目地址</a></td>
+<td align="left"><a href="http://my.oschina.net/VASKS/blog/388907?fromerr=ktE2belY" target="_blank" rel="noopener">教程地址</a></td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="kaiiak 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="kaiiak 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/vim/" rel="tag"># vim</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/29/APUE_study_notes-Files_and_Directories/" rel="next" title="APUE学习笔记——文件和目录">
+                <i class="fa fa-chevron-left"></i> APUE学习笔记——文件和目录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/" rel="prev" title="安装vim插件YouCompleteMe">
+                安装vim插件YouCompleteMe <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="kaiiak" />
+            
+              <p class="site-author-name" itemprop="name">kaiiak</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7Carchive">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kaiiak" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:aNxFi37X@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/iakmai" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/mzzzkkk" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Pathogen管理插件"><span class="nav-number">1.</span> <span class="nav-text">使用Pathogen管理插件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自用的vim配置文件"><span class="nav-number">2.</span> <span class="nav-text">自用的vim配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插件列表"><span class="nav-number">3.</span> <span class="nav-text">插件列表</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-KAIIAK fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kaiiak</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://https-blog-iakmai-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://blog.iakmai.com/2016/03/05/personal_vimrc/';
+          this.page.identifier = '2016/03/05/personal_vimrc/';
+          this.page.title = '自用vim配置文件';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-blog-iakmai-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

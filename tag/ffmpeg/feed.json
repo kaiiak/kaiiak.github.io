@@ -1,0 +1,19 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "KAIIAK • All posts by \"ffmpeg\" tag",
+    "description": null,
+    "home_page_url": "https://blog.iakmai.com",
+    "items": [
+        {
+            "id": "https://blog.iakmai.com/2020/06/06/mp3-to-pcm/",
+            "url": "https://blog.iakmai.com/2020/06/06/mp3-to-pcm/",
+            "title": "Golang调用FFMPEG实现MP3转PCM",
+            "date_published": "2020-06-06T09:27:04.000Z",
+            "content_html": "<script src=\"https://gist.github.com/kaiiak/4e5f058f4289153a525a54fbc43e756a.js\"></script>",
+            "tags": [
+                "GOLANG",
+                "FFMPEG"
+            ]
+        }
+    ]
+}

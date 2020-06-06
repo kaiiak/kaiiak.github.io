@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,APUE," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="文件描述符所有打开的文件都通过文件描述符(一个非负整数)引用。 维基百科上对于文件描述符的解释是这样的：  文件描述符在形式上是一个非负整数。实际上，它是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。在程序设计中，一些涉及底层的程序编写往往会围绕着文件描述符展开。但是文件描述符这一概念往往只适用于UNIX、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="APUE学习笔记——文件IO">
+<meta property="og:url" content="https://blog.iakmai.com/2016/02/25/APUE_study_notes-Files_IO/index.html">
+<meta property="og:site_name" content="KAIIAK">
+<meta property="og:description" content="文件描述符所有打开的文件都通过文件描述符(一个非负整数)引用。 维基百科上对于文件描述符的解释是这样的：  文件描述符在形式上是一个非负整数。实际上，它是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。在程序设计中，一些涉及底层的程序编写往往会围绕着文件描述符展开。但是文件描述符这一概念往往只适用于UNIX、">
+<meta property="article:published_time" content="2016-02-25T00:36:08.000Z">
+<meta property="article:modified_time" content="2020-05-26T15:44:49.375Z">
+<meta property="article:author" content="kaiiak">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="APUE">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.iakmai.com/2016/02/25/APUE_study_notes-Files_IO/"/>
+
+
+
+
+
+  <title>APUE学习笔记——文件IO | KAIIAK</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-122316693-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KAIIAK</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">啦啦啦~我是卖萌的小行家~</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.iakmai.com/2016/02/25/APUE_study_notes-Files_IO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kaiiak">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KAIIAK">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">APUE学习笔记——文件IO</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-25T08:36:08+08:00">
+                2016-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/02/25/APUE_study_notes-Files_IO/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/02/25/APUE_study_notes-Files_IO/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h1><p>所有打开的文件都通过文件描述符(一个非负整数)引用。</p>
+<p>维基百科上对于文件描述符的解释是这样的：</p>
+<blockquote>
+<p>文件描述符在形式上是一个非负整数。实际上，它是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。在程序设计中，一些涉及底层的程序编写往往会围绕着文件描述符展开。但是文件描述符这一概念往往只适用于UNIX、Linux这样的操作系统。</p>
+</blockquote>
+<p>当读、写一个文件时，使用<code>open</code>或<code>creat</code>返回的文件描述符标识该文件，将其作为参数传给<code>read</code>或<code>write</code>。</p>
+<p>在POSIX.1的应用程序中，文件描述符0与进程的标准输入关联(STDIN_FILENO)、文件描述符1与进程的标准输出关联(STDOUT_FILENO)、文件描述符2与进程的标准错误关联(STDERR_FILENO)，且已经确定化。<br>文件描述符的变化范围是<code>0~OPEN_MAX-1</code>。</p>
+<h1 id="函数open和openat"><a href="#函数open和openat" class="headerlink" title="函数open和openat"></a>函数<code>open</code>和<code>openat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">int</span> oflag, ... <span class="comment">/* mode_t mode */</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">openat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">int</span> oflag, ... <span class="comment">/* mode_t mode */</span>)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *path ：文件的名称，可以包含（绝对和相对）路径</span></span><br><span class="line"><span class="comment"> *flags：文件打开模式</span></span><br><span class="line"><span class="comment"> *mode：用来规定对该文件的所有者，文件的用户组及系 统中其他用户的访问权限</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/* 两函数的返回值： 若成功，返回文件描述符； 若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>打开方式</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>O_RDONLY</code></td>
+<td align="left">只读打开.</td>
+</tr>
+<tr>
+<td><code>O_WRONLY</code></td>
+<td align="left">只写打开.</td>
+</tr>
+<tr>
+<td><code>O_RDWR</code></td>
+<td align="left">读、写打开.</td>
+</tr>
+<tr>
+<td><code>O_EXEC</code></td>
+<td align="left">只执行打开.</td>
+</tr>
+<tr>
+<td><code>O_SEARCH</code></td>
+<td align="left">只搜索打开 (应用于目录).</td>
+</tr>
+<tr>
+<td><code>O_APPEND</code></td>
+<td align="left">每次写时都追加到文件的尾端.</td>
+</tr>
+<tr>
+<td><code>O_CLOEXEC</code></td>
+<td align="left">设置<code>FD_CLOEXEC</code>文件描述符.</td>
+</tr>
+<tr>
+<td><code>O_CREAT</code></td>
+<td align="left">若此文件不存在则创建它.</td>
+</tr>
+<tr>
+<td><code>O_DIRECTORY</code></td>
+<td align="left">如果<code>path</code>引用的不是目录，则出错.</td>
+</tr>
+<tr>
+<td><code>O_EXCL</code></td>
+<td align="left">如果同时指定了<code>O_CREAT</code>，而文件已存在，则出错.</td>
+</tr>
+<tr>
+<td><code>O_NOCTTY</code></td>
+<td align="left">如果<code>path</code>引用的是终端设备，则不将该设备分配作为此进程的控制终端.</td>
+</tr>
+<tr>
+<td><code>O_NOFOLLOW</code></td>
+<td align="left">如果<code>path</code>引用的是一个符号连接，则出错.</td>
+</tr>
+<tr>
+<td><code>O_NONBLOCK</code></td>
+<td align="left">如果<code>path</code>引用的是一个<code>FIFO</code>、一个块特殊文件或一个自负特殊文件，则此选项为文件的本次打开操作和后续的I/O操作设置非阻塞方式.</td>
+</tr>
+<tr>
+<td><code>O_SYNC</code></td>
+<td align="left">使每次<code>write</code>等待物理I/O完成，包括由该<code>write</code>操作引起的文件属性更新所需的I/O.</td>
+</tr>
+<tr>
+<td><code>O_TRUNC</code></td>
+<td align="left">如果此文件存在，而且为只写或读-写成功打开，则将其长度截断为0.</td>
+</tr>
+<tr>
+<td><code>O_TTY_INIT</code></td>
+<td align="left">如果打开一个还未打开的终端设备，设置非标准<code>termios</code>参数值，使其符合<code>Single UNIX Specification</code>.</td>
+</tr>
+<tr>
+<td><code>O_DSYNC</code></td>
+<td align="left">使每次<code>write</code>要等待物理I/O完成，但是如果该写操作并不影响读取刚写入的数据，则不需等待文件属性被更新.</td>
+</tr>
+<tr>
+<td><code>O_RSYNC</code></td>
+<td align="left">使每一个一文件描述符作为参数进行的<code>read</code>操作等待，直至所有对文件同一部份挂起的写操作都完成.</td>
+</tr>
+</tbody></table>
+<h3 id="fd参数吧open和openat函数区分开，共有3种可能性。"><a href="#fd参数吧open和openat函数区分开，共有3种可能性。" class="headerlink" title="fd参数吧open和openat函数区分开，共有3种可能性。"></a><code>fd</code>参数吧<code>open</code>和<code>openat</code>函数区分开，共有3种可能性。</h3><ol>
+<li><code>path</code>参数指定的是绝对路径名，在这种情况下，<code>fd</code>参数被忽略，<code>openat</code>函数就相当于<code>open</code>函数。</li>
+<li><code>path</code>参数指定的是相对路径名，<code>fd</code>参数指出了相对路径名在文件系统中的开始地址。<code>fd</code>参数是通过打开相对路径名所在的目录来获取。</li>
+<li><code>path</code>参数指定了相对路径名，<code>fd</code>参数具有特殊值<code>AT_FDCWD</code>。在这种情况下，路径名在当前工作目录中获取，<code>openat</code>函数在操作上与<code>open</code>函数类似。</li>
+</ol>
+<h1 id="函数creat"><a href="#函数creat" class="headerlink" title="函数creat"></a>函数<code>creat</code></h1><h3 id="调用函数creat创建一个新的文件"><a href="#调用函数creat创建一个新的文件" class="headerlink" title="调用函数creat创建一个新的文件"></a>调用函数<code>creat</code>创建一个新的文件</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">creat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">mode_t</span> mode)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值： 若成功，返回为只写打开的文件描述符；如出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<p>等效于：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">open</span>(path, O_WRONLY|O_CREAT|O_TRUNC, mode);</span><br></pre></td></tr></table></figure>
+
+<h1 id="函数close"><a href="#函数close" class="headerlink" title="函数close"></a>函数<code>close</code></h1><h3 id="调用close函数关闭一个打开文件"><a href="#调用close函数关闭一个打开文件" class="headerlink" title="调用close函数关闭一个打开文件"></a>调用<code>close</code>函数关闭一个打开文件</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">close</span><span class="params">(<span class="keyword">int</span> fd)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；如出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="函数lseek"><a href="#函数lseek" class="headerlink" title="函数lseek"></a>函数<code>lseek</code></h1><h3 id="当前文件偏移量-current-file-offset-：它通常是一个非负整数，用以度量从文件开始处计算的字节数。"><a href="#当前文件偏移量-current-file-offset-：它通常是一个非负整数，用以度量从文件开始处计算的字节数。" class="headerlink" title="当前文件偏移量(current file offset)：它通常是一个非负整数，用以度量从文件开始处计算的字节数。"></a>当前文件偏移量(current file offset)：它通常是一个非负整数，用以度量从文件开始处计算的字节数。</h3><h3 id="调用lseek显式的为一个打开文件设置偏移量。"><a href="#调用lseek显式的为一个打开文件设置偏移量。" class="headerlink" title="调用lseek显式的为一个打开文件设置偏移量。"></a>调用<code>lseek</code>显式的为一个打开文件设置偏移量。</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">off_t</span> <span class="title">lseek</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">off_t</span> offset, <span class="keyword">int</span> whence)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若辰宫，返回新的文件偏移量；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<p>对参数<code>offset</code>的解释与参数<code>whence</code>的值有关。</p>
+<ul>
+<li>若<code>whence</code>是<code>SEEK_SET</code>，则经该文件的偏移量设置为距文件开始处<code>offset</code>个字节。</li>
+<li>若<code>whence</code>是<code>SEEK_CUR</code>，则经该文件的偏移量设置为其当前量增加<code>offset</code>，<code>offset</code>可为正或负。</li>
+<li>若<code>whence</code>是<code>SEEK_END</code>，则经该文件的偏移量设置为文件长度加<code>offset</code>，<code>offset</code>可正可负。</li>
+</ul>
+<h1 id="函数read"><a href="#函数read" class="headerlink" title="函数read"></a>函数<code>read</code></h1><h3 id="调用read函数从打开文件中读数据。"><a href="#调用read函数从打开文件中读数据。" class="headerlink" title="调用read函数从打开文件中读数据。"></a>调用<code>read</code>函数从打开文件中读数据。</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">read</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> nbytes)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：读到的字节数，若已到文件尾，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<p>有多种情况可使实际读到的字节数少于要求读的字节数：</p>
+<ul>
+<li>读到普通文件时，在读到要求字计数之前已到达了文件微端。</li>
+<li>当从终端设备读时，通常一次最多读一行。</li>
+<li>当从网络读时，网络中的缓冲机制可能造成返回值小于所要求的字节数。</li>
+<li>当从管道或<code>FIFO</code>读时，如若管道包含的字节少于所需的数量，那么<code>read</code>将只返回实际可用的字节数。</li>
+<li>当从某些面向记录的设备读时，一次最多返回一个记录。</li>
+<li>当一信号造成中断，而已经读到部分数据量时。</li>
+</ul>
+<h1 id="函数write"><a href="#函数write" class="headerlink" title="函数write"></a>函数<code>write</code></h1><h3 id="调用write函数向打开文件写数据。"><a href="#调用write函数向打开文件写数据。" class="headerlink" title="调用write函数向打开文件写数据。"></a>调用<code>write</code>函数向打开文件写数据。</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> nbytes)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回已写的字节数；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="函数pread和pwrite"><a href="#函数pread和pwrite" class="headerlink" title="函数pread和pwrite"></a>函数<code>pread</code>和<code>pwrite</code></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">pread</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> nbytes. <span class="keyword">off_t</span> offset)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：读到的字节数，若已到文件尾，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">pwrite</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> nbytes, <span class="keyword">off_t</span> offset)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>调用<code>pread</code>相当于调用<code>lseek</code>后调用<code>read</code>，但是<code>pread</code>又与这种顺序调用有下列重要区别。</p>
+<ul>
+<li>调用<code>pread</code>时，无法中断其定位和都读操作。</li>
+<li>不更新当前文件偏移量。<br>调用<code>pwrite</code>相当于调用<code>lseek</code>后调用<code>write</code>，但也与它们有类似的区别。</li>
+</ul>
+<blockquote>
+<p>原子操作(atomic operation)；指的是由多步组成一个一个操作。如果该操作原子地执行，则要么执行所有步骤，要么一步也不执行，不可能只执行所有步骤的一个子集。</p>
+</blockquote>
+<h1 id="函数dup和dup2"><a href="#函数dup和dup2" class="headerlink" title="函数dup和dup2"></a>函数<code>dup</code>和<code>dup2</code></h1><h3 id="复制一个现有的文件描述符"><a href="#复制一个现有的文件描述符" class="headerlink" title="复制一个现有的文件描述符"></a>复制一个现有的文件描述符</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dup</span><span class="params">(<span class="keyword">int</span> fd)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dup2</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">int</span> fd2)</span></span>;</span><br><span class="line"><span class="comment">/* 两函数的返回值：若成功，返回新的文件描述符；如出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="函数sync、fsync和fdatasync"><a href="#函数sync、fsync和fdatasync" class="headerlink" title="函数sync、fsync和fdatasync"></a>函数<code>sync</code>、<code>fsync</code>和<code>fdatasync</code></h1><blockquote>
+<p>内核通常先将数据复制到缓冲区中，然后排入队列，晚些时候写入磁盘。这种方法被称为<code>延迟写(delayed write)</code>.</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unitstd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fsync</span><span class="params">(<span class="keyword">int</span> fd)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fdatasync</span><span class="params">(<span class="keyword">int</span> fd)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sync</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>sync</code>只是将所有修改过的块缓冲区排入写队列，然后就返回，它并不等待实际写磁盘操作结束。<br><code>fsync</code>函数只对由文件描述符<code>fd</code>指定的一个文件起作用，并且等待写磁盘操作结束才返回。<br><code>fdatasync</code>函数类似于<code>fsync</code>，但它只影响文件的数据部分。</p>
+<h1 id="函数fcntl"><a href="#函数fcntl" class="headerlink" title="函数fcntl"></a>函数<code>fcntl</code></h1><h3 id="改变已经打开文件的属性。"><a href="#改变已经打开文件的属性。" class="headerlink" title="改变已经打开文件的属性。"></a>改变已经打开文件的属性。</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fcntl</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">int</span> cmd, ... <span class="comment">/* int arg */</span>)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，则依赖cmd，若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="fcntl函数有以下5种功能。"><a href="#fcntl函数有以下5种功能。" class="headerlink" title="fcntl函数有以下5种功能。"></a><code>fcntl</code>函数有以下5种功能。</h4><ol>
+<li>复制一个已有的描述符 (<code>cmd=F_DUPFD</code>或<code>F_DUPFD_CLOEXEC</code>)。</li>
+<li>获取/设置文件描述符标志 (<code>cmd=F_GETFD</code>或<code>F_SETFD</code>)。</li>
+<li>获取/设置文件状态标志 (<code>cmd=F_GETFL</code>或<code>F_SETFL</code>)。</li>
+<li>获取/设置异步I/O所有权 (<code>cmd=F_GETOWN</code>或<code>F_SETOWN</code>)。</li>
+<li>获取/设置记录锁 (<code>cmd=F_GETLK</code>或<code>F_SETLKW</code>)。</li>
+</ol>
+<p>|cmd|功能<br>|<br>|——|:—————————————————-|<br>|<code>F_DUPFD</code>|复制文件描述符<code>fd</code>。|<br>|<code>F_DUPFD_CLOEXEC</code>|复制文件描述符，设置与新描述符关联的<code>FD_CLOEXEC</code>文件描述符标志的值，返回新文件描述符。|<br>|<code>F_GETFD</code>|对应于<code>fd</code>的文件描述符标志作为函数值返回。|<br>|<code>F_SETFD</code>|对于<code>fd</code>设置文件描述符标志。|<br>|<code>F_GETFL</code>|对应于<code>fd</code>的文件状态标志作为函数值返回。|<br>|<code>F_SETFL</code>|将文件状态标志设置为第3个参数的值。可以更改的几个标志是：<code>O_APPEND</code>、<code>O_NONBLOCK</code>、<code>O_SYNC</code>、<code>O_DSYNC</code>、<code>O_RSYNC</code>、<code>O_FSYNC</code>、和<code>O_ASYNC</code>。|<br>|<code>F_GETOWN</code>|获取当前接收<code>SIGIO</code>和<code>SIGURG</code>信号进程ID或进程组ID。|<br>|<code>F_SETOWN</code>|设置接收<code>SIGIO</code>和<code>SIGURG</code>信号的进程ID或进程组ID。|</p>
+<h1 id="函数ioctl"><a href="#函数ioctl" class="headerlink" title="函数ioctl"></a>函数<code>ioctl</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt; /* System V */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/ioctl.h&gt;  /* BSD and Linux */</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ioctl</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">int</span> request, ...)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若出错，返回-1；若成功，返回其他值 */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="dev-fd"><a href="#dev-fd" class="headerlink" title="/dev/fd"></a><code>/dev/fd</code></h2><p>较新的系统都提供名为<code>/dev/fd</code>的目录，其目录项是名为0、1、2等的文件。打开文件<code>/dev/fdn</code>等效于复制描述符n(假设描述符n是打开的).</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="kaiiak 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="kaiiak 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/APUE/" rel="tag"># APUE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/28/%E7%BC%96%E8%AF%91apue-3e%E5%B9%B6%E8%A7%A3%E5%86%B3%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF/" rel="next" title="编译apue.3e并解决编译错误">
+                <i class="fa fa-chevron-left"></i> 编译apue.3e并解决编译错误
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/29/APUE_study_notes-Files_and_Directories/" rel="prev" title="APUE学习笔记——文件和目录">
+                APUE学习笔记——文件和目录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="kaiiak" />
+            
+              <p class="site-author-name" itemprop="name">kaiiak</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7Carchive">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kaiiak" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:aNxFi37X@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/iakmai" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/mzzzkkk" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数open和openat"><span class="nav-number">2.</span> <span class="nav-text">函数open和openat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fd参数吧open和openat函数区分开，共有3种可能性。"><span class="nav-number">2.0.1.</span> <span class="nav-text">fd参数吧open和openat函数区分开，共有3种可能性。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数creat"><span class="nav-number">3.</span> <span class="nav-text">函数creat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用函数creat创建一个新的文件"><span class="nav-number">3.0.1.</span> <span class="nav-text">调用函数creat创建一个新的文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数close"><span class="nav-number">4.</span> <span class="nav-text">函数close</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用close函数关闭一个打开文件"><span class="nav-number">4.0.1.</span> <span class="nav-text">调用close函数关闭一个打开文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数lseek"><span class="nav-number">5.</span> <span class="nav-text">函数lseek</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#当前文件偏移量-current-file-offset-：它通常是一个非负整数，用以度量从文件开始处计算的字节数。"><span class="nav-number">5.0.1.</span> <span class="nav-text">当前文件偏移量(current file offset)：它通常是一个非负整数，用以度量从文件开始处计算的字节数。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用lseek显式的为一个打开文件设置偏移量。"><span class="nav-number">5.0.2.</span> <span class="nav-text">调用lseek显式的为一个打开文件设置偏移量。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数read"><span class="nav-number">6.</span> <span class="nav-text">函数read</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用read函数从打开文件中读数据。"><span class="nav-number">6.0.1.</span> <span class="nav-text">调用read函数从打开文件中读数据。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数write"><span class="nav-number">7.</span> <span class="nav-text">函数write</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用write函数向打开文件写数据。"><span class="nav-number">7.0.1.</span> <span class="nav-text">调用write函数向打开文件写数据。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数pread和pwrite"><span class="nav-number">7.1.</span> <span class="nav-text">函数pread和pwrite</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数dup和dup2"><span class="nav-number">8.</span> <span class="nav-text">函数dup和dup2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复制一个现有的文件描述符"><span class="nav-number">8.0.1.</span> <span class="nav-text">复制一个现有的文件描述符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数sync、fsync和fdatasync"><span class="nav-number">9.</span> <span class="nav-text">函数sync、fsync和fdatasync</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数fcntl"><span class="nav-number">10.</span> <span class="nav-text">函数fcntl</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变已经打开文件的属性。"><span class="nav-number">10.0.1.</span> <span class="nav-text">改变已经打开文件的属性。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fcntl函数有以下5种功能。"><span class="nav-number">10.0.1.1.</span> <span class="nav-text">fcntl函数有以下5种功能。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数ioctl"><span class="nav-number">11.</span> <span class="nav-text">函数ioctl</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dev-fd"><span class="nav-number">11.1.</span> <span class="nav-text">&#x2F;dev&#x2F;fd</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-KAIIAK fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kaiiak</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://https-blog-iakmai-com.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://blog.iakmai.com/2016/02/25/APUE_study_notes-Files_IO/';
+          this.page.identifier = '2016/02/25/APUE_study_notes-Files_IO/';
+          this.page.title = 'APUE学习笔记——文件IO';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-blog-iakmai-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
