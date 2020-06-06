@@ -26,8 +26,7 @@ jobs:
           node-version: "14"
       - run: npm install
       - run: npm test
-      - run: npm install hexo --save
-      # - run: curl -L -O https://github.com/iissnan/hexo-theme-next/archive/v5.1.4.zip && unzip v5.1.4.zip -d themes/next
+      - run: curl -L -O https://github.com/iissnan/hexo-theme-next/archive/v5.1.4.zip && unzip v5.1.4.zip -d themes/next
 
       # Runs a single command using the runners shell
       - name: deploy generated files
