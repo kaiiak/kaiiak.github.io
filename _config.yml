@@ -12,7 +12,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://blog.iakmai.com/
+url: https://blog.iakmai.com/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -63,7 +63,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 Plugins:
-- hexo-generator-feed
+- hexo-feed
 ## Themes: https://hexo.io/themes/
 theme: next
 
@@ -92,4 +92,4 @@ jsonContent:
     permalink: false
     excerpt: false
     categories: false
-    tags: true
+    /tags: true
