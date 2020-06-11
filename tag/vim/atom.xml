@@ -4,20 +4,21 @@
     <title>KAIIAK • Posts by &#34;vim&#34; tag</title>
     <link href="https://blog.iakmai.com" />
     <updated>2016-03-06T09:59:39.000Z</updated>
+    <category term="GOLANG" />
+    <category term="DOCKER" />
     <category term="Linux" />
     <category term="APUE" />
     <category term="随笔" />
-    <category term="vim" />
-    <category term="YouCompleteMe" />
     <category term="C" />
     <category term="ACM" />
     <category term="ZOJ" />
-    <category term="GOLANG" />
-    <category term="SMTP" />
+    <category term="vim" />
+    <category term="YouCompleteMe" />
     <category term="Eclipse" />
     <category term="PyDev" />
+    <category term="SMTP" />
+    <category term="FFMPEG" />
     <category term="NSQ" />
-    <category term="DOCKER" />
     <category term="sqlite" />
     <category term="tree" />
     <category term="vlc" />
@@ -26,11 +27,10 @@
     <category term="树莓派" />
     <category term="PRI.GPIO" />
     <category term="Xshell" />
-    <category term="lirc" />
     <category term="openWRT" />
+    <category term="lirc" />
     <category term="Hexo主题" />
     <category term="pylirc" />
-    <category term="FFMPEG" />
     <entry>
         <id>https://blog.iakmai.com/2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/</id>
         <title>安装vim插件YouCompleteMe</title>

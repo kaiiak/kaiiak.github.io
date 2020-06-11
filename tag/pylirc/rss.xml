@@ -7,20 +7,21 @@
         <language>zh-Hans</language>
         <pubDate>Sat, 14 Nov 2015 20:39:40 +0800</pubDate>
         <lastBuildDate>Sat, 14 Nov 2015 20:39:40 +0800</lastBuildDate>
+        <category>GOLANG</category>
+        <category>DOCKER</category>
         <category>Linux</category>
         <category>APUE</category>
         <category>随笔</category>
-        <category>vim</category>
-        <category>YouCompleteMe</category>
         <category>C</category>
         <category>ACM</category>
         <category>ZOJ</category>
-        <category>GOLANG</category>
-        <category>SMTP</category>
+        <category>vim</category>
+        <category>YouCompleteMe</category>
         <category>Eclipse</category>
         <category>PyDev</category>
+        <category>SMTP</category>
+        <category>FFMPEG</category>
         <category>NSQ</category>
-        <category>DOCKER</category>
         <category>sqlite</category>
         <category>tree</category>
         <category>vlc</category>
@@ -29,11 +30,10 @@
         <category>树莓派</category>
         <category>PRI.GPIO</category>
         <category>Xshell</category>
-        <category>lirc</category>
         <category>openWRT</category>
+        <category>lirc</category>
         <category>Hexo主题</category>
         <category>pylirc</category>
-        <category>FFMPEG</category>
         <item>
             <guid isPermalink="true">https://blog.iakmai.com/2015/11/14/%E9%80%9A%E8%BF%87pylirc%E5%AE%9E%E7%8E%B0%E7%BA%A2%E5%A4%96%E6%8E%A7%E5%88%B6/</guid>
             <title>通过pylirc实现红外控制</title>

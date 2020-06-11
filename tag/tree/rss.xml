@@ -7,20 +7,21 @@
         <language>zh-Hans</language>
         <pubDate>Sun, 27 Mar 2016 17:30:30 +0800</pubDate>
         <lastBuildDate>Sun, 27 Mar 2016 17:30:30 +0800</lastBuildDate>
+        <category>GOLANG</category>
+        <category>DOCKER</category>
         <category>Linux</category>
         <category>APUE</category>
         <category>随笔</category>
-        <category>vim</category>
-        <category>YouCompleteMe</category>
         <category>C</category>
         <category>ACM</category>
         <category>ZOJ</category>
-        <category>GOLANG</category>
-        <category>SMTP</category>
+        <category>vim</category>
+        <category>YouCompleteMe</category>
         <category>Eclipse</category>
         <category>PyDev</category>
+        <category>SMTP</category>
+        <category>FFMPEG</category>
         <category>NSQ</category>
-        <category>DOCKER</category>
         <category>sqlite</category>
         <category>tree</category>
         <category>vlc</category>
@@ -29,11 +30,10 @@
         <category>树莓派</category>
         <category>PRI.GPIO</category>
         <category>Xshell</category>
-        <category>lirc</category>
         <category>openWRT</category>
+        <category>lirc</category>
         <category>Hexo主题</category>
         <category>pylirc</category>
-        <category>FFMPEG</category>
         <item>
             <guid isPermalink="true">https://blog.iakmai.com/2016/03/27/tree_command_source_code_analyze/</guid>
             <title>tree命令源码分析</title>

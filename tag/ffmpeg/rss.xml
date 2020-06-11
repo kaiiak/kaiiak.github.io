@@ -7,20 +7,21 @@
         <language>zh-Hans</language>
         <pubDate>Sat, 06 Jun 2020 17:27:04 +0800</pubDate>
         <lastBuildDate>Sat, 06 Jun 2020 17:27:04 +0800</lastBuildDate>
+        <category>GOLANG</category>
+        <category>DOCKER</category>
         <category>Linux</category>
         <category>APUE</category>
         <category>随笔</category>
-        <category>vim</category>
-        <category>YouCompleteMe</category>
         <category>C</category>
         <category>ACM</category>
         <category>ZOJ</category>
-        <category>GOLANG</category>
-        <category>SMTP</category>
+        <category>vim</category>
+        <category>YouCompleteMe</category>
         <category>Eclipse</category>
         <category>PyDev</category>
+        <category>SMTP</category>
+        <category>FFMPEG</category>
         <category>NSQ</category>
-        <category>DOCKER</category>
         <category>sqlite</category>
         <category>tree</category>
         <category>vlc</category>
@@ -29,11 +30,10 @@
         <category>树莓派</category>
         <category>PRI.GPIO</category>
         <category>Xshell</category>
-        <category>lirc</category>
         <category>openWRT</category>
+        <category>lirc</category>
         <category>Hexo主题</category>
         <category>pylirc</category>
-        <category>FFMPEG</category>
         <item>
             <guid isPermalink="true">https://blog.iakmai.com/2020/06/06/mp3-to-pcm/</guid>
             <title>Golang调用FFMPEG实现MP3转PCM</title>
@@ -41,7 +41,8 @@
             <category>GOLANG</category>
             <category>FFMPEG</category>
             <pubDate>Sat, 06 Jun 2020 17:27:04 +0800</pubDate>
-            <description><![CDATA[ &lt;script src=&#34;https://gist.github.com/kaiiak/4e5f058f4289153a525a54fbc43e756a.js&#34;&gt;&lt;/script&gt; ]]></description>
+            <description><![CDATA[ &lt;p&gt;&lt;em&gt;如果代码加载不出来，请科学上网来使用Github Gist&lt;/em&gt;&lt;/p&gt;
+&lt;script src=&#34;https://gist.github.com/kaiiak/4e5f058f4289153a525a54fbc43e756a.js&#34;&gt;&lt;/script&gt; ]]></description>
         </item>
     </channel>
 </rss>

@@ -7,20 +7,21 @@
         <language>zh-Hans</language>
         <pubDate>Sat, 31 Oct 2015 21:10:19 +0800</pubDate>
         <lastBuildDate>Sat, 31 Oct 2015 21:10:19 +0800</lastBuildDate>
+        <category>GOLANG</category>
+        <category>DOCKER</category>
         <category>Linux</category>
         <category>APUE</category>
         <category>随笔</category>
-        <category>vim</category>
-        <category>YouCompleteMe</category>
         <category>C</category>
         <category>ACM</category>
         <category>ZOJ</category>
-        <category>GOLANG</category>
-        <category>SMTP</category>
+        <category>vim</category>
+        <category>YouCompleteMe</category>
         <category>Eclipse</category>
         <category>PyDev</category>
+        <category>SMTP</category>
+        <category>FFMPEG</category>
         <category>NSQ</category>
-        <category>DOCKER</category>
         <category>sqlite</category>
         <category>tree</category>
         <category>vlc</category>
@@ -29,11 +30,10 @@
         <category>树莓派</category>
         <category>PRI.GPIO</category>
         <category>Xshell</category>
-        <category>lirc</category>
         <category>openWRT</category>
+        <category>lirc</category>
         <category>Hexo主题</category>
         <category>pylirc</category>
-        <category>FFMPEG</category>
         <item>
             <guid isPermalink="true">https://blog.iakmai.com/2015/10/31/%E5%85%B3%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BElirc%E7%9A%84%E9%85%8D%E7%BD%AE/</guid>
             <title>关于树莓派lirc的配置</title>
