@@ -72,8 +72,7 @@ theme: next
 deploy:
   type: git
   repo: git@github.com:kaiiak/kaiiak.github.io.git
-  # branch: gh-pages
-  branch: master
+  branch: gh-pages
 
 jsonContent:
   meta: false
