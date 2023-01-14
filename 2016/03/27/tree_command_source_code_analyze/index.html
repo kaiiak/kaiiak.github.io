@@ -1,781 +1,398 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.iakmai.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Linux,tree," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="为什么选择tree这个命令？学完APUE的前几章，学完了IO和文件与目录，我们可以做点东西出来了。而借鉴别人的程序就是做出东西的选择之一。 如何下载源代码http:&#x2F;&#x2F;mama.indstate.edu&#x2F;users&#x2F;ice&#x2F;tree&#x2F;src&#x2F;tree-1.7.0.tgz这个链接可以下载到最新的tree源代码，也可以编译成功。 怎么分析源代码这是个很大的问题，暂时我还没有太多的经验 :( 我们的目的">
-<meta property="og:type" content="article">
+    <meta name="description" content="为什么选择tree这个命令？学完APUE的前几章，学完了IO和文件与目录，我们可以做点东西出来了。而借鉴别人的程序就是做出东西的选择之一。 如何下载源代码http:&#x2F;&#x2F;mama.indstate.edu&#x2F;users&#x2F;ice&#x2F;tree&#x2F;src&#x2F;tree-1.7.0.tgz这个链接可以下载到最新的tree源代码，也可以编译成功。 怎么分析源代码这是个很大的问题，暂时我还没有太多的经验 :( 我们的目的">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="tree命令源码分析">
 <meta property="og:url" content="https://blog.iakmai.com/2016/03/27/tree_command_source_code_analyze/index.html">
 <meta property="og:site_name" content="KAIIAK">
 <meta property="og:description" content="为什么选择tree这个命令？学完APUE的前几章，学完了IO和文件与目录，我们可以做点东西出来了。而借鉴别人的程序就是做出东西的选择之一。 如何下载源代码http:&#x2F;&#x2F;mama.indstate.edu&#x2F;users&#x2F;ice&#x2F;tree&#x2F;src&#x2F;tree-1.7.0.tgz这个链接可以下载到最新的tree源代码，也可以编译成功。 怎么分析源代码这是个很大的问题，暂时我还没有太多的经验 :( 我们的目的">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-03-27T09:30:30.000Z">
-<meta property="article:modified_time" content="2020-05-26T15:44:49.380Z">
+<meta property="article:modified_time" content="2023-01-14T08:34:54.553Z">
 <meta property="article:author" content="kaiiak">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="tree">
 <meta name="twitter:card" content="summary">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+<link rel="canonical" href="https://blog.iakmai.com/2016/03/27/tree_command_source_code_analyze/">
 
 
 
-  <link rel="canonical" href="https://blog.iakmai.com/2016/03/27/tree_command_source_code_analyze/"/>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.iakmai.com/2016/03/27/tree_command_source_code_analyze/","path":"/2016/03/27/tree_command_source_code_analyze/","title":"tree命令源码分析"}</script>
 
-
-
-
-
-  <title>tree命令源码分析 | KAIIAK</title>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>tree命令源码分析 | KAIIAK</title>
   
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EDK6BZBWNK"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-EDK6BZBWNK","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
 
 
 
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-122316693-1', 'auto');
-  ga('send', 'pageview');
-</script>
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{&quot;token&quot;: &quot;5fda3177f3ce4ab4adf59b357edf21f9&quot;}'></script>
 
 
 
+  <script async defer data-website-id="" src=""></script>
 
+  <script defer data-domain="" src=""></script>
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="KAIIAK" type="application/atom+xml">
+</head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">KAIIAK</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-      
-        <h1 class="site-subtitle" itemprop="description">啦啦啦~我是卖萌的小行家~</h1>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">KAIIAK</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个不知道该写什么的人</p>
+      <img class="custom-logo-image" src="/images/favicon-32x32.png" alt="KAIIAK">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+    </div>
+  </div>
 
-  <div id="posts" class="posts-expand">
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9tree%E8%BF%99%E4%B8%AA%E5%91%BD%E4%BB%A4%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">为什么选择tree这个命令？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BD%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">如何下载源代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E5%88%86%E6%9E%90%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">怎么分析源代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="nav-number">4.</span> <span class="nav-text">我们的目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%84%E9%83%A8%E5%88%86%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">各部分的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Makefile"><span class="nav-number">5.1.</span> <span class="nav-text">Makefile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BA%8F-%E9%81%8D%E5%8E%86%E7%9B%AE%E5%BD%95"><span class="nav-number">5.2.</span> <span class="nav-text">核心程序-遍历目录</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kaiiak"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">kaiiak</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kaiiak" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kaiiak" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/aNxFi37X@outlook.com" title="E-Mail → aNxFi37X@outlook.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/iakmai" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;iakmai" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/4281317" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;4281317" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
     
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
 
   
 
-  
+
+<div class="post-block">
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.iakmai.com/2016/03/27/tree_command_source_code_analyze/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kaiiak">
-      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaiiak">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="KAIIAK">
+      <meta itemprop="description" content="">
     </span>
 
-    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="tree命令源码分析 | KAIIAK">
+      <meta itemprop="description" content="">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          tree命令源码分析
+        </h1>
 
-        
-        
-          <h2 class="post-title" itemprop="name headline">tree命令源码分析</h2>
-        
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-27T17:30:30+08:00">
-                2016-03-27
-              </time>
-            
+      <time title="创建时间：2016-03-27 17:30:30" itemprop="dateCreated datePublished" datetime="2016-03-27T17:30:30+08:00">2016-03-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-14 16:34:54" itemprop="dateModified" datetime="2023-01-14T16:34:54+08:00">2023-01-14</time>
+    </span>
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/03/27/tree_command_source_code_analyze/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2016/03/27/tree_command_source_code_analyze/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/03/27/tree_command_source_code_analyze/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/2016/03/27/tree_command_source_code_analyze/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
         <h1 id="为什么选择tree这个命令？"><a href="#为什么选择tree这个命令？" class="headerlink" title="为什么选择tree这个命令？"></a>为什么选择tree这个命令？</h1><p>学完APUE的前几章，学完了IO和文件与目录，我们可以做点东西出来了。而借鉴别人的程序就是做出东西的选择之一。</p>
-<h1 id="如何下载源代码"><a href="#如何下载源代码" class="headerlink" title="如何下载源代码"></a>如何下载源代码</h1><p><a href="http://mama.indstate.edu/users/ice/tree/src/tree-1.7.0.tgz]" target="_blank" rel="noopener">http://mama.indstate.edu/users/ice/tree/src/tree-1.7.0.tgz</a>这个链接可以下载到最新的tree源代码，也可以编译成功。</p>
+<h1 id="如何下载源代码"><a href="#如何下载源代码" class="headerlink" title="如何下载源代码"></a>如何下载源代码</h1><p><a target="_blank" rel="noopener" href="http://mama.indstate.edu/users/ice/tree/src/tree-1.7.0.tgz]">http://mama.indstate.edu/users/ice/tree/src/tree-1.7.0.tgz</a>这个链接可以下载到最新的tree源代码，也可以编译成功。</p>
 <h1 id="怎么分析源代码"><a href="#怎么分析源代码" class="headerlink" title="怎么分析源代码"></a>怎么分析源代码</h1><p>这是个很大的问题，暂时我还没有太多的经验 :(</p>
 <h1 id="我们的目的"><a href="#我们的目的" class="headerlink" title="我们的目的"></a>我们的目的</h1><p>我们的目的暂时定为搞懂如何遍历所有的目录，并输出。</p>
-<h1 id="各部分的作用"><a href="#各部分的作用" class="headerlink" title="各部分的作用"></a>各部分的作用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">tree-1.7.0</span><br><span class="line">├── color.c</span><br><span class="line">├── hash.c</span><br><span class="line">├── html.c</span><br><span class="line">├── INSTALL</span><br><span class="line">├── json.c</span><br><span class="line">├── LICENSE</span><br><span class="line">├── Makefile</span><br><span class="line">├── strverscmp.c</span><br><span class="line">├── tree.c</span><br><span class="line">├── tree.h</span><br><span class="line">├── unix.c</span><br><span class="line">└── xml.c</span><br></pre></td></tr></table></figure>
+<h1 id="各部分的作用"><a href="#各部分的作用" class="headerlink" title="各部分的作用"></a>各部分的作用</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">tree-1.7.0</span><br><span class="line">├── color.c</span><br><span class="line">├── hash.c</span><br><span class="line">├── html.c</span><br><span class="line">├── INSTALL</span><br><span class="line">├── json.c</span><br><span class="line">├── LICENSE</span><br><span class="line">├── Makefile</span><br><span class="line">├── strverscmp.c</span><br><span class="line">├── tree.c</span><br><span class="line">├── tree.h</span><br><span class="line">├── unix.c</span><br><span class="line">└── xml.c</span><br></pre></td></tr></table></figure>
 <p>核心的就是这几个文件。其中<code>unix.c</code>和<code>tree.c</code>是遍历功能的主要函数的所在地。</p>
-<h2 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h2><figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">prefix = /usr</span><br><span class="line"></span><br><span class="line">CC=gcc</span><br><span class="line"></span><br><span class="line">VERSION=1.7.0</span><br><span class="line">TREE_DEST=tree</span><br><span class="line">BINDIR=$&#123;prefix&#125;/bin</span><br><span class="line">MAN=tree.1</span><br><span class="line">MANDIR=$&#123;prefix&#125;/man/man1</span><br><span class="line">OBJS=tree.o unix.o html.o xml.o json.o hash.o color.o</span><br><span class="line"></span><br><span class="line"><span class="comment"># Uncomment options below for your particular OS:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Linux defaults:</span></span><br><span class="line">CFLAGS=-ggdb -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64</span><br><span class="line"><span class="comment">#CFLAGS=-O4 -Wall  -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64</span></span><br><span class="line"><span class="comment">#LDFLAGS=-s</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="section">all:    tree</span></span><br><span class="line"></span><br><span class="line"><span class="section">tree:   <span class="variable">$(OBJS)</span></span></span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(LDFLAGS)</span> -o <span class="variable">$(TREE_DEST)</span> <span class="variable">$(OBJS)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$(OBJS)</span>: %.o:   %.c tree.h</span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> -c -o <span class="variable">$@</span> <span class="variable">$&lt;</span></span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">    if [ -x <span class="variable">$(TREE_DEST)</span> ]; then rm <span class="variable">$(TREE_DEST)</span>; fi</span><br><span class="line">    if [ -f tree.o ]; then rm *.o; fi</span><br><span class="line">    rm -f *~</span><br><span class="line"></span><br><span class="line"><span class="section">install: tree</span></span><br><span class="line">    install -d <span class="variable">$(BINDIR)</span></span><br><span class="line">    install -d <span class="variable">$(MANDIR)</span></span><br><span class="line">    if [ -e <span class="variable">$(TREE_DEST)</span> ]; then \</span><br><span class="line">        install <span class="variable">$(TREE_DEST)</span> <span class="variable">$(BINDIR)</span>/<span class="variable">$(TREE_DEST)</span>; \</span><br><span class="line">    fi</span><br><span class="line">    install doc/<span class="variable">$(MAN)</span> <span class="variable">$(MANDIR)</span>/<span class="variable">$(MAN)</span></span><br><span class="line"></span><br><span class="line"><span class="section">distclean:</span></span><br><span class="line">    if [ -f tree.o ]; then rm *.o; fi</span><br><span class="line">    rm -f *~</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="section">dist:   distclean</span></span><br><span class="line">    tar zcf ../tree-<span class="variable">$(VERSION)</span>.tgz -C .. `cat .tarball`</span><br></pre></td></tr></table></figure>
+<h2 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h2><figure class="highlight mk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">prefix = /usr</span><br><span class="line"></span><br><span class="line">CC=gcc</span><br><span class="line"></span><br><span class="line">VERSION=1.7.0</span><br><span class="line">TREE_DEST=tree</span><br><span class="line">BINDIR=$&#123;prefix&#125;/bin</span><br><span class="line">MAN=tree.1</span><br><span class="line">MANDIR=$&#123;prefix&#125;/man/man1</span><br><span class="line">OBJS=tree.o unix.o html.o xml.o json.o hash.o color.o</span><br><span class="line"></span><br><span class="line"><span class="comment"># Uncomment options below for your particular OS:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Linux defaults:</span></span><br><span class="line">CFLAGS=-ggdb -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64</span><br><span class="line"><span class="comment">#CFLAGS=-O4 -Wall  -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64</span></span><br><span class="line"><span class="comment">#LDFLAGS=-s</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="section">all:    tree</span></span><br><span class="line"></span><br><span class="line"><span class="section">tree:   <span class="variable">$(OBJS)</span></span></span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(LDFLAGS)</span> -o <span class="variable">$(TREE_DEST)</span> <span class="variable">$(OBJS)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$(OBJS)</span>: %.o:   %.c tree.h</span><br><span class="line">    <span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> -c -o <span class="variable">$@</span> <span class="variable">$&lt;</span></span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">    if [ -x <span class="variable">$(TREE_DEST)</span> ]; then rm <span class="variable">$(TREE_DEST)</span>; fi</span><br><span class="line">    if [ -f tree.o ]; then rm *.o; fi</span><br><span class="line">    rm -f *~</span><br><span class="line"></span><br><span class="line"><span class="section">install: tree</span></span><br><span class="line">    install -d <span class="variable">$(BINDIR)</span></span><br><span class="line">    install -d <span class="variable">$(MANDIR)</span></span><br><span class="line">    if [ -e <span class="variable">$(TREE_DEST)</span> ]; then \</span><br><span class="line">        install <span class="variable">$(TREE_DEST)</span> <span class="variable">$(BINDIR)</span>/<span class="variable">$(TREE_DEST)</span>; \</span><br><span class="line">    fi</span><br><span class="line">    install doc/<span class="variable">$(MAN)</span> <span class="variable">$(MANDIR)</span>/<span class="variable">$(MAN)</span></span><br><span class="line"></span><br><span class="line"><span class="section">distclean:</span></span><br><span class="line">    if [ -f tree.o ]; then rm *.o; fi</span><br><span class="line">    rm -f *~</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="section">dist:   distclean</span></span><br><span class="line">    tar zcf ../tree-<span class="variable">$(VERSION)</span>.tgz -C .. `cat .tarball`</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="核心程序-遍历目录"><a href="#核心程序-遍历目录" class="headerlink" title="核心程序-遍历目录"></a>核心程序-遍历目录</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//存储文件和文件夹信息的结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">info</span> &#123;</span></span><br><span class="line">  <span class="keyword">char</span> *name;   /</span><br><span class="line">  <span class="keyword">char</span> *lnk;</span><br><span class="line">  <span class="keyword">bool</span> isdir;</span><br><span class="line">  <span class="keyword">bool</span> issok;</span><br><span class="line">  <span class="keyword">bool</span> isfifo;</span><br><span class="line">  <span class="keyword">bool</span> isexe;</span><br><span class="line">  <span class="keyword">bool</span> orphan;</span><br><span class="line">  <span class="keyword">mode_t</span> mode, lnkmode;</span><br><span class="line">  <span class="keyword">uid_t</span> uid;</span><br><span class="line">  <span class="keyword">gid_t</span> gid;</span><br><span class="line">  <span class="keyword">off_t</span> <span class="built_in">size</span>;</span><br><span class="line">  <span class="keyword">time_t</span> atime, ctime, mtime;</span><br><span class="line">  <span class="keyword">dev_t</span> dev;</span><br><span class="line">  <span class="keyword">ino_t</span> inode;</span><br><span class="line">  <span class="meta">#<span class="meta-keyword">ifdef</span> __EMX__</span></span><br><span class="line">  <span class="keyword">long</span> attr;</span><br><span class="line">  <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">  <span class="keyword">char</span> *err;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">info</span> **<span class="title">child</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="核心程序-遍历目录"><a href="#核心程序-遍历目录" class="headerlink" title="核心程序-遍历目录"></a>核心程序-遍历目录</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//存储文件和文件夹信息的结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">info</span> &#123;</span></span><br><span class="line">  <span class="type">char</span> *name;   /</span><br><span class="line">  <span class="type">char</span> *lnk;</span><br><span class="line">  <span class="type">bool</span> isdir;</span><br><span class="line">  <span class="type">bool</span> issok;</span><br><span class="line">  <span class="type">bool</span> isfifo;</span><br><span class="line">  <span class="type">bool</span> isexe;</span><br><span class="line">  <span class="type">bool</span> orphan;</span><br><span class="line">  <span class="type">mode_t</span> mode, lnkmode;</span><br><span class="line">  <span class="type">uid_t</span> uid;</span><br><span class="line">  <span class="type">gid_t</span> gid;</span><br><span class="line">  <span class="type">off_t</span> size;</span><br><span class="line">  <span class="type">time_t</span> atime, ctime, mtime;</span><br><span class="line">  <span class="type">dev_t</span> dev;</span><br><span class="line">  <span class="type">ino_t</span> inode;</span><br><span class="line">  <span class="meta">#<span class="keyword">ifdef</span> __EMX__</span></span><br><span class="line">  <span class="type">long</span> attr;</span><br><span class="line">  <span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">  <span class="type">char</span> *err;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">info</span> **<span class="title">child</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">off_t</span> <span class="title">unix_listdir</span><span class="params">(<span class="keyword">char</span> *d, <span class="keyword">int</span> *dt, <span class="keyword">int</span> *ft, u_long lev, <span class="keyword">dev_t</span> dev)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> *path;</span><br><span class="line">  <span class="keyword">bool</span> nlf = FALSE, colored = FALSE;</span><br><span class="line">  <span class="keyword">long</span> pathsize = <span class="number">0</span>;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">info</span> **<span class="title">dir</span>, **<span class="title">sav</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">stat</span> <span class="title">sb</span>;</span></span><br><span class="line">  <span class="keyword">int</span> n, c;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> ((Level &gt;= <span class="number">0</span>) &amp;&amp; (lev &gt; Level)) &#123;</span><br><span class="line">    fputc(<span class="string">'\n'</span>,outfile);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (xdev &amp;&amp; lev == <span class="number">0</span>) &#123;</span><br><span class="line">    stat(d,&amp;sb);</span><br><span class="line">    dev = sb.st_dev;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  sav = dir = read_dir(d,&amp;n);</span><br><span class="line">  <span class="keyword">if</span> (!dir &amp;&amp; n) &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(outfile,<span class="string">" [error opening dir]\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (!n) &#123;</span><br><span class="line">    fputc(<span class="string">'\n'</span>, outfile);</span><br><span class="line">    free_dir(sav);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (flimit &gt; <span class="number">0</span> &amp;&amp; n &gt; flimit) &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(outfile,<span class="string">" [%d entries exceeds filelimit, not opening dir]\n"</span>,n);</span><br><span class="line">    free_dir(sav);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (cmpfunc) qsort(dir,n,<span class="keyword">sizeof</span>(struct _info *), cmpfunc);</span><br><span class="line">  <span class="keyword">if</span> (lev &gt;= maxdirs<span class="number">-1</span>) &#123;</span><br><span class="line">    dirs = xrealloc(dirs,<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * (maxdirs += <span class="number">1024</span>));</span><br><span class="line">    <span class="built_in">memset</span>(dirs+(maxdirs<span class="number">-1024</span>), <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="keyword">int</span>) * <span class="number">1024</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  dirs[lev] = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (!*(dir+<span class="number">1</span>)) dirs[lev] = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">fprintf</span>(outfile,<span class="string">"\n"</span>);</span><br><span class="line">  </span><br><span class="line">  path = <span class="built_in">malloc</span>(pathsize=<span class="number">4096</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">while</span>(*dir) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!noindent) indent(lev);</span><br><span class="line"></span><br><span class="line">    fillinfo(path,*dir);</span><br><span class="line">    <span class="keyword">if</span> (path[<span class="number">0</span>] == <span class="string">' '</span>) &#123;</span><br><span class="line">      path[<span class="number">0</span>] = <span class="string">'['</span>;</span><br><span class="line">      <span class="built_in">fprintf</span>(outfile, <span class="string">"%s]  "</span>,path);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (colorize) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((*dir)-&gt;lnk &amp;&amp; linktargetcolor) colored = color((*dir)-&gt;lnkmode,(*dir)-&gt;name,(*dir)-&gt;orphan,FALSE);</span><br><span class="line">      <span class="keyword">else</span> colored = color((*dir)-&gt;mode,(*dir)-&gt;name,(*dir)-&gt;orphan,FALSE);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (fflag) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">2</span>) &gt; pathsize)</span><br><span class="line">    path=xrealloc(path,pathsize=(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>)));</span><br><span class="line">      <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(d,<span class="string">"/"</span>)) <span class="built_in">sprintf</span>(path,<span class="string">"%s%s"</span>,d,(*dir)-&gt;name);</span><br><span class="line">      <span class="keyword">else</span> <span class="built_in">sprintf</span>(path,<span class="string">"%s/%s"</span>,d,(*dir)-&gt;name);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * (<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1</span>) &gt; pathsize)</span><br><span class="line">    path=xrealloc(path,pathsize=(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * (<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>)));</span><br><span class="line">      <span class="built_in">sprintf</span>(path,<span class="string">"%s"</span>,(*dir)-&gt;name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    printit(path);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (colored) <span class="built_in">fprintf</span>(outfile,<span class="string">"%s"</span>,endcode);</span><br><span class="line">    <span class="keyword">if</span> (Fflag &amp;&amp; !(*dir)-&gt;lnk) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((c = Ftype((*dir)-&gt;mode))) fputc(c, outfile);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((*dir)-&gt;lnk) &#123;</span><br><span class="line">      <span class="built_in">fprintf</span>(outfile,<span class="string">" -&gt; "</span>);</span><br><span class="line">      <span class="keyword">if</span> (colorize) colored = color((*dir)-&gt;lnkmode,(*dir)-&gt;lnk,(*dir)-&gt;orphan,TRUE);</span><br><span class="line">      printit((*dir)-&gt;lnk);</span><br><span class="line">      <span class="keyword">if</span> (colored) <span class="built_in">fprintf</span>(outfile,<span class="string">"%s"</span>,endcode);</span><br><span class="line">      <span class="keyword">if</span> (Fflag) &#123;</span><br><span class="line">    <span class="keyword">if</span> ((c = Ftype((*dir)-&gt;lnkmode))) fputc(c, outfile);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((*dir)-&gt;isdir) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((*dir)-&gt;lnk) &#123;</span><br><span class="line">    <span class="keyword">if</span> (lflag &amp;&amp; !(xdev &amp;&amp; dev != (*dir)-&gt;dev)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (findino((*dir)-&gt;inode,(*dir)-&gt;dev)) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(outfile,<span class="string">"  [recursive, not followed]"</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        saveino((*dir)-&gt;inode, (*dir)-&gt;dev);</span><br><span class="line">        <span class="keyword">if</span> (*(*dir)-&gt;lnk == <span class="string">'/'</span>)</span><br><span class="line">          listdir((*dir)-&gt;lnk,dt,ft,lev+<span class="number">1</span>,dev);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;lnk)+<span class="number">2</span> &gt; pathsize) path=xrealloc(path,pathsize=(<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>));</span><br><span class="line">          <span class="keyword">if</span> (fflag &amp;&amp; !<span class="built_in">strcmp</span>(d,<span class="string">"/"</span>)) <span class="built_in">sprintf</span>(path,<span class="string">"%s%s"</span>,d,(*dir)-&gt;lnk);</span><br><span class="line">          <span class="keyword">else</span> <span class="built_in">sprintf</span>(path,<span class="string">"%s/%s"</span>,d,(*dir)-&gt;lnk);</span><br><span class="line">          listdir(path,dt,ft,lev+<span class="number">1</span>,dev);</span><br><span class="line">        &#125;</span><br><span class="line">        nlf = TRUE;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!(xdev &amp;&amp; dev != (*dir)-&gt;dev)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">2</span> &gt; pathsize) path=xrealloc(path,pathsize=(<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>));</span><br><span class="line">    <span class="keyword">if</span> (fflag &amp;&amp; !<span class="built_in">strcmp</span>(d,<span class="string">"/"</span>)) <span class="built_in">sprintf</span>(path,<span class="string">"%s%s"</span>,d,(*dir)-&gt;name);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">sprintf</span>(path,<span class="string">"%s/%s"</span>,d,(*dir)-&gt;name);</span><br><span class="line">    saveino((*dir)-&gt;inode, (*dir)-&gt;dev);</span><br><span class="line">    listdir(path,dt,ft,lev+<span class="number">1</span>,dev);</span><br><span class="line">    nlf = TRUE;</span><br><span class="line">      &#125;</span><br><span class="line">      *dt += <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> *ft += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (*(dir+<span class="number">1</span>) &amp;&amp; !*(dir+<span class="number">2</span>)) dirs[lev] = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (nlf) nlf = FALSE;</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">fprintf</span>(outfile,<span class="string">"\n"</span>);</span><br><span class="line">    dir++;</span><br><span class="line">  &#125;</span><br><span class="line">  dirs[lev] = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">free</span>(path);</span><br><span class="line">  free_dir(sav);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">off_t</span> <span class="title">unix_rlistdir</span><span class="params">(<span class="keyword">char</span> *d, <span class="keyword">int</span> *dt, <span class="keyword">int</span> *ft, u_long lev, <span class="keyword">dev_t</span> dev)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">info</span> **<span class="title">dir</span>;</span></span><br><span class="line">  <span class="keyword">off_t</span> <span class="built_in">size</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">char</span> *err;</span><br><span class="line">  </span><br><span class="line">  dir = getfulltree(d, lev, dev, &amp;<span class="built_in">size</span>, &amp;err);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">memset</span>(dirs, <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="keyword">int</span>) * maxdirs);</span><br><span class="line"></span><br><span class="line">  r_listdir(dir, d, dt, ft, lev);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">size</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">r_listdir</span><span class="params">(struct _info **dir, <span class="keyword">char</span> *d, <span class="keyword">int</span> *dt, <span class="keyword">int</span> *ft, u_long lev)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> *path;</span><br><span class="line">  <span class="keyword">long</span> pathsize = <span class="number">0</span>;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">info</span> **<span class="title">sav</span> = <span class="title">dir</span>;</span></span><br><span class="line">  <span class="keyword">bool</span> nlf = FALSE, colored = FALSE;</span><br><span class="line">  <span class="keyword">int</span> c;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (dir == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  dirs[lev] = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (!*(dir+<span class="number">1</span>)) dirs[lev] = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">fprintf</span>(outfile,<span class="string">"\n"</span>);</span><br><span class="line"></span><br><span class="line">  path = <span class="built_in">malloc</span>(pathsize=<span class="number">4096</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span>(*dir) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!noindent) indent(lev);</span><br><span class="line">    </span><br><span class="line">    fillinfo(path,*dir);</span><br><span class="line">    <span class="keyword">if</span> (path[<span class="number">0</span>] == <span class="string">' '</span>) &#123;</span><br><span class="line">      path[<span class="number">0</span>] = <span class="string">'['</span>;</span><br><span class="line">      <span class="built_in">fprintf</span>(outfile, <span class="string">"%s]  "</span>,path);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (colorize) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((*dir)-&gt;lnk &amp;&amp; linktargetcolor) colored = color((*dir)-&gt;lnkmode,(*dir)-&gt;name,(*dir)-&gt;orphan,FALSE);</span><br><span class="line">      <span class="keyword">else</span> colored = color((*dir)-&gt;mode,(*dir)-&gt;name,(*dir)-&gt;orphan,FALSE);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (fflag) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">2</span>) &gt; pathsize)</span><br><span class="line">    path=xrealloc(path,pathsize=(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>)));</span><br><span class="line">      <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(d,<span class="string">"/"</span>)) <span class="built_in">sprintf</span>(path,<span class="string">"%s%s"</span>,d,(*dir)-&gt;name);</span><br><span class="line">      <span class="keyword">else</span> <span class="built_in">sprintf</span>(path,<span class="string">"%s/%s"</span>,d,(*dir)-&gt;name);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * (<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1</span>) &gt; pathsize)</span><br><span class="line">    path=xrealloc(path,pathsize=(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * (<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>)));</span><br><span class="line">      <span class="built_in">sprintf</span>(path,<span class="string">"%s"</span>,(*dir)-&gt;name);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    printit(path);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (colored) <span class="built_in">fprintf</span>(outfile,<span class="string">"%s"</span>,endcode);</span><br><span class="line">    <span class="keyword">if</span> (Fflag &amp;&amp; !(*dir)-&gt;lnk) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((c = Ftype((*dir)-&gt;mode))) fputc(c, outfile);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((*dir)-&gt;lnk) &#123;</span><br><span class="line">      <span class="built_in">fprintf</span>(outfile,<span class="string">" -&gt; "</span>);</span><br><span class="line">      <span class="keyword">if</span> (colorize) colored = color((*dir)-&gt;lnkmode,(*dir)-&gt;lnk,(*dir)-&gt;orphan,TRUE);</span><br><span class="line">      printit((*dir)-&gt;lnk);</span><br><span class="line">      <span class="keyword">if</span> (colored) <span class="built_in">fprintf</span>(outfile,<span class="string">"%s"</span>,endcode);</span><br><span class="line">      <span class="keyword">if</span> (Fflag) &#123;</span><br><span class="line">    <span class="keyword">if</span> ((c = Ftype((*dir)-&gt;lnkmode))) fputc(c, outfile);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((*dir)-&gt;err) &#123;</span><br><span class="line">      <span class="built_in">fprintf</span>(outfile,<span class="string">" [%s]"</span>, (*dir)-&gt;err);</span><br><span class="line">      <span class="built_in">free</span>((*dir)-&gt;err);</span><br><span class="line">      (*dir)-&gt;err = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ((*dir)-&gt;child) &#123;</span><br><span class="line">      <span class="keyword">if</span> (fflag) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">2</span> &gt; pathsize) path=xrealloc(path,pathsize=(<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>));</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(d,<span class="string">"/"</span>)) <span class="built_in">sprintf</span>(path,<span class="string">"%s%s"</span>,d,(*dir)-&gt;name);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">sprintf</span>(path,<span class="string">"%s/%s"</span>,d,(*dir)-&gt;name);</span><br><span class="line">      &#125;</span><br><span class="line">      r_listdir((*dir)-&gt;child, fflag? path : <span class="literal">NULL</span>, dt, ft, lev+<span class="number">1</span>);</span><br><span class="line">      nlf = TRUE;</span><br><span class="line">      *dt += <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> ((*dir)-&gt;isdir) *dt += <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">else</span> *ft += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (*(dir+<span class="number">1</span>) &amp;&amp; !*(dir+<span class="number">2</span>)) dirs[lev] = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (nlf) nlf = FALSE;</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">fprintf</span>(outfile,<span class="string">"\n"</span>);</span><br><span class="line">    dir++;</span><br><span class="line">  &#125;</span><br><span class="line">  dirs[lev] = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">free</span>(path);</span><br><span class="line">  free_dir(sav);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">off_t</span> <span class="title function_">unix_listdir</span><span class="params">(<span class="type">char</span> *d, <span class="type">int</span> *dt, <span class="type">int</span> *ft, u_long lev, <span class="type">dev_t</span> dev)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> *path;</span><br><span class="line">  <span class="type">bool</span> nlf = FALSE, colored = FALSE;</span><br><span class="line">  <span class="type">long</span> pathsize = <span class="number">0</span>;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">info</span> **<span class="title">dir</span>, **<span class="title">sav</span>;</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">stat</span> <span class="title">sb</span>;</span></span><br><span class="line">  <span class="type">int</span> n, c;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> ((Level &gt;= <span class="number">0</span>) &amp;&amp; (lev &gt; Level)) &#123;</span><br><span class="line">    fputc(<span class="string">&#x27;\n&#x27;</span>,outfile);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (xdev &amp;&amp; lev == <span class="number">0</span>) &#123;</span><br><span class="line">    stat(d,&amp;sb);</span><br><span class="line">    dev = sb.st_dev;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  sav = dir = read_dir(d,&amp;n);</span><br><span class="line">  <span class="keyword">if</span> (!dir &amp;&amp; n) &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(outfile,<span class="string">&quot; [error opening dir]\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (!n) &#123;</span><br><span class="line">    fputc(<span class="string">&#x27;\n&#x27;</span>, outfile);</span><br><span class="line">    free_dir(sav);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (flimit &gt; <span class="number">0</span> &amp;&amp; n &gt; flimit) &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(outfile,<span class="string">&quot; [%d entries exceeds filelimit, not opening dir]\n&quot;</span>,n);</span><br><span class="line">    free_dir(sav);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (cmpfunc) qsort(dir,n,<span class="keyword">sizeof</span>(<span class="keyword">struct</span> _info *), cmpfunc);</span><br><span class="line">  <span class="keyword">if</span> (lev &gt;= maxdirs<span class="number">-1</span>) &#123;</span><br><span class="line">    dirs = xrealloc(dirs,<span class="keyword">sizeof</span>(<span class="type">int</span>) * (maxdirs += <span class="number">1024</span>));</span><br><span class="line">    <span class="built_in">memset</span>(dirs+(maxdirs<span class="number">-1024</span>), <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="type">int</span>) * <span class="number">1024</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  dirs[lev] = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (!*(dir+<span class="number">1</span>)) dirs[lev] = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">fprintf</span>(outfile,<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">  </span><br><span class="line">  path = <span class="built_in">malloc</span>(pathsize=<span class="number">4096</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">while</span>(*dir) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!noindent) indent(lev);</span><br><span class="line"></span><br><span class="line">    fillinfo(path,*dir);</span><br><span class="line">    <span class="keyword">if</span> (path[<span class="number">0</span>] == <span class="string">&#x27; &#x27;</span>) &#123;</span><br><span class="line">      path[<span class="number">0</span>] = <span class="string">&#x27;[&#x27;</span>;</span><br><span class="line">      <span class="built_in">fprintf</span>(outfile, <span class="string">&quot;%s]  &quot;</span>,path);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (colorize) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((*dir)-&gt;lnk &amp;&amp; linktargetcolor) colored = color((*dir)-&gt;lnkmode,(*dir)-&gt;name,(*dir)-&gt;orphan,FALSE);</span><br><span class="line">      <span class="keyword">else</span> colored = color((*dir)-&gt;mode,(*dir)-&gt;name,(*dir)-&gt;orphan,FALSE);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (fflag) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">sizeof</span>(<span class="type">char</span>) * (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">2</span>) &gt; pathsize)</span><br><span class="line">    path=xrealloc(path,pathsize=(<span class="keyword">sizeof</span>(<span class="type">char</span>) * (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>)));</span><br><span class="line">      <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(d,<span class="string">&quot;/&quot;</span>)) <span class="built_in">sprintf</span>(path,<span class="string">&quot;%s%s&quot;</span>,d,(*dir)-&gt;name);</span><br><span class="line">      <span class="keyword">else</span> <span class="built_in">sprintf</span>(path,<span class="string">&quot;%s/%s&quot;</span>,d,(*dir)-&gt;name);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">sizeof</span>(<span class="type">char</span>) * (<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1</span>) &gt; pathsize)</span><br><span class="line">    path=xrealloc(path,pathsize=(<span class="keyword">sizeof</span>(<span class="type">char</span>) * (<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>)));</span><br><span class="line">      <span class="built_in">sprintf</span>(path,<span class="string">&quot;%s&quot;</span>,(*dir)-&gt;name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    printit(path);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (colored) <span class="built_in">fprintf</span>(outfile,<span class="string">&quot;%s&quot;</span>,endcode);</span><br><span class="line">    <span class="keyword">if</span> (Fflag &amp;&amp; !(*dir)-&gt;lnk) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((c = Ftype((*dir)-&gt;mode))) fputc(c, outfile);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((*dir)-&gt;lnk) &#123;</span><br><span class="line">      <span class="built_in">fprintf</span>(outfile,<span class="string">&quot; -&gt; &quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (colorize) colored = color((*dir)-&gt;lnkmode,(*dir)-&gt;lnk,(*dir)-&gt;orphan,TRUE);</span><br><span class="line">      printit((*dir)-&gt;lnk);</span><br><span class="line">      <span class="keyword">if</span> (colored) <span class="built_in">fprintf</span>(outfile,<span class="string">&quot;%s&quot;</span>,endcode);</span><br><span class="line">      <span class="keyword">if</span> (Fflag) &#123;</span><br><span class="line">    <span class="keyword">if</span> ((c = Ftype((*dir)-&gt;lnkmode))) fputc(c, outfile);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((*dir)-&gt;isdir) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((*dir)-&gt;lnk) &#123;</span><br><span class="line">    <span class="keyword">if</span> (lflag &amp;&amp; !(xdev &amp;&amp; dev != (*dir)-&gt;dev)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (findino((*dir)-&gt;inode,(*dir)-&gt;dev)) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(outfile,<span class="string">&quot;  [recursive, not followed]&quot;</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        saveino((*dir)-&gt;inode, (*dir)-&gt;dev);</span><br><span class="line">        <span class="keyword">if</span> (*(*dir)-&gt;lnk == <span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">          listdir((*dir)-&gt;lnk,dt,ft,lev+<span class="number">1</span>,dev);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;lnk)+<span class="number">2</span> &gt; pathsize) path=xrealloc(path,pathsize=(<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>));</span><br><span class="line">          <span class="keyword">if</span> (fflag &amp;&amp; !<span class="built_in">strcmp</span>(d,<span class="string">&quot;/&quot;</span>)) <span class="built_in">sprintf</span>(path,<span class="string">&quot;%s%s&quot;</span>,d,(*dir)-&gt;lnk);</span><br><span class="line">          <span class="keyword">else</span> <span class="built_in">sprintf</span>(path,<span class="string">&quot;%s/%s&quot;</span>,d,(*dir)-&gt;lnk);</span><br><span class="line">          listdir(path,dt,ft,lev+<span class="number">1</span>,dev);</span><br><span class="line">        &#125;</span><br><span class="line">        nlf = TRUE;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!(xdev &amp;&amp; dev != (*dir)-&gt;dev)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">2</span> &gt; pathsize) path=xrealloc(path,pathsize=(<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>));</span><br><span class="line">    <span class="keyword">if</span> (fflag &amp;&amp; !<span class="built_in">strcmp</span>(d,<span class="string">&quot;/&quot;</span>)) <span class="built_in">sprintf</span>(path,<span class="string">&quot;%s%s&quot;</span>,d,(*dir)-&gt;name);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">sprintf</span>(path,<span class="string">&quot;%s/%s&quot;</span>,d,(*dir)-&gt;name);</span><br><span class="line">    saveino((*dir)-&gt;inode, (*dir)-&gt;dev);</span><br><span class="line">    listdir(path,dt,ft,lev+<span class="number">1</span>,dev);</span><br><span class="line">    nlf = TRUE;</span><br><span class="line">      &#125;</span><br><span class="line">      *dt += <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> *ft += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (*(dir+<span class="number">1</span>) &amp;&amp; !*(dir+<span class="number">2</span>)) dirs[lev] = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (nlf) nlf = FALSE;</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">fprintf</span>(outfile,<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    dir++;</span><br><span class="line">  &#125;</span><br><span class="line">  dirs[lev] = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">free</span>(path);</span><br><span class="line">  free_dir(sav);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">off_t</span> <span class="title function_">unix_rlistdir</span><span class="params">(<span class="type">char</span> *d, <span class="type">int</span> *dt, <span class="type">int</span> *ft, u_long lev, <span class="type">dev_t</span> dev)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">info</span> **<span class="title">dir</span>;</span></span><br><span class="line">  <span class="type">off_t</span> size = <span class="number">0</span>;</span><br><span class="line">  <span class="type">char</span> *err;</span><br><span class="line">  </span><br><span class="line">  dir = getfulltree(d, lev, dev, &amp;size, &amp;err);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">memset</span>(dirs, <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="type">int</span>) * maxdirs);</span><br><span class="line"></span><br><span class="line">  r_listdir(dir, d, dt, ft, lev);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> size;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">r_listdir</span><span class="params">(<span class="keyword">struct</span> _info **dir, <span class="type">char</span> *d, <span class="type">int</span> *dt, <span class="type">int</span> *ft, u_long lev)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> *path;</span><br><span class="line">  <span class="type">long</span> pathsize = <span class="number">0</span>;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> _<span class="title">info</span> **<span class="title">sav</span> =</span> dir;</span><br><span class="line">  <span class="type">bool</span> nlf = FALSE, colored = FALSE;</span><br><span class="line">  <span class="type">int</span> c;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (dir == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  dirs[lev] = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span> (!*(dir+<span class="number">1</span>)) dirs[lev] = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">fprintf</span>(outfile,<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">  path = <span class="built_in">malloc</span>(pathsize=<span class="number">4096</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span>(*dir) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!noindent) indent(lev);</span><br><span class="line">    </span><br><span class="line">    fillinfo(path,*dir);</span><br><span class="line">    <span class="keyword">if</span> (path[<span class="number">0</span>] == <span class="string">&#x27; &#x27;</span>) &#123;</span><br><span class="line">      path[<span class="number">0</span>] = <span class="string">&#x27;[&#x27;</span>;</span><br><span class="line">      <span class="built_in">fprintf</span>(outfile, <span class="string">&quot;%s]  &quot;</span>,path);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (colorize) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((*dir)-&gt;lnk &amp;&amp; linktargetcolor) colored = color((*dir)-&gt;lnkmode,(*dir)-&gt;name,(*dir)-&gt;orphan,FALSE);</span><br><span class="line">      <span class="keyword">else</span> colored = color((*dir)-&gt;mode,(*dir)-&gt;name,(*dir)-&gt;orphan,FALSE);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (fflag) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">sizeof</span>(<span class="type">char</span>) * (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">2</span>) &gt; pathsize)</span><br><span class="line">    path=xrealloc(path,pathsize=(<span class="keyword">sizeof</span>(<span class="type">char</span>) * (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>)));</span><br><span class="line">      <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(d,<span class="string">&quot;/&quot;</span>)) <span class="built_in">sprintf</span>(path,<span class="string">&quot;%s%s&quot;</span>,d,(*dir)-&gt;name);</span><br><span class="line">      <span class="keyword">else</span> <span class="built_in">sprintf</span>(path,<span class="string">&quot;%s/%s&quot;</span>,d,(*dir)-&gt;name);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">sizeof</span>(<span class="type">char</span>) * (<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1</span>) &gt; pathsize)</span><br><span class="line">    path=xrealloc(path,pathsize=(<span class="keyword">sizeof</span>(<span class="type">char</span>) * (<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>)));</span><br><span class="line">      <span class="built_in">sprintf</span>(path,<span class="string">&quot;%s&quot;</span>,(*dir)-&gt;name);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    printit(path);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (colored) <span class="built_in">fprintf</span>(outfile,<span class="string">&quot;%s&quot;</span>,endcode);</span><br><span class="line">    <span class="keyword">if</span> (Fflag &amp;&amp; !(*dir)-&gt;lnk) &#123;</span><br><span class="line">      <span class="keyword">if</span> ((c = Ftype((*dir)-&gt;mode))) fputc(c, outfile);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((*dir)-&gt;lnk) &#123;</span><br><span class="line">      <span class="built_in">fprintf</span>(outfile,<span class="string">&quot; -&gt; &quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (colorize) colored = color((*dir)-&gt;lnkmode,(*dir)-&gt;lnk,(*dir)-&gt;orphan,TRUE);</span><br><span class="line">      printit((*dir)-&gt;lnk);</span><br><span class="line">      <span class="keyword">if</span> (colored) <span class="built_in">fprintf</span>(outfile,<span class="string">&quot;%s&quot;</span>,endcode);</span><br><span class="line">      <span class="keyword">if</span> (Fflag) &#123;</span><br><span class="line">    <span class="keyword">if</span> ((c = Ftype((*dir)-&gt;lnkmode))) fputc(c, outfile);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ((*dir)-&gt;err) &#123;</span><br><span class="line">      <span class="built_in">fprintf</span>(outfile,<span class="string">&quot; [%s]&quot;</span>, (*dir)-&gt;err);</span><br><span class="line">      <span class="built_in">free</span>((*dir)-&gt;err);</span><br><span class="line">      (*dir)-&gt;err = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ((*dir)-&gt;child) &#123;</span><br><span class="line">      <span class="keyword">if</span> (fflag) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">2</span> &gt; pathsize) path=xrealloc(path,pathsize=(<span class="built_in">strlen</span>(d)+<span class="built_in">strlen</span>((*dir)-&gt;name)+<span class="number">1024</span>));</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(d,<span class="string">&quot;/&quot;</span>)) <span class="built_in">sprintf</span>(path,<span class="string">&quot;%s%s&quot;</span>,d,(*dir)-&gt;name);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">sprintf</span>(path,<span class="string">&quot;%s/%s&quot;</span>,d,(*dir)-&gt;name);</span><br><span class="line">      &#125;</span><br><span class="line">      r_listdir((*dir)-&gt;child, fflag? path : <span class="literal">NULL</span>, dt, ft, lev+<span class="number">1</span>);</span><br><span class="line">      nlf = TRUE;</span><br><span class="line">      *dt += <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> ((*dir)-&gt;isdir) *dt += <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">else</span> *ft += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (*(dir+<span class="number">1</span>) &amp;&amp; !*(dir+<span class="number">2</span>)) dirs[lev] = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (nlf) nlf = FALSE;</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">fprintf</span>(outfile,<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    dir++;</span><br><span class="line">  &#125;</span><br><span class="line">  dirs[lev] = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">free</span>(path);</span><br><span class="line">  free_dir(sav);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-      
     </div>
-    
-    
-    
 
     
-
     
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>您的支持将鼓励我继续创作！</div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.png" alt="kaiiak 微信支付"/>
-        <p>微信支付</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.png" alt="kaiiak 支付宝"/>
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
-
     
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
-          
-            <a href="/tags/tree/" rel="tag"># tree</a>
-          
-        </div>
-      
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
 
-      
-      
-      
+  <div class="social-list">
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/" rel="next" title="安装vim插件YouCompleteMe">
-                <i class="fa fa-chevron-left"></i> 安装vim插件YouCompleteMe
-              </a>
-            
-          </div>
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/iakmai">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
 
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/29/APUE_study_notes-standard_IO_libray/" rel="prev" title="APUE学习笔记——格式化I/O">
-                APUE学习笔记——格式化I/O <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
-        </noscript>
+            <span class="label">Twitter</span>
+          </a>
       </div>
-    </div>
 
-  
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
 
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+            <span class="label">RSS</span>
+          </a>
+      </div>
   </div>
+</div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/avatar.jpg"
-                alt="kaiiak" />
-            
-              <p class="site-author-name" itemprop="name">kaiiak</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/tree/" rel="tag"># tree</a>
           </div>
 
-          <nav class="site-state motion-element">
+        
 
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives%7C%7Carchive">
-              
-                  <span class="site-state-item-count">25</span>
-                  <span class="site-state-item-name">日志</span>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/" rel="prev" title="安装vim插件YouCompleteMe">
+                  <i class="fa fa-chevron-left"></i> 安装vim插件YouCompleteMe
                 </a>
-              </div>
-            
-
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/kaiiak" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:aNxFi37X@outlook.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/iakmai" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://instagram.com/mzzzkkk" target="_blank" title="Instagram">
-                      
-                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
-                  </span>
-                
             </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么选择tree这个命令？"><span class="nav-number">1.</span> <span class="nav-text">为什么选择tree这个命令？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何下载源代码"><span class="nav-number">2.</span> <span class="nav-text">如何下载源代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎么分析源代码"><span class="nav-number">3.</span> <span class="nav-text">怎么分析源代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我们的目的"><span class="nav-number">4.</span> <span class="nav-text">我们的目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#各部分的作用"><span class="nav-number">5.</span> <span class="nav-text">各部分的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Makefile"><span class="nav-number">5.1.</span> <span class="nav-text">Makefile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心程序-遍历目录"><span class="nav-number">5.2.</span> <span class="nav-text">核心程序-遍历目录</span></a></li></ol></li></ol></div>
-            
-
+            <div class="post-nav-item">
+                <a href="/2016/03/29/APUE_study_notes-standard_IO_libray/" rel="next" title="APUE学习笔记——格式化I/O">
+                  APUE学习笔记——格式化I/O <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-KAIIAK fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">kaiiak</span>
-
-  
+    </footer>
+  </article>
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
 
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KAIIAK</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
   
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://https-blog-iakmai-com.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://blog.iakmai.com/2016/03/27/tree_command_source_code_analyze/';
-          this.page.identifier = '2016/03/27/tree_command_source_code_analyze/';
-          this.page.title = 'tree命令源码分析';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-blog-iakmai-com.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -786,36 +403,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"https-blog-iakmai-com","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
 
 </body>
 </html>

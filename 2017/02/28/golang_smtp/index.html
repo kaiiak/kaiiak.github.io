@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.iakmai.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="smtp之golang标准库函数SendMail就是标准库里面最简单的发送邮件的方法。 1func SendMail(addr string, a Auth, from string, to []string, msg []byte) error 对不熟悉smtp协议的小伙伴来说，最难的地方就是构造msg了。在指定smtp的RFC531中，定义了smtp客户端和服务器的通讯方式和报文的格式。 缺陷">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Golang踩坑小结之SMTP">
+<meta property="og:url" content="https://blog.iakmai.com/2017/02/28/golang_smtp/index.html">
+<meta property="og:site_name" content="KAIIAK">
+<meta property="og:description" content="smtp之golang标准库函数SendMail就是标准库里面最简单的发送邮件的方法。 1func SendMail(addr string, a Auth, from string, to []string, msg []byte) error 对不熟悉smtp协议的小伙伴来说，最难的地方就是构造msg了。在指定smtp的RFC531中，定义了smtp客户端和服务器的通讯方式和报文的格式。 缺陷">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-02-28T16:16:30.000Z">
+<meta property="article:modified_time" content="2023-01-14T08:34:54.553Z">
+<meta property="article:author" content="kaiiak">
+<meta property="article:tag" content="GOLANG">
+<meta property="article:tag" content="SMTP">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.iakmai.com/2017/02/28/golang_smtp/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.iakmai.com/2017/02/28/golang_smtp/","path":"/2017/02/28/golang_smtp/","title":"Golang踩坑小结之SMTP"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Golang踩坑小结之SMTP | KAIIAK</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EDK6BZBWNK"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-EDK6BZBWNK","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{&quot;token&quot;: &quot;5fda3177f3ce4ab4adf59b357edf21f9&quot;}'></script>
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="KAIIAK" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">KAIIAK</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个不知道该写什么的人</p>
+      <img class="custom-logo-image" src="/images/favicon-32x32.png" alt="KAIIAK">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#smtp%E4%B9%8Bgolang%E6%A0%87%E5%87%86%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">smtp之golang标准库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E9%99%B7"><span class="nav-number">1.1.</span> <span class="nav-text">缺陷</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MIME"><span class="nav-number">2.</span> <span class="nav-text">MIME</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">基本格式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%82%AE%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">邮件格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%AD%97%E6%AE%B5"><span class="nav-number">3.1.</span> <span class="nav-text">基本字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bcc"><span class="nav-number">3.2.</span> <span class="nav-text">bcc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.3.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%AE%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="nav-number">3.4.</span> <span class="nav-text">邮件内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%AE%E4%BB%B6%E6%A0%B7%E4%BE%8B"><span class="nav-number">3.5.</span> <span class="nav-text">邮件样例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E8%BF%87%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">发送过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HELO-or-EHLO"><span class="nav-number">4.1.</span> <span class="nav-text">HELO or EHLO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MAIL"><span class="nav-number">4.2.</span> <span class="nav-text">MAIL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RCPT"><span class="nav-number">4.3.</span> <span class="nav-text">RCPT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DATA"><span class="nav-number">4.4.</span> <span class="nav-text">DATA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QUIT"><span class="nav-number">4.5.</span> <span class="nav-text">QUIT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8B%93%E5%B1%95%E5%91%BD%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">拓展命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#STARTLTLS"><span class="nav-number">5.1.</span> <span class="nav-text">STARTLTLS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8BITMIME"><span class="nav-number">5.2.</span> <span class="nav-text">8BITMIME</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">5.3.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kaiiak"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">kaiiak</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kaiiak" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kaiiak" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/aNxFi37X@outlook.com" title="E-Mail → aNxFi37X@outlook.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/iakmai" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;iakmai" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/4281317" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;4281317" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.iakmai.com/2017/02/28/golang_smtp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaiiak">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KAIIAK">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Golang踩坑小结之SMTP | KAIIAK">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Golang踩坑小结之SMTP
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-03-01 00:16:30" itemprop="dateCreated datePublished" datetime="2017-03-01T00:16:30+08:00">2017-03-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-14 16:34:54" itemprop="dateModified" datetime="2023-01-14T16:34:54+08:00">2023-01-14</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/02/28/golang_smtp/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/2017/02/28/golang_smtp/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="smtp之golang标准库"><a href="#smtp之golang标准库" class="headerlink" title="smtp之golang标准库"></a>smtp之golang标准库</h1><p>函数<code>SendMail</code>就是标准库里面最简单的发送邮件的方法。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SendMail</span><span class="params">(addr <span class="type">string</span>, a Auth, from <span class="type">string</span>, to []<span class="type">string</span>, msg []<span class="type">byte</span>)</span></span> <span class="type">error</span></span><br></pre></td></tr></table></figure>
+<p>对不熟悉smtp协议的小伙伴来说，最难的地方就是构造<code>msg</code>了。<br>在指定<code>smtp</code>的<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc5321">RFC531</a>中，定义了<code>smtp</code>客户端和服务器的通讯方式和报文的格式。</p>
+<h2 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h2><p>现在的邮件服务器除了<code>25</code>端口外，还采用了其他的默认采用TLS的端口（只能TLS连接）。<br>但是标准库还会发送<code>STARTTLS</code>命令，但是服务器不会回应，这样就产生了阻塞。<br>以下是直接通过tls端口发送邮件的代码。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SendMailTLS not use STARTTLS commond</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SendMailTLS</span><span class="params">(addr <span class="type">string</span>, auth smtp.Auth, from <span class="type">string</span>, to []<span class="type">string</span>, msg []<span class="type">byte</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	host, _, err := net.SplitHostPort(addr)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	tlsconfig := &amp;tls.Config&#123;ServerName: host&#125;</span><br><span class="line">	<span class="keyword">if</span> err = validateLine(from); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> _, recp := <span class="keyword">range</span> to &#123;</span><br><span class="line">		<span class="keyword">if</span> err = validateLine(recp); err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> err</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	conn, err := tls.Dial(<span class="string">&quot;tcp&quot;</span>, addr, tlsconfig)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> conn.Close()</span><br><span class="line">	c, err := smtp.NewClient(conn, host)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> c.Close()</span><br><span class="line">	<span class="keyword">if</span> err = c.Hello(<span class="string">&quot;localhost&quot;</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err = c.Auth(auth); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err = c.Mail(from); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> _, addr := <span class="keyword">range</span> to &#123;</span><br><span class="line">		<span class="keyword">if</span> err = c.Rcpt(addr); err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> err</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	w, err := c.Data()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	_, err = w.Write(msg)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	err = w.Close()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> c.Quit()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// validateLine checks to see if a line has CR or LF as per RFC 5321</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">validateLine</span><span class="params">(line <span class="type">string</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> strings.ContainsAny(line, <span class="string">&quot;\n\r&quot;</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> errors.New(<span class="string">&quot;a line must not contain CR or LF&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="MIME"><a href="#MIME" class="headerlink" title="MIME"></a>MIME</h1><blockquote>
+<p>多用途互联网邮件扩展（MIME，Multipurpose Internet Mail Extensions）是一个互联网标准，它扩展了电子邮件标准，使其能够支援：<br>非ASCII字符文本；<br>非文本格式附件（二进制、声音、图像等）；<br>由多部分（multiple parts）组成的消息体；<br>包含非ASCII字符的头信息（Header information）。这个标准被定义在RFC 2045、RFC 2046、RFC 2047、RFC 2048、RFC 2049等RFC中。<br>MIME改善了由RFC 822转变而来的RFC 2822，这些旧标准规定电子邮件标准并不允许在邮件消息中使用7位ASCII字符集以外的字符。正因如此，一些非英语字符消息和二进制文件，图像，声音等非文字消息原本都不能在电子邮件中传输（MIME可以）。MIME规定了用于表示各种各样的数据类型的符号化方法。此外，在万维网中使用的HTTP协议中也使用了MIME的框架，标准被扩展为互联网媒体类型。</p>
+</blockquote>
+<h2 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MIME-Version: 1.0</span><br><span class="line">Content-Type: text/plain</span><br><span class="line">Content-transfer-encoding: base64</span><br><span class="line">boundary = XXXXXXXXXXXXXXXXX</span><br><span class="line">--XXXXXXXXXXXXXXXXX</span><br><span class="line">base64 string</span><br><span class="line">--XXXXXXXXXXXXXXXXX</span><br><span class="line">base64 string</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="邮件格式"><a href="#邮件格式" class="headerlink" title="邮件格式"></a>邮件格式</h1><h2 id="基本字段"><a href="#基本字段" class="headerlink" title="基本字段"></a>基本字段</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">From:来自测试发送&lt;aNxFi37X@outlook.com&gt;</span><br><span class="line">To:aNxFi37X@outlook.com</span><br><span class="line">Date:27 Mar 17 00:45 +0800</span><br><span class="line">Cc:aNxFi37X@outlook.com</span><br><span class="line">Subject: TEST</span><br></pre></td></tr></table></figure>
+<h2 id="bcc"><a href="#bcc" class="headerlink" title="bcc"></a>bcc</h2><p>密送的实现很好玩，在邮件内容里不填写信息，但是发送的时候发送给密送的那个人。<br>这里的设计很巧妙。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><CRLF></h2><p>以上的每一项都以<code>&lt;CRLF&gt;</code>结束，即<code>\r\n</code>。</p>
+<h2 id="邮件内容"><a href="#邮件内容" class="headerlink" title="邮件内容"></a>邮件内容</h2><p>这里使用MIME，当然也可以使用<code>8BITMIME</code>发送多媒体内容。<br>具体的方式是创建一个MIME part，每个part里面设置自己的<code>Content-Disposition</code>、<code>Content-Transfer-Encoding</code>、<code>Content-Type</code>。<br><code>Content-Transfer-Encoding</code>使用base64编码，不然直接发送<code>ascii</code>中含有<code>\r\n.\r\n</code>，邮件就直接结束了。<br>虽然编码率高了不少，但是简单，易操作，不依赖服务器支持<code>8BITMIME</code>。</p>
+<h2 id="邮件样例"><a href="#邮件样例" class="headerlink" title="邮件样例"></a>邮件样例</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">From:来自测试发送&lt;aNxFi37X@outlook.com&gt;</span><br><span class="line">To:aNxFi37X@outlook.com</span><br><span class="line">Date:27 Mar 17 00:45 +0800</span><br><span class="line">Cc:aNxFi37X@outlook.com</span><br><span class="line">Subject:=?UTF-8?B?5rWL6K+V?=</span><br><span class="line">Content-Type: multipart/mixed; boundary=5b83f06665140150554c5847a8a3b05a5a9d64f5ec6a42fec16a4460223c</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MIME-Version: 1.0</span><br><span class="line">--5b83f06665140150554c5847a8a3b05a5a9d64f5ec6a42fec16a4460223c</span><br><span class="line">Content-Transfer-Encoding: base64</span><br><span class="line">Content-Type: text/html</span><br><span class="line"></span><br><span class="line">PHA+6L+Z5piv5LiA5bCB5rWL6K+V6YKu5Lu2PC9wPg==</span><br><span class="line">--5b83f06665140150554c5847a8a3b05a5a9d64f5ec6a42fec16a4460223c</span><br><span class="line">Content-Disposition: attachment; filename=&quot;=?UTF-8?B?MS50eHQ=?=&quot;</span><br><span class="line">Content-Transfer-Encoding: base64</span><br><span class="line">Content-Type: application/application/octet-stream</span><br><span class="line"></span><br><span class="line">MS50eHQ=</span><br><span class="line"></span><br><span class="line">--5b83f06665140150554c5847a8a3b05a5a9d64f5ec6a42fec16a4460223c</span><br><span class="line">Content-Disposition: attachment; filename=&quot;=?UTF-8?B?Mi50eHQ=?=&quot;</span><br><span class="line">Content-Transfer-Encoding: base64</span><br><span class="line">Content-Type: application/application/octet-stream</span><br><span class="line"></span><br><span class="line">Mi50eHQ=</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="发送过程"><a href="#发送过程" class="headerlink" title="发送过程"></a>发送过程</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">S: 220 xyz.com Simple Mail Transfer Service Ready</span><br><span class="line">C: EHLO foo.com</span><br><span class="line">S: 250 xyz.com is on the air</span><br><span class="line">C: MAIL FROM:&lt;@foo.com:JQP@bar.com&gt;</span><br><span class="line">S: 250 OK</span><br><span class="line">C: RCPT TO:&lt;Jones@XYZ.COM&gt;</span><br><span class="line">S: 250 OK</span><br><span class="line">C: DATA</span><br><span class="line">S: 354 Start mail input; end with &lt;CRLF&gt;.&lt;CRLF&gt;</span><br><span class="line">C: Received: from bar.com by foo.com ; Thu, 21 May 1998</span><br><span class="line">C:     05:33:29 -0700</span><br><span class="line">C: Date: Thu, 21 May 1998 05:33:22 -0700</span><br><span class="line">C: From: John Q. Public &lt;JQP@bar.com&gt;</span><br><span class="line">C: Subject:  The Next Meeting of the Board</span><br><span class="line">C: To: Jones@xyz.com</span><br><span class="line">C:</span><br><span class="line">C: Bill:</span><br><span class="line">C: The next meeting of the board of directors will be</span><br><span class="line">C: on Tuesday.</span><br><span class="line">C:                         John.</span><br><span class="line">C: .</span><br><span class="line">S: 250 OK</span><br><span class="line">C: QUIT</span><br><span class="line">S: 221 foo.com Service closing transmission channel</span><br></pre></td></tr></table></figure>
+<h2 id="HELO-or-EHLO"><a href="#HELO-or-EHLO" class="headerlink" title="HELO or EHLO"></a>HELO or EHLO</h2><p>确定服务器可用</p>
+<h2 id="MAIL"><a href="#MAIL" class="headerlink" title="MAIL"></a>MAIL</h2><p>声明发信邮箱</p>
+<h2 id="RCPT"><a href="#RCPT" class="headerlink" title="RCPT"></a>RCPT</h2><p>声明收件邮箱。密送的邮箱就是在这里声明，但是不写在邮件内容里面。</p>
+<h2 id="DATA"><a href="#DATA" class="headerlink" title="DATA"></a>DATA</h2><p>发送邮件的内容。</p>
+<h2 id="QUIT"><a href="#QUIT" class="headerlink" title="QUIT"></a>QUIT</h2><p>结束发送，并关闭连接。</p>
+<h1 id="拓展命令"><a href="#拓展命令" class="headerlink" title="拓展命令"></a>拓展命令</h1><h2 id="STARTLTLS"><a href="#STARTLTLS" class="headerlink" title="STARTLTLS"></a>STARTLTLS</h2><p>试探服务器是否支持TLS。</p>
+<h2 id="8BITMIME"><a href="#8BITMIME" class="headerlink" title="8BITMIME"></a>8BITMIME</h2><p>试探服务器是否支持8字长的编码。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>其他的命令没有使用，这里挖个坑。</p>
+<center>
+一篇文章从一号拖到现在，真的好丢人啊。
+多谢您花费时间阅读我的文章，有不好的地方欢迎指正。
+</center>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/iakmai">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+      </div>
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/GOLANG/" rel="tag"># GOLANG</a>
+              <a href="/tags/SMTP/" rel="tag"># SMTP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/04/27/APUE_study_notes-process-control/" rel="prev" title="APUE学习笔记——进程控制">
+                  <i class="fa fa-chevron-left"></i> APUE学习笔记——进程控制
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/07/25/set_nsq_env_and_use/" rel="next" title="NSQ环境的搭建和简单的使用">
+                  NSQ环境的搭建和简单的使用 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KAIIAK</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"https-blog-iakmai-com","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+</body>
+</html>

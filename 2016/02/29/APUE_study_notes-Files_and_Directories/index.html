@@ -1,346 +1,282 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.iakmai.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Linux,APUE," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="函数stat、fstat、fstatat、lstat123456789101112131415161718192021222324#include &lt;sys&#x2F;stat.h&gt;int stat(const char *restrict pathname, struct stat *restrict buf);int fstat(int fd, struct stat *buf);int l">
-<meta property="og:type" content="article">
+    <meta name="description" content="函数stat、fstat、fstatat、lstat123456789101112131415161718192021222324#include &lt;sys&#x2F;stat.h&gt;int stat(const char *restrict pathname, struct stat *restrict buf);int fstat(int fd, struct stat *buf);int l">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="APUE学习笔记——文件和目录">
 <meta property="og:url" content="https://blog.iakmai.com/2016/02/29/APUE_study_notes-Files_and_Directories/index.html">
 <meta property="og:site_name" content="KAIIAK">
 <meta property="og:description" content="函数stat、fstat、fstatat、lstat123456789101112131415161718192021222324#include &lt;sys&#x2F;stat.h&gt;int stat(const char *restrict pathname, struct stat *restrict buf);int fstat(int fd, struct stat *buf);int l">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-02-29T13:48:30.000Z">
-<meta property="article:modified_time" content="2020-05-26T15:44:49.375Z">
+<meta property="article:modified_time" content="2023-01-14T08:34:54.553Z">
 <meta property="article:author" content="kaiiak">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="APUE">
 <meta name="twitter:card" content="summary">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+<link rel="canonical" href="https://blog.iakmai.com/2016/02/29/APUE_study_notes-Files_and_Directories/">
 
 
 
-  <link rel="canonical" href="https://blog.iakmai.com/2016/02/29/APUE_study_notes-Files_and_Directories/"/>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.iakmai.com/2016/02/29/APUE_study_notes-Files_and_Directories/","path":"/2016/02/29/APUE_study_notes-Files_and_Directories/","title":"APUE学习笔记——文件和目录"}</script>
 
-
-
-
-
-  <title>APUE学习笔记——文件和目录 | KAIIAK</title>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>APUE学习笔记——文件和目录 | KAIIAK</title>
   
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EDK6BZBWNK"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-EDK6BZBWNK","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
 
 
 
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-122316693-1', 'auto');
-  ga('send', 'pageview');
-</script>
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{&quot;token&quot;: &quot;5fda3177f3ce4ab4adf59b357edf21f9&quot;}'></script>
 
 
 
+  <script async defer data-website-id="" src=""></script>
 
+  <script defer data-domain="" src=""></script>
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="KAIIAK" type="application/atom+xml">
+</head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">KAIIAK</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-      
-        <h1 class="site-subtitle" itemprop="description">啦啦啦~我是卖萌的小行家~</h1>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">KAIIAK</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个不知道该写什么的人</p>
+      <img class="custom-logo-image" src="/images/favicon-32x32.png" alt="KAIIAK">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+    </div>
+  </div>
 
-  <div id="posts" class="posts-expand">
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0stat%E3%80%81fstat%E3%80%81fstatat%E3%80%81lstat"><span class="nav-number">1.</span> <span class="nav-text">函数stat、fstat、fstatat、lstat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">文件类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%94%A8%E6%88%B7ID%E5%92%8C%E8%AE%BE%E7%BD%AE%E7%BB%84ID"><span class="nav-number">3.</span> <span class="nav-text">设置用户ID和设置组ID</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90"><span class="nav-number">4.</span> <span class="nav-text">文件访问权限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0access%E5%92%8Cfaccessat"><span class="nav-number">5.</span> <span class="nav-text">函数access和faccessat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0umask"><span class="nav-number">6.</span> <span class="nav-text">函数umask</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0chmod%E3%80%81fchmod%E5%92%8Cfchmodat"><span class="nav-number">7.</span> <span class="nav-text">函数chmod、fchmod和fchmodat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B2%98%E7%9D%80%E4%BD%8D-sticky-bit"><span class="nav-number">8.</span> <span class="nav-text">粘着位(sticky bit)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0chown%E3%80%81fchown%E3%80%81fchownat%E5%92%8Clchown"><span class="nav-number">9.</span> <span class="nav-text">函数chown、fchown、fchownat和lchown</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E9%95%BF%E5%BA%A6"><span class="nav-number">10.</span> <span class="nav-text">文件长度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E7%A9%BA%E6%B4%9E"><span class="nav-number">11.</span> <span class="nav-text">文件中的空洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%88%AA%E6%96%AD"><span class="nav-number">12.</span> <span class="nav-text">文件截断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">13.</span> <span class="nav-text">文件系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0link%E3%80%81linkat%E3%80%81unlink%E3%80%81unlinkat%E5%92%8Cremove"><span class="nav-number">14.</span> <span class="nav-text">函数link、linkat、unlink、unlinkat和remove</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0rename%E5%92%8Crenameat"><span class="nav-number">15.</span> <span class="nav-text">函数rename和renameat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5"><span class="nav-number">16.</span> <span class="nav-text">符号链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%92%8C%E8%AF%BB%E5%8F%96%E7%AC%A6%E5%8F%B7%E8%BF%9E%E6%8E%A5"><span class="nav-number">17.</span> <span class="nav-text">创建和读取符号连接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%97%B6%E9%97%B4"><span class="nav-number">18.</span> <span class="nav-text">文件时间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0futimens%E3%80%81utimensat%E5%92%8Cutimes"><span class="nav-number">19.</span> <span class="nav-text">函数futimens、utimensat和utimes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0mkdir%E3%80%81mkdirat%E5%92%8Crmdir"><span class="nav-number">20.</span> <span class="nav-text">函数mkdir、mkdirat和rmdir</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BB%E7%9B%AE%E5%BD%95"><span class="nav-number">21.</span> <span class="nav-text">读目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0chdir%E3%80%81fchdir%E5%92%8Cgetcwd"><span class="nav-number">22.</span> <span class="nav-text">函数chdir、fchdir和getcwd</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kaiiak"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">kaiiak</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kaiiak" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kaiiak" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/aNxFi37X@outlook.com" title="E-Mail → aNxFi37X@outlook.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/iakmai" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;iakmai" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/4281317" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;4281317" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
     
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
 
   
 
-  
+
+<div class="post-block">
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.iakmai.com/2016/02/29/APUE_study_notes-Files_and_Directories/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kaiiak">
-      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaiiak">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="KAIIAK">
+      <meta itemprop="description" content="">
     </span>
 
-    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="APUE学习笔记——文件和目录 | KAIIAK">
+      <meta itemprop="description" content="">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          APUE学习笔记——文件和目录
+        </h1>
 
-        
-        
-          <h2 class="post-title" itemprop="name headline">APUE学习笔记——文件和目录</h2>
-        
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-29T21:48:30+08:00">
-                2016-02-29
-              </time>
-            
+      <time title="创建时间：2016-02-29 21:48:30" itemprop="dateCreated datePublished" datetime="2016-02-29T21:48:30+08:00">2016-02-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-14 16:34:54" itemprop="dateModified" datetime="2023-01-14T16:34:54+08:00">2023-01-14</time>
+    </span>
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/02/29/APUE_study_notes-Files_and_Directories/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2016/02/29/APUE_study_notes-Files_and_Directories/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/02/29/APUE_study_notes-Files_and_Directories/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/2016/02/29/APUE_study_notes-Files_and_Directories/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h1 id="函数stat、fstat、fstatat、lstat"><a href="#函数stat、fstat、fstatat、lstat" class="headerlink" title="函数stat、fstat、fstatat、lstat"></a>函数<code>stat</code>、<code>fstat</code>、<code>fstatat</code>、<code>lstat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">stat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> pathname, struct stat *<span class="keyword">restrict</span> buf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fstat</span><span class="params">(<span class="keyword">int</span> fd, struct stat *buf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lstat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> pathname, struct stat *<span class="keyword">restrict</span> buf)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lstat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *<span class="keyword">restrict</span> pathname, struct stat *<span class="keyword">restrict</span> buf, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 所有4个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line">sturct stat &#123; </span><br><span class="line">    <span class="keyword">mode_t</span>          st_mode;        <span class="comment">/* file type &amp; mode (permissions) */</span></span><br><span class="line">    <span class="keyword">ino_t</span>           st_ino;         <span class="comment">/* i-node number (serial number) */</span></span><br><span class="line">    <span class="keyword">dev_t</span>           st_dev;         <span class="comment">/* device number (file system) */</span></span><br><span class="line">    <span class="keyword">dev_t</span>           st_rdev;        <span class="comment">/* device number for special files */</span></span><br><span class="line">    <span class="keyword">nlink_t</span>         st_nlink;       <span class="comment">/* number of links */</span></span><br><span class="line">    <span class="keyword">uid_t</span>           st_uid;         <span class="comment">/* user ID of links */</span></span><br><span class="line">    <span class="keyword">gid_t</span>           st_gid;         <span class="comment">/* group ID of owner */</span></span><br><span class="line">    <span class="keyword">off_t</span>           st_size;        <span class="comment">/* size in bytes, for regular files  */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_atime</span>;</span>       <span class="comment">/* time of last access */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_mtime</span>;</span>       <span class="comment">/* time of last modification */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_ctime</span>;</span>       <span class="comment">/* time of last file status change */</span></span><br><span class="line">    <span class="keyword">blksize_t</span>       st_blksize;     <span class="comment">/* best I/O block size */</span></span><br><span class="line">    <span class="keyword">blkcnt_t</span>        st_blocks;      <span class="comment">/* number of disk blocks allocated */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="函数stat、fstat、fstatat、lstat"><a href="#函数stat、fstat、fstatat、lstat" class="headerlink" title="函数stat、fstat、fstatat、lstat"></a>函数<code>stat</code>、<code>fstat</code>、<code>fstatat</code>、<code>lstat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">stat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fstat</span><span class="params">(<span class="type">int</span> fd, <span class="keyword">struct</span> stat *buf)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">lstat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">lstat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf, <span class="type">int</span> flag)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 所有4个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line">sturct stat &#123; </span><br><span class="line">    <span class="type">mode_t</span>          st_mode;        <span class="comment">/* file type &amp; mode (permissions) */</span></span><br><span class="line">    <span class="type">ino_t</span>           st_ino;         <span class="comment">/* i-node number (serial number) */</span></span><br><span class="line">    <span class="type">dev_t</span>           st_dev;         <span class="comment">/* device number (file system) */</span></span><br><span class="line">    <span class="type">dev_t</span>           st_rdev;        <span class="comment">/* device number for special files */</span></span><br><span class="line">    <span class="type">nlink_t</span>         st_nlink;       <span class="comment">/* number of links */</span></span><br><span class="line">    <span class="type">uid_t</span>           st_uid;         <span class="comment">/* user ID of links */</span></span><br><span class="line">    <span class="type">gid_t</span>           st_gid;         <span class="comment">/* group ID of owner */</span></span><br><span class="line">    <span class="type">off_t</span>           st_size;        <span class="comment">/* size in bytes, for regular files  */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_atime</span>;</span>       <span class="comment">/* time of last access */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_mtime</span>;</span>       <span class="comment">/* time of last modification */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_ctime</span>;</span>       <span class="comment">/* time of last file status change */</span></span><br><span class="line">    <span class="type">blksize_t</span>       st_blksize;     <span class="comment">/* best I/O block size */</span></span><br><span class="line">    <span class="type">blkcnt_t</span>        st_blocks;      <span class="comment">/* number of disk blocks allocated */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>函数<code>stat</code>:返回<code>pathname</code>命名文件有关的信息结构；</li>
@@ -446,7 +382,7 @@
 <td align="left">其他执行</td>
 </tr>
 </tbody></table>
-<h1 id="函数access和faccessat"><a href="#函数access和faccessat" class="headerlink" title="函数access和faccessat"></a>函数<code>access</code>和<code>faccessat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">access</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> mode)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">faccessat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> mode, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<h1 id="函数access和faccessat"><a href="#函数access和faccessat" class="headerlink" title="函数access和faccessat"></a>函数<code>access</code>和<code>faccessat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">access</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> mode)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">faccessat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> mode, <span class="type">int</span> flag)</span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
 <p><code>access</code>和<code>faccessat</code>函数是按实际用户ID和实际组ID进行访问权限测试的。</p>
 <table>
@@ -470,7 +406,7 @@
 </tr>
 </tbody></table>
 <h1 id="函数umask"><a href="#函数umask" class="headerlink" title="函数umask"></a>函数<code>umask</code></h1><p><code>umask</code>函数为进程设置文件模式创建屏蔽字(mask for the process)，并返回之前的值。(这是少数几个没有出错返回函数中的一个。)</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">mode_t</span> <span class="title">umask</span><span class="params">(<span class="keyword">mode_t</span> cmask)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：之前的文件模式穿件屏蔽字 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">mode_t</span> <span class="title function_">umask</span><span class="params">(<span class="type">mode_t</span> cmask)</span>;</span><br><span class="line"><span class="comment">/* 返回值：之前的文件模式穿件屏蔽字 */</span></span><br></pre></td></tr></table></figure>
 <p>参数<code>cmask</code>是由上上个表列出的9个常量(S_IRUSR、S_IWUSR等)中若干个按位“或”构成的。</p>
 <table>
 <thead>
@@ -516,7 +452,7 @@
 <td align="left">其他执行</td>
 </tr>
 </tbody></table>
-<h1 id="函数chmod、fchmod和fchmodat"><a href="#函数chmod、fchmod和fchmodat" class="headerlink" title="函数chmod、fchmod和fchmodat"></a>函数<code>chmod</code>、<code>fchmod</code>和<code>fchmodat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">chomd</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">mode_t</span> mode)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fchome</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">mode_t</span> mode)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fchomdat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">mode_t</span> mode, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="comment">/* 3个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<h1 id="函数chmod、fchmod和fchmodat"><a href="#函数chmod、fchmod和fchmodat" class="headerlink" title="函数chmod、fchmod和fchmodat"></a>函数<code>chmod</code>、<code>fchmod</code>和<code>fchmodat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">chomd</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">mode_t</span> mode)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fchome</span><span class="params">(<span class="type">int</span> fd, <span class="type">mode_t</span> mode)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fchomdat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">mode_t</span> mode, <span class="type">int</span> flag)</span>;</span><br><span class="line"><span class="comment">/* 3个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
 <p><code>chmod</code>函数在指定的文件上进行操作，而<code>fchmod</code>函数则对已打开的文件进行操作。<br><code>fchomdat</code>函数与<code>chmod</code>函数在下面两种情况下是相同的：一种是<code>pathname</code>参数为绝对路径，另一种是<code>fd</code>参数取值为<code>AT_FDCWD</code>而<code>pathname</code>参数为相对路径。否则，<code>fchmodat</code>计算相对于打开目录(由<code>fd</code>参数指向)的pathname。<code>flag</code>参数可以用于改变<code>fchmodat</code>的行为，当设置了<code>AT_SYMLIN_NOFOLLOW</code>标志时，<code>fchmodat</code>并不会跟随符号链接。</p>
 <table>
@@ -589,22 +525,22 @@
 </tbody></table>
 <h1 id="粘着位-sticky-bit"><a href="#粘着位-sticky-bit" class="headerlink" title="粘着位(sticky bit)"></a>粘着位(sticky bit)</h1><p><code>S_ISVTX</code>位被称为<code>粘着位</code>：如果一个可执行的程序文件的这一位被设置了，那么当程序第一次被执行，在其终止时，程序正文的一个副本仍被保存在交换区。<br>后来的UNIX版本称为它为<code>保存正文位(saved-text bit)</code>，因此也就有了常量<code>S_ISVTX</code>。</p>
 <h1 id="函数chown、fchown、fchownat和lchown"><a href="#函数chown、fchown、fchownat和lchown" class="headerlink" title="函数chown、fchown、fchownat和lchown"></a>函数<code>chown</code>、<code>fchown</code>、<code>fchownat</code>和<code>lchown</code></h1><p>下面几个<code>chown</code>函数可用于更改文件的用户ID和组ID。如果两个参数<code>owner</code>或<code>group</code>中的任意一个是-1，则对应的ID不变。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">chown</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">uid_t</span> owner, <span class="keyword">git_t</span> group)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fchown</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">uid_t</span> owner, <span class="keyword">gid_t</span> group)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fchownat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">uid_t</span> owner, <span class="keyword">gid_t</span> group, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lchown</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">uid_t</span> owner, <span class="keyword">gid_t</span> group)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 4个函数的返回值：若辰宫，返回0；若出错，返回-1</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">chown</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">uid_t</span> owner, <span class="type">git_t</span> group)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fchown</span><span class="params">(<span class="type">int</span> fd, <span class="type">uid_t</span> owner, <span class="type">gid_t</span> group)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fchownat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">uid_t</span> owner, <span class="type">gid_t</span> group, <span class="type">int</span> flag)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">lchown</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">uid_t</span> owner, <span class="type">gid_t</span> group)</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 4个函数的返回值：若辰宫，返回0；若出错，返回-1</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="文件长度"><a href="#文件长度" class="headerlink" title="文件长度"></a>文件长度</h1><p><code>stat</code>结构成员<code>st_size</code>表示以字节为单位的单位长度。只对普通文件、目录文件和符号连接有效。</p>
 <h1 id="文件中的空洞"><a href="#文件中的空洞" class="headerlink" title="文件中的空洞"></a>文件中的空洞</h1><p>空洞是由所设置的偏移量超过文件端尾，并写入了某些数据后造成的。</p>
-<h1 id="文件截断"><a href="#文件截断" class="headerlink" title="文件截断"></a>文件截断</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">truncate</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">off_t</span> length)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ftruncate</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">off_t</span> length)</span></span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 两个函数的返回值：若成功，返回0；若失败，返回-1</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<h1 id="文件截断"><a href="#文件截断" class="headerlink" title="文件截断"></a>文件截断</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">truncate</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">off_t</span> length)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">ftruncate</span><span class="params">(<span class="type">int</span> fd, <span class="type">off_t</span> length)</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 两个函数的返回值：若成功，返回0；若失败，返回-1</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
 
 <p>如果该文件以前的长度大于<code>length</code>，则超过<code>length</code>以外的数据就不能再访问。如果以前的长度小于<code>length</code>，文件长度将增加，在以前的文件尾端和新的文件尾端之间的数据将读作0。</p>
-<h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><h1 id="函数link、linkat、unlink、unlinkat和remove"><a href="#函数link、linkat、unlink、unlinkat和remove" class="headerlink" title="函数link、linkat、unlink、unlinkat和remove"></a>函数<code>link</code>、<code>linkat</code>、<code>unlink</code>、<code>unlinkat</code>和<code>remove</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">link</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *existingpath, <span class="keyword">const</span> <span class="keyword">char</span> *newpath)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">linkat</span><span class="params">(<span class="keyword">int</span> efd, <span class="keyword">const</span> <span class="keyword">char</span> *existingpath, <span class="keyword">int</span> nfd, <span class="keyword">const</span> <span class="keyword">char</span> *newpath, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><h1 id="函数link、linkat、unlink、unlinkat和remove"><a href="#函数link、linkat、unlink、unlinkat和remove" class="headerlink" title="函数link、linkat、unlink、unlinkat和remove"></a>函数<code>link</code>、<code>linkat</code>、<code>unlink</code>、<code>unlinkat</code>和<code>remove</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">link</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *existingpath, <span class="type">const</span> <span class="type">char</span> *newpath)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">linkat</span><span class="params">(<span class="type">int</span> efd, <span class="type">const</span> <span class="type">char</span> *existingpath, <span class="type">int</span> nfd, <span class="type">const</span> <span class="type">char</span> *newpath, <span class="type">int</span> flag)</span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
 <p>这两个函数创建一个新目录项<code>newpath</code>，它引用现有文件<code>existingpath</code>。如果<code>newpath</code>已存在，则返回出错。<br>对于<code>linkat</code>函数，现有文件是通过<code>efd</code>和<code>existingpath</code>指定，新的路径名是通过<code>nfd</code>和<code>newpath</code>指定的。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">unlink</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">unlinkat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">unlink</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">unlinkat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flag)</span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
 <p>这两个函数删除目录项，并将由<code>pathname</code>所引用的链接数减1。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">remove</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若失败，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">remove</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若失败，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="函数rename和renameat"><a href="#函数rename和renameat" class="headerlink" title="函数rename和renameat"></a>函数<code>rename</code>和<code>renameat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rename</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *oldname, <span class="keyword">const</span> <span class="keyword">char</span> *newname)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">renameat</span><span class="params">(<span class="keyword">int</span> oldfd, <span class="keyword">const</span> <span class="keyword">char</span> *oldname, <span class="keyword">int</span> newfd, <span class="keyword">const</span> <span class="keyword">char</span> *newname)</span></span>;</span><br></pre></td></tr></table></figure>
+<h1 id="函数rename和renameat"><a href="#函数rename和renameat" class="headerlink" title="函数rename和renameat"></a>函数<code>rename</code>和<code>renameat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">rename</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *oldname, <span class="type">const</span> <span class="type">char</span> *newname)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">renameat</span><span class="params">(<span class="type">int</span> oldfd, <span class="type">const</span> <span class="type">char</span> *oldname, <span class="type">int</span> newfd, <span class="type">const</span> <span class="type">char</span> *newname)</span>;</span><br></pre></td></tr></table></figure>
 
 <ol>
 <li>如果<code>oldname</code>指的是一个文件而不是目录，那么为该文件或符号连接重命名。</li>
@@ -614,9 +550,9 @@
 <li>作为一个特例，如果<code>oldname</code>和<code>newname</code>引用同意文件，则函数不做任何更改而成功返回。</li>
 </ol>
 <h1 id="符号链接"><a href="#符号链接" class="headerlink" title="符号链接"></a>符号链接</h1><p>符号链接是对一个文件的间接指针。符号链接以及它指向何种对象并无任何文件系统限制，任何用户都可以创建指向目录的符号连接。</p>
-<h1 id="创建和读取符号连接"><a href="#创建和读取符号连接" class="headerlink" title="创建和读取符号连接"></a>创建和读取符号连接</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">symlink</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *actualpath, <span class="keyword">const</span> <span class="keyword">char</span> *sympath)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">symlinat</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *acutalpath, <span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *symptah)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<h1 id="创建和读取符号连接"><a href="#创建和读取符号连接" class="headerlink" title="创建和读取符号连接"></a>创建和读取符号连接</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">symlink</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *actualpath, <span class="type">const</span> <span class="type">char</span> *sympath)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">symlinat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *acutalpath, <span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *symptah)</span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">readlink</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *actualpath, <span class="keyword">const</span> <span class="keyword">char</span> *symptah)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">sszie_t</span> <span class="title">readlinkat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">restrict</span> pathname, <span class="keyword">char</span> *<span class="keyword">restrict</span> buf, <span class="keyword">size_t</span> bufsize)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回读取的字节数；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">readlink</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *actualpath, <span class="type">const</span> <span class="type">char</span> *symptah)</span>;</span><br><span class="line"><span class="type">sszie_t</span> <span class="title function_">readlinkat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span>* <span class="keyword">restrict</span> pathname, <span class="type">char</span> *<span class="keyword">restrict</span> buf, <span class="type">size_t</span> bufsize)</span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回读取的字节数；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="文件时间"><a href="#文件时间" class="headerlink" title="文件时间"></a>文件时间</h1><table>
 <thead>
@@ -646,447 +582,128 @@
 <td align="left"><code>-c</code></td>
 </tr>
 </tbody></table>
-<h1 id="函数futimens、utimensat和utimes"><a href="#函数futimens、utimensat和utimes" class="headerlink" title="函数futimens、utimensat和utimes"></a>函数<code>futimens</code>、<code>utimensat</code>和<code>utimes</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">futimens</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> struct timespec times[<span class="number">2</span>])</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">utimensat</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">const</span> struct timespec times[<span class="number">2</span>], <span class="keyword">int</span> flag)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<h1 id="函数futimens、utimensat和utimes"><a href="#函数futimens、utimensat和utimes" class="headerlink" title="函数futimens、utimensat和utimes"></a>函数<code>futimens</code>、<code>utimensat</code>和<code>utimes</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">futimens</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="keyword">struct</span> timespec times[<span class="number">2</span>])</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">utimensat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *path, <span class="type">const</span> <span class="keyword">struct</span> timespec times[<span class="number">2</span>], <span class="type">int</span> flag)</span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="函数mkdir、mkdirat和rmdir"><a href="#函数mkdir、mkdirat和rmdir" class="headerlink" title="函数mkdir、mkdirat和rmdir"></a>函数<code>mkdir</code>、<code>mkdirat</code>和<code>rmdir</code></h1><p>两个函数创建一个新目录。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mkdir</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">mode_t</span> mode)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mkdir</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">mode_t</span> mode)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">mkdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">mode_t</span> mode)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">mkdir</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">mode_t</span> mode)</span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
 <p>用<code>rmdir</code>函数可以创建一个空目录。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rmdir</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若失败，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">rmdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若失败，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
 
-<h1 id="读目录"><a href="#读目录" class="headerlink" title="读目录"></a>读目录</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;dirent.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">DIR *<span class="title">opendir</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname)</span></span>;</span><br><span class="line"><span class="function">DIR *<span class="title">fdopendir</span><span class="params">(<span class="keyword">int</span> fd)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回指针；若出错，返回NULL */</span></span><br><span class="line"></span><br><span class="line"><span class="function">struct dirent *<span class="title">readdir</span><span class="params">(DIR *dp)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回指针；若在目录尾或出错，返回NULL */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rewinddir</span><span class="params">(DIR *dp)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">closeddir</span><span class="params">(DIR *dp)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若失败，返回-1 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">telldir</span><span class="params">(DIR *dp)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：与dp关联的相关位置 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">seekdir</span><span class="params">(DIR *dp, <span class="keyword">long</span> loc)</span></span>;</span><br></pre></td></tr></table></figure>
+<h1 id="读目录"><a href="#读目录" class="headerlink" title="读目录"></a>读目录</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dirent.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">DIR *<span class="title function_">opendir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname)</span>;</span><br><span class="line">DIR *<span class="title function_">fdopendir</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回指针；若出错，返回NULL */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> dirent *<span class="title function_">readdir</span><span class="params">(DIR *dp)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回指针；若在目录尾或出错，返回NULL */</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">rewinddir</span><span class="params">(DIR *dp)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">closeddir</span><span class="params">(DIR *dp)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若失败，返回-1 */</span></span><br><span class="line"></span><br><span class="line"><span class="type">long</span> <span class="title function_">telldir</span><span class="params">(DIR *dp)</span>;</span><br><span class="line"><span class="comment">/* 返回值：与dp关联的相关位置 */</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">seekdir</span><span class="params">(DIR *dp, <span class="type">long</span> loc)</span>;</span><br></pre></td></tr></table></figure>
 
-<h1 id="函数chdir、fchdir和getcwd"><a href="#函数chdir、fchdir和getcwd" class="headerlink" title="函数chdir、fchdir和getcwd"></a>函数<code>chdir</code>、<code>fchdir</code>和<code>getcwd</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">chdir</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fchdir</span><span class="params">(<span class="keyword">int</span> fd)</span></span>;</span><br></pre></td></tr></table></figure>
+<h1 id="函数chdir、fchdir和getcwd"><a href="#函数chdir、fchdir和getcwd" class="headerlink" title="函数chdir、fchdir和getcwd"></a>函数<code>chdir</code>、<code>fchdir</code>和<code>getcwd</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">chdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fchdir</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>进程调用<code>chdir</code>和<code>fchdir</code>函数更改当前工作目录。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">getcwd</span><span class="params">(<span class="keyword">char</span> *buf, <span class="keyword">size_t</span> <span class="built_in">size</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> *<span class="title function_">getcwd</span><span class="params">(<span class="type">char</span> *buf, <span class="type">size_t</span> size)</span>;</span><br></pre></td></tr></table></figure>
 <p>逐层上移，直到遇到根，得到当前工作目录完整的绝对路径。<br>必须像此函数传递两个函数，一个是缓冲区地址<code>buf</code>(要有足够的长度容纳绝对路径再加上一个终止<code>null</code>字节)，另一个是缓冲区的长度<code>size</code>(以字节为单位)。</p>
 
-      
     </div>
-    
-    
-    
 
     
-
     
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>您的支持将鼓励我继续创作！</div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.png" alt="kaiiak 微信支付"/>
-        <p>微信支付</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.png" alt="kaiiak 支付宝"/>
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
-
     
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
-          
-            <a href="/tags/APUE/" rel="tag"># APUE</a>
-          
-        </div>
-      
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
 
-      
-      
-      
+  <div class="social-list">
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/02/25/APUE_study_notes-Files_IO/" rel="next" title="APUE学习笔记——文件IO">
-                <i class="fa fa-chevron-left"></i> APUE学习笔记——文件IO
-              </a>
-            
-          </div>
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/iakmai">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
 
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/05/personal_vimrc/" rel="prev" title="自用vim配置文件">
-                自用vim配置文件 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
-        </noscript>
+            <span class="label">Twitter</span>
+          </a>
       </div>
-    </div>
 
-  
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
 
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+            <span class="label">RSS</span>
+          </a>
+      </div>
   </div>
+</div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/avatar.jpg"
-                alt="kaiiak" />
-            
-              <p class="site-author-name" itemprop="name">kaiiak</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/APUE/" rel="tag"># APUE</a>
           </div>
 
-          <nav class="site-state motion-element">
+        
 
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives%7C%7Carchive">
-              
-                  <span class="site-state-item-count">25</span>
-                  <span class="site-state-item-name">日志</span>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/02/25/APUE_study_notes-Files_IO/" rel="prev" title="APUE学习笔记——文件IO">
+                  <i class="fa fa-chevron-left"></i> APUE学习笔记——文件IO
                 </a>
-              </div>
-            
-
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/kaiiak" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:aNxFi37X@outlook.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/iakmai" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://instagram.com/mzzzkkk" target="_blank" title="Instagram">
-                      
-                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
-                  </span>
-                
             </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#函数stat、fstat、fstatat、lstat"><span class="nav-number">1.</span> <span class="nav-text">函数stat、fstat、fstatat、lstat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件类型"><span class="nav-number">2.</span> <span class="nav-text">文件类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置用户ID和设置组ID"><span class="nav-number">3.</span> <span class="nav-text">设置用户ID和设置组ID</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件访问权限"><span class="nav-number">4.</span> <span class="nav-text">文件访问权限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数access和faccessat"><span class="nav-number">5.</span> <span class="nav-text">函数access和faccessat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数umask"><span class="nav-number">6.</span> <span class="nav-text">函数umask</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数chmod、fchmod和fchmodat"><span class="nav-number">7.</span> <span class="nav-text">函数chmod、fchmod和fchmodat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#粘着位-sticky-bit"><span class="nav-number">8.</span> <span class="nav-text">粘着位(sticky bit)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数chown、fchown、fchownat和lchown"><span class="nav-number">9.</span> <span class="nav-text">函数chown、fchown、fchownat和lchown</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件长度"><span class="nav-number">10.</span> <span class="nav-text">文件长度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件中的空洞"><span class="nav-number">11.</span> <span class="nav-text">文件中的空洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件截断"><span class="nav-number">12.</span> <span class="nav-text">文件截断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件系统"><span class="nav-number">13.</span> <span class="nav-text">文件系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数link、linkat、unlink、unlinkat和remove"><span class="nav-number">14.</span> <span class="nav-text">函数link、linkat、unlink、unlinkat和remove</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数rename和renameat"><span class="nav-number">15.</span> <span class="nav-text">函数rename和renameat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#符号链接"><span class="nav-number">16.</span> <span class="nav-text">符号链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建和读取符号连接"><span class="nav-number">17.</span> <span class="nav-text">创建和读取符号连接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件时间"><span class="nav-number">18.</span> <span class="nav-text">文件时间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数futimens、utimensat和utimes"><span class="nav-number">19.</span> <span class="nav-text">函数futimens、utimensat和utimes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数mkdir、mkdirat和rmdir"><span class="nav-number">20.</span> <span class="nav-text">函数mkdir、mkdirat和rmdir</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#读目录"><span class="nav-number">21.</span> <span class="nav-text">读目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数chdir、fchdir和getcwd"><span class="nav-number">22.</span> <span class="nav-text">函数chdir、fchdir和getcwd</span></a></li></ol></div>
-            
-
+            <div class="post-nav-item">
+                <a href="/2016/03/05/personal_vimrc/" rel="next" title="自用vim配置文件">
+                  自用vim配置文件 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-KAIIAK fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">kaiiak</span>
-
-  
+    </footer>
+  </article>
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
 
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KAIIAK</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
   
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://https-blog-iakmai-com.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://blog.iakmai.com/2016/02/29/APUE_study_notes-Files_and_Directories/';
-          this.page.identifier = '2016/02/29/APUE_study_notes-Files_and_Directories/';
-          this.page.title = 'APUE学习笔记——文件和目录';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-blog-iakmai-com.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -1097,36 +714,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"https-blog-iakmai-com","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
 
 </body>
 </html>

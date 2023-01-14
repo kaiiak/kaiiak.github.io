@@ -1,354 +1,290 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.iakmai.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Linux,APUE," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="进程标识每个进程都有一个非负整型表示的唯一进程ID。  ID为0的进程通常是调度进程，常常被称为交换进程(swapper)。该进程是内核的一部分，它并不执行任何磁盘上的程序，因此被称为系统进程。 进程ID为1的通常是init进程，在自举过程结束时由内核调用。init进程决不会终止。它是一个普通的用户进程，但它以超级用户特权运行。 进程ID2是页守护进程(page daemon)，此进程负责支持虚拟">
-<meta property="og:type" content="article">
+    <meta name="description" content="进程标识每个进程都有一个非负整型表示的唯一进程ID。  ID为0的进程通常是调度进程，常常被称为交换进程(swapper)。该进程是内核的一部分，它并不执行任何磁盘上的程序，因此被称为系统进程。 进程ID为1的通常是init进程，在自举过程结束时由内核调用。init进程决不会终止。它是一个普通的用户进程，但它以超级用户特权运行。 进程ID2是页守护进程(page daemon)，此进程负责支持虚拟">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="APUE学习笔记——进程控制">
 <meta property="og:url" content="https://blog.iakmai.com/2016/04/27/APUE_study_notes-process-control/index.html">
 <meta property="og:site_name" content="KAIIAK">
 <meta property="og:description" content="进程标识每个进程都有一个非负整型表示的唯一进程ID。  ID为0的进程通常是调度进程，常常被称为交换进程(swapper)。该进程是内核的一部分，它并不执行任何磁盘上的程序，因此被称为系统进程。 进程ID为1的通常是init进程，在自举过程结束时由内核调用。init进程决不会终止。它是一个普通的用户进程，但它以超级用户特权运行。 进程ID2是页守护进程(page daemon)，此进程负责支持虚拟">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-04-27T15:08:52.000Z">
-<meta property="article:modified_time" content="2020-05-26T15:44:49.376Z">
+<meta property="article:modified_time" content="2023-01-14T08:34:54.553Z">
 <meta property="article:author" content="kaiiak">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="APUE">
 <meta name="twitter:card" content="summary">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
+<link rel="canonical" href="https://blog.iakmai.com/2016/04/27/APUE_study_notes-process-control/">
 
 
 
-  <link rel="canonical" href="https://blog.iakmai.com/2016/04/27/APUE_study_notes-process-control/"/>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.iakmai.com/2016/04/27/APUE_study_notes-process-control/","path":"/2016/04/27/APUE_study_notes-process-control/","title":"APUE学习笔记——进程控制"}</script>
 
-
-
-
-
-  <title>APUE学习笔记——进程控制 | KAIIAK</title>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>APUE学习笔记——进程控制 | KAIIAK</title>
   
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EDK6BZBWNK"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-EDK6BZBWNK","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
 
 
 
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-122316693-1', 'auto');
-  ga('send', 'pageview');
-</script>
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{&quot;token&quot;: &quot;5fda3177f3ce4ab4adf59b357edf21f9&quot;}'></script>
 
 
 
+  <script async defer data-website-id="" src=""></script>
 
+  <script defer data-domain="" src=""></script>
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="KAIIAK" type="application/atom+xml">
+</head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">KAIIAK</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-      
-        <h1 class="site-subtitle" itemprop="description">啦啦啦~我是卖萌的小行家~</h1>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">KAIIAK</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个不知道该写什么的人</p>
+      <img class="custom-logo-image" src="/images/favicon-32x32.png" alt="KAIIAK">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
   </div>
 </div>
 
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
+  <ul class="main-menu menu"><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
 
 
- </div>
-    </header>
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
+    </div>
+  </div>
 
-  <div id="posts" class="posts-expand">
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%A0%87%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">进程标识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0fork"><span class="nav-number">2.</span> <span class="nav-text">函数fork</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0vfork"><span class="nav-number">3.</span> <span class="nav-text">函数vfork</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0exit"><span class="nav-number">4.</span> <span class="nav-text">函数exit</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0wait%E5%92%8Cwaitpid"><span class="nav-number">5.</span> <span class="nav-text">函数wait和waitpid</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0waittid"><span class="nav-number">6.</span> <span class="nav-text">函数waittid</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0wait3%E5%92%8Cwait4"><span class="nav-number">7.</span> <span class="nav-text">函数wait3和wait4</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0exec"><span class="nav-number">8.</span> <span class="nav-text">函数exec</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E7%94%A8%E6%88%B7ID%E5%92%8C%E6%9B%B4%E6%94%B9%E7%BB%84ID"><span class="nav-number">9.</span> <span class="nav-text">更改用户ID和更改组ID</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0setreuid%E5%92%8Csetregid"><span class="nav-number">9.1.</span> <span class="nav-text">函数setreuid和setregid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0seteuid%E5%92%8Csetegid"><span class="nav-number">9.2.</span> <span class="nav-text">函数seteuid和setegid</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0system"><span class="nav-number">10.</span> <span class="nav-text">函数system</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E4%BC%9A%E8%AE%A1-process-accounting"><span class="nav-number">11.</span> <span class="nav-text">进程会计(process accounting)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E6%A0%87%E8%AF%86"><span class="nav-number">12.</span> <span class="nav-text">用户标识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6"><span class="nav-number">13.</span> <span class="nav-text">进程调度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%97%B6%E9%97%B4"><span class="nav-number">14.</span> <span class="nav-text">进程时间</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kaiiak"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">kaiiak</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kaiiak" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kaiiak" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/aNxFi37X@outlook.com" title="E-Mail → aNxFi37X@outlook.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/iakmai" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;iakmai" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/4281317" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;4281317" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
     
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
 
   
 
-  
+
+<div class="post-block">
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.iakmai.com/2016/04/27/APUE_study_notes-process-control/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kaiiak">
-      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaiiak">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="KAIIAK">
+      <meta itemprop="description" content="">
     </span>
 
-    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="APUE学习笔记——进程控制 | KAIIAK">
+      <meta itemprop="description" content="">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          APUE学习笔记——进程控制
+        </h1>
 
-        
-        
-          <h2 class="post-title" itemprop="name headline">APUE学习笔记——进程控制</h2>
-        
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-27T23:08:52+08:00">
-                2016-04-27
-              </time>
-            
+      <time title="创建时间：2016-04-27 23:08:52" itemprop="dateCreated datePublished" datetime="2016-04-27T23:08:52+08:00">2016-04-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-14 16:34:54" itemprop="dateModified" datetime="2023-01-14T16:34:54+08:00">2023-01-14</time>
+    </span>
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2016/04/27/APUE_study_notes-process-control/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2016/04/27/APUE_study_notes-process-control/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/04/27/APUE_study_notes-process-control/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/2016/04/27/APUE_study_notes-process-control/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
         <h1 id="进程标识"><a href="#进程标识" class="headerlink" title="进程标识"></a>进程标识</h1><p>每个进程都有一个非负整型表示的唯一进程ID。</p>
 <ul>
 <li>ID为0的进程通常是调度进程，常常被称为<code>交换进程(swapper)</code>。该进程是内核的一部分，它并不执行任何磁盘上的程序，因此被称为系统进程。</li>
 <li>进程ID为1的通常是<code>init</code>进程，在自举过程结束时由内核调用。<code>init</code>进程决不会终止。它是一个普通的用户进程，但它以超级用户特权运行。</li>
 <li>进程ID2是<code>页守护进程(page daemon)</code>，此进程负责支持虚拟存储器系统的分页操作。</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">pid_t</span> <span class="title">getpid</span><span class="params">(<span class="keyword">void</span>)</span></span>;     <span class="comment">/* 返回值：调用进程的进程ID */</span></span><br><span class="line"><span class="function"><span class="keyword">pid_t</span> <span class="title">getppid</span><span class="params">(<span class="keyword">void</span>)</span></span>;    <span class="comment">/* 返回值：调用进程的父进程ID */</span></span><br><span class="line"><span class="function"><span class="keyword">uid_t</span> <span class="title">getuid</span><span class="params">(<span class="keyword">void</span>)</span></span>;     <span class="comment">/* 返回值：调用进程的实际用户ID */</span></span><br><span class="line"><span class="function"><span class="keyword">uid_t</span> <span class="title">geteuid</span><span class="params">(<span class="keyword">void</span>)</span></span>;    <span class="comment">/* 返回值：调用进程的有效用户ID */</span></span><br><span class="line"><span class="function"><span class="keyword">gid_t</span> <span class="title">getgid</span><span class="params">(<span class="keyword">void</span>)</span></span>;     <span class="comment">/* 返回值：调用进程的实际组ID */</span></span><br><span class="line"><span class="function"><span class="keyword">gid_t</span> <span class="title">getegid</span><span class="params">(<span class="keyword">void</span>)</span></span>;    <span class="comment">/* 返回值：调用进程的有效组ID */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getpid</span><span class="params">(<span class="type">void</span>)</span>;     <span class="comment">/* 返回值：调用进程的进程ID */</span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getppid</span><span class="params">(<span class="type">void</span>)</span>;    <span class="comment">/* 返回值：调用进程的父进程ID */</span></span><br><span class="line"><span class="type">uid_t</span> <span class="title function_">getuid</span><span class="params">(<span class="type">void</span>)</span>;     <span class="comment">/* 返回值：调用进程的实际用户ID */</span></span><br><span class="line"><span class="type">uid_t</span> <span class="title function_">geteuid</span><span class="params">(<span class="type">void</span>)</span>;    <span class="comment">/* 返回值：调用进程的有效用户ID */</span></span><br><span class="line"><span class="type">gid_t</span> <span class="title function_">getgid</span><span class="params">(<span class="type">void</span>)</span>;     <span class="comment">/* 返回值：调用进程的实际组ID */</span></span><br><span class="line"><span class="type">gid_t</span> <span class="title function_">getegid</span><span class="params">(<span class="type">void</span>)</span>;    <span class="comment">/* 返回值：调用进程的有效组ID */</span> </span><br></pre></td></tr></table></figure>
 
-<h1 id="函数fork"><a href="#函数fork" class="headerlink" title="函数fork"></a>函数<code>fork</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">pid_t</span> <span class="title">fork</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：子进程返回0，父进程返回子进程ID；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<h1 id="函数fork"><a href="#函数fork" class="headerlink" title="函数fork"></a>函数<code>fork</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">fork</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="comment">/* 返回值：子进程返回0，父进程返回子进程ID；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 <p>由<code>fork</code>创建的新进程被称为<code>子进程(child process)</code>。<br>两次返回的区别是子进程的返回值是0，而父进程的返回值则是新建子进程的进程ID。<br>子进程和父进程继续执行<code>fork</code>调用之后的指令。子进程是父进程的副本。父进程和子进程共享正文段。<br>一般来说，<code>fork</code>之后是父进程先执行还是子进程先执行是不确定的。<br>在重定向父进程的标准输出时，子进程的标准输出也被重定向。<br>子进程和父进程共享一个文件偏移量。</p>
 <h1 id="函数vfork"><a href="#函数vfork" class="headerlink" title="函数vfork"></a>函数<code>vfork</code></h1><p>父进程和子进程共享数据段，并且先保诚子进程先运行，只有当子进程调用<code>exec</code>或<code>exit</code>后父进程才可能被调用运行。<br><em>调用vfork()后，子程序要么_exit(),要么调用exec()，否则都是未定义行为(UB)</em></p>
 <h1 id="函数exit"><a href="#函数exit" class="headerlink" title="函数exit"></a>函数<code>exit</code></h1><p>5种正常终止方式：</p>
@@ -374,7 +310,7 @@
 <li><p>如果一个子进程终止，正等待父进程获取其终止状态，则取得该子进程的终止状态立即返回。</p>
 </li>
 <li><p>如果没有任何子进程，则立即出错返回。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">pid_t</span> <span class="title">wait</span><span class="params">(<span class="keyword">int</span> *statloc)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">pid_t</span> <span class="title">waitpid</span><span class="params">(<span class="keyword">pid_t</span> pid, <span class="keyword">int</span> *statloc, <span class="keyword">int</span> options)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回进程ID；若出错，返回0或-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">wait</span><span class="params">(<span class="type">int</span> *statloc)</span>;</span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">waitpid</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">int</span> *statloc, <span class="type">int</span> options)</span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回进程ID；若出错，返回0或-1 */</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在一个子进程终止前，<code>wait</code>使其调用者阻塞，而<code>waitpid</code>有一选项，可使调用者不阻塞。</p>
 </li>
@@ -408,9 +344,9 @@
 </tbody></table>
 <p><code>waitpid</code>函数中pid参数的作用解释如下：</p>
 <ul>
-<li>pid == -1 等待任一子进程。此种情况下，<code>wait</code>和<code>waitpid</code>等效。</li>
+<li>pid &#x3D;&#x3D; -1 等待任一子进程。此种情况下，<code>wait</code>和<code>waitpid</code>等效。</li>
 <li>pid &gt; 0   等待进程ID与pid相等的子进程。</li>
-<li>pid == 0  等待组ID等于调用进程组ID的任一子进程。</li>
+<li>pid &#x3D;&#x3D; 0  等待组ID等于调用进程组ID的任一子进程。</li>
 <li>pid &lt; -1  等待组ID等于pid绝对值的任一子进程。</li>
 </ul>
 <table>
@@ -433,7 +369,7 @@
 <td align="center">若某实现支持作业控制，而由pid指定的任一子进程已处于停止状态，并且其状态由停止以来还没报告过，则返回其状态。WIFSTOPPED宏确定返回值是否对应于一个停止的子进程。</td>
 </tr>
 </tbody></table>
-<h1 id="函数waittid"><a href="#函数waittid" class="headerlink" title="函数waittid"></a>函数<code>waittid</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">waittid</span><span class="params">(<span class="keyword">idtype_t</span> idtype, <span class="keyword">id_t</span> id, <span class="keyword">siginfo_t</span> *infop, <span class="keyword">int</span> options)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<h1 id="函数waittid"><a href="#函数waittid" class="headerlink" title="函数waittid"></a>函数<code>waittid</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">waittid</span><span class="params">(<span class="type">idtype_t</span> idtype, <span class="type">id_t</span> id, <span class="type">siginfo_t</span> *infop, <span class="type">int</span> options)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
 <table>
 <thead>
@@ -483,10 +419,10 @@
 <td align="center">等待一进程，它已经停止，但其状态尚未报告</td>
 </tr>
 </tbody></table>
-<h1 id="函数wait3和wait4"><a href="#函数wait3和wait4" class="headerlink" title="函数wait3和wait4"></a>函数<code>wait3</code>和<code>wait4</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">pid_t</span> <span class="title">wait3</span><span class="params">(<span class="keyword">int</span> *statloc, <span class="keyword">int</span> options, struct rusage *rusage)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">pid_t</span> <span class="title">wait4</span><span class="params">(<span class="keyword">pid_t</span> pid, <span class="keyword">int</span> *statloc, <span class="keyword">int</span> options, struct rusage *rusage)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回进程ID；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<h1 id="函数wait3和wait4"><a href="#函数wait3和wait4" class="headerlink" title="函数wait3和wait4"></a>函数<code>wait3</code>和<code>wait4</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">wait3</span><span class="params">(<span class="type">int</span> *statloc, <span class="type">int</span> options, <span class="keyword">struct</span> rusage *rusage)</span>;</span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">wait4</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">int</span> *statloc, <span class="type">int</span> options, <span class="keyword">struct</span> rusage *rusage)</span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回进程ID；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="函数exec"><a href="#函数exec" class="headerlink" title="函数exec"></a>函数<code>exec</code></h1><p>调用<code>exec</code>并不创建新进程，所以前后的进程ID并没有改变。<code>exec</code>只是用磁盘上的一个新程序替换了当前进程的正文段、数据段、堆栈和栈段。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execl</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">const</span> <span class="keyword">char</span> *arg0, ... <span class="comment">/* (char *)0 */</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">char</span> *<span class="keyword">const</span> argv[])</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execle</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">const</span> <span class="keyword">char</span> *arg0, ...</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="comment">/* (char *)0, char *const envp[] */</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execve</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">char</span> *<span class="keyword">const</span> argv[], <span class="keyword">char</span> *<span class="keyword">const</span> envp[])</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execlp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *filename, <span class="keyword">const</span> <span class="keyword">char</span> *arg0, ... <span class="comment">/* (char *)0 */</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execvp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *filename, <span class="keyword">char</span> *<span class="keyword">const</span> argv[])</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fexecve</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">char</span> *<span class="keyword">const</span> argv[], <span class="keyword">char</span> *<span class="keyword">const</span> envp[])</span></span>;</span><br><span class="line"><span class="comment">/* 7个函数返回值：若出错，返回-1；若成功，不返回 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">execl</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">const</span> <span class="type">char</span> *arg0, ... <span class="comment">/* (char *)0 */</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">execv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">char</span> *<span class="type">const</span> argv[])</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">execle</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">const</span> <span class="type">char</span> *arg0, ...</span></span><br><span class="line"><span class="params">    <span class="comment">/* (char *)0, char *const envp[] */</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">execve</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">char</span> *<span class="type">const</span> argv[], <span class="type">char</span> *<span class="type">const</span> envp[])</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">execlp</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *filename, <span class="type">const</span> <span class="type">char</span> *arg0, ... <span class="comment">/* (char *)0 */</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">execvp</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *filename, <span class="type">char</span> *<span class="type">const</span> argv[])</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fexecve</span><span class="params">(<span class="type">int</span> fd, <span class="type">char</span> *<span class="type">const</span> argv[], <span class="type">char</span> *<span class="type">const</span> envp[])</span>;</span><br><span class="line"><span class="comment">/* 7个函数返回值：若出错，返回-1；若成功，不返回 */</span></span><br></pre></td></tr></table></figure>
 
 <p>当<code>filename</code>作为参数时：</p>
 <ul>
@@ -495,7 +431,7 @@
 </ul>
 <p>execl,execle,execlp(结尾带l)要在可变参数结尾添加<code>(char *)0</code>。<br>execlp,execvp(结尾带p)表示第一个参数path不用输入完整路径，只有给出命令名即可，它会在环境变量PATH当中查找命令。<br>execv,execvp(不带l)表示命令所需的参数以char *arg[]形式给出且arg最后一个元素必须是NULL。</p>
 <h1 id="更改用户ID和更改组ID"><a href="#更改用户ID和更改组ID" class="headerlink" title="更改用户ID和更改组ID"></a>更改用户ID和更改组ID</h1><p>可以用<code>setuid</code>函数设置实际用户ID和有效用户ID；可以用<code>setgid</code>函数设置实际组ID和有效组ID。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setuid</span><span class="params">(<span class="keyword">uid_t</span> uid)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setgit</span><span class="params">(<span class="keyword">gid_t</span> gid)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">setuid</span><span class="params">(<span class="type">uid_t</span> uid)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">setgit</span><span class="params">(<span class="type">gid_t</span> gid)</span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 <ol>
 <li><p>若进程拥有超级用户权限，则setuid函数将实际用户ID、有效用户ID以及保存的设置用户ID设置为uid；</p>
 </li>
@@ -511,19 +447,19 @@
 </li>
 </ol>
 <h2 id="函数setreuid和setregid"><a href="#函数setreuid和setregid" class="headerlink" title="函数setreuid和setregid"></a>函数<code>setreuid</code>和<code>setregid</code></h2><p>功能是交换实际用户ID和有效用户ID</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setreuid</span><span class="params">(<span class="keyword">uid_t</span> ruid, <span class="keyword">uid_t</span> euid)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setregid</span><span class="params">(<span class="keyword">gid_t</span> rgid, <span class="keyword">gid_t</span> egid)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">setreuid</span><span class="params">(<span class="type">uid_t</span> ruid, <span class="type">uid_t</span> euid)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">setregid</span><span class="params">(<span class="type">gid_t</span> rgid, <span class="type">gid_t</span> egid)</span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 <p>如若其中任一参数的值为-1，则表示相应的ID应当保持不变。</p>
 <h2 id="函数seteuid和setegid"><a href="#函数seteuid和setegid" class="headerlink" title="函数seteuid和setegid"></a>函数<code>seteuid</code>和<code>setegid</code></h2><p>类似于<code>setuid</code>和<code>setgid</code>，但只更改有效用户ID和有效组ＩＤ。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">seteuid</span><span class="params">(<span class="keyword">uid_t</span> uid)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setegid</span><span class="params">(<span class="keyword">uid_t</span> gid)</span></span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">seteuid</span><span class="params">(<span class="type">uid_t</span> uid)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">setegid</span><span class="params">(<span class="type">uid_t</span> gid)</span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="函数system"><a href="#函数system" class="headerlink" title="函数system"></a>函数<code>system</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">system</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *cmdstring)</span></span>;</span><br></pre></td></tr></table></figure>
+<h1 id="函数system"><a href="#函数system" class="headerlink" title="函数system"></a>函数<code>system</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">system</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *cmdstring)</span>;</span><br></pre></td></tr></table></figure>
 <p>如果<code>cmdstring</code>是一个空指针，则仅当命令程序可用时，<code>system</code>返回非0值，这一特征可以确定在一个给定的操作系统上是否支持<code>system</code>函数。</p>
 <ol>
 <li><code>fork</code>失败或者<code>waitpid</code>返回处<code>EINTR</code>之外的出错，则<code>system</code>返回-1，并且设置<code>errno</code>以指示错误类型。</li>
 <li>如果<code>exec</code>失败，则返回值如同shell执行了<code>exit(127)</code>一样。</li>
 <li>否则所有3个函数(<code>fork</code>、<code>exec</code>和<code>waitpid</code>)都成功，那么<code>system</code>的返回值是shell的终止状态，其格式已在<code>waitpid</code>中说明。</li>
 </ol>
-<h1 id="进程会计-process-accounting"><a href="#进程会计-process-accounting" class="headerlink" title="进程会计(process accounting)"></a>进程会计(process accounting)</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> u_short <span class="keyword">comp_t</span>; <span class="comment">/* 3-bit base 8 exponent; 13-bit fraction */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">acct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> ac_flag;   <span class="comment">/* flag (see Figure 8.26) */</span></span><br><span class="line">    <span class="keyword">char</span> ac_stat;   <span class="comment">/* termination status (signal &amp; core flag only) */</span></span><br><span class="line">                    <span class="comment">/* (Solaris only) */</span></span><br><span class="line">    <span class="keyword">uid_t</span> ac_uid;   <span class="comment">/* real user ID */</span></span><br><span class="line">    <span class="keyword">gid_t</span> ac_gid;   <span class="comment">/* real group ID */</span></span><br><span class="line">    <span class="keyword">dev_t</span> ac_tty;   <span class="comment">/* controlling terminal */</span></span><br><span class="line">    <span class="keyword">time_t</span> ac_btime; <span class="comment">/* starting calendar time */</span></span><br><span class="line">    <span class="keyword">comp_t</span> ac_utime; <span class="comment">/* user CPU time */</span></span><br><span class="line">    <span class="keyword">comp_t</span> ac_stime; <span class="comment">/* system CPU time */</span></span><br><span class="line">    <span class="keyword">comp_t</span> ac_etime; <span class="comment">/* elapsed time */</span></span><br><span class="line">    <span class="keyword">comp_t</span> ac_mem;  <span class="comment">/* average memory usage */</span></span><br><span class="line">    <span class="keyword">comp_t</span> ac_io;   <span class="comment">/* bytes transferred (by read and write) */</span></span><br><span class="line">                    <span class="comment">/* "blocks" on BSD systems */</span></span><br><span class="line">    <span class="keyword">comp_t</span> ac_rw;   <span class="comment">/* blocks read or written */</span></span><br><span class="line">                    <span class="comment">/* (not present on BSD systems) */</span></span><br><span class="line">    <span class="keyword">char</span> ac_comm[<span class="number">8</span>]; <span class="comment">/* command name: [8] for Solaris, */</span></span><br><span class="line">                     <span class="comment">/* [10] for Mac OS X, [16] for FreeBSD, and */</span></span><br><span class="line">                     <span class="comment">/* [17] for Linux */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="进程会计-process-accounting"><a href="#进程会计-process-accounting" class="headerlink" title="进程会计(process accounting)"></a>进程会计(process accounting)</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> u_short <span class="type">comp_t</span>; <span class="comment">/* 3-bit base 8 exponent; 13-bit fraction */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">acct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">char</span> ac_flag;   <span class="comment">/* flag (see Figure 8.26) */</span></span><br><span class="line">    <span class="type">char</span> ac_stat;   <span class="comment">/* termination status (signal &amp; core flag only) */</span></span><br><span class="line">                    <span class="comment">/* (Solaris only) */</span></span><br><span class="line">    <span class="type">uid_t</span> ac_uid;   <span class="comment">/* real user ID */</span></span><br><span class="line">    <span class="type">gid_t</span> ac_gid;   <span class="comment">/* real group ID */</span></span><br><span class="line">    <span class="type">dev_t</span> ac_tty;   <span class="comment">/* controlling terminal */</span></span><br><span class="line">    <span class="type">time_t</span> ac_btime; <span class="comment">/* starting calendar time */</span></span><br><span class="line">    <span class="type">comp_t</span> ac_utime; <span class="comment">/* user CPU time */</span></span><br><span class="line">    <span class="type">comp_t</span> ac_stime; <span class="comment">/* system CPU time */</span></span><br><span class="line">    <span class="type">comp_t</span> ac_etime; <span class="comment">/* elapsed time */</span></span><br><span class="line">    <span class="type">comp_t</span> ac_mem;  <span class="comment">/* average memory usage */</span></span><br><span class="line">    <span class="type">comp_t</span> ac_io;   <span class="comment">/* bytes transferred (by read and write) */</span></span><br><span class="line">                    <span class="comment">/* &quot;blocks&quot; on BSD systems */</span></span><br><span class="line">    <span class="type">comp_t</span> ac_rw;   <span class="comment">/* blocks read or written */</span></span><br><span class="line">                    <span class="comment">/* (not present on BSD systems) */</span></span><br><span class="line">    <span class="type">char</span> ac_comm[<span class="number">8</span>]; <span class="comment">/* command name: [8] for Solaris, */</span></span><br><span class="line">                     <span class="comment">/* [10] for Mac OS X, [16] for FreeBSD, and */</span></span><br><span class="line">                     <span class="comment">/* [17] for Linux */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <ol>
 <li>我们不能获取永远不终止的进程的会计记录；</li>
@@ -531,23 +467,21 @@
 <li>会计记录对应于进程而不是程序。<code>exec</code>并不创建一个新的会计记录，但相应记录中的命令名称改变了，<code>AFORK</code>标志被清除。</li>
 </ol>
 <h1 id="用户标识"><a href="#用户标识" class="headerlink" title="用户标识"></a>用户标识</h1><p>得到运行该程序的用户的登录名，当有多个用户名对应着一个用户ID时，通常返回用户登录时用的用户名。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">getlogin</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回指向登陆名字符串的指针；若出错，返回NULL */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> *<span class="title function_">getlogin</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回指向登陆名字符串的指针；若出错，返回NULL */</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h1><p>进程可以通过调整<code>nice</code>值选择以最低优先级运行，只有特权进程允许提高调度权限。<br><code>nice</code>值的大小在0<del>(2*NZERO)-1之间，有些实现支持0</del>2<em>NZERO。</em>nice值越小，优先级越高*。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">nice</span><span class="params">(<span class="keyword">int</span> incr)</span></span>;</span><br><span class="line"><span class="comment">/*返回值：若成功，返回新的nice值NZERO；若出错，返回-18*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">nice</span><span class="params">(<span class="type">int</span> incr)</span>;</span><br><span class="line"><span class="comment">/*返回值：若成功，返回新的nice值NZERO；若出错，返回-18*/</span></span><br></pre></td></tr></table></figure>
 
 <p><code>getpriority</code>函数可以像<code>nice</code>函数那样用户获取进程的<code>nice</code>值，但是<code>getpriority</code>还可以获取一组相关进程的<code>nice</code>值。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getpriority</span><span class="params">(<span class="keyword">int</span> which, <span class="keyword">id_t</span> who)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回-NZERO~NZERO-1之间的nice值；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">getpriority</span><span class="params">(<span class="type">int</span> which, <span class="type">id_t</span> who)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回-NZERO~NZERO-1之间的nice值；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
 <p><code>setpriority</code>函数可以用于为进程、进程组和属于特定用户ID的所有进程设置优先级。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setpriority</span><span class="params">(<span class="keyword">int</span> which, <span class="keyword">id_t</span> who, <span class="keyword">int</span> value)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">setpriority</span><span class="params">(<span class="type">int</span> which, <span class="type">id_t</span> who, <span class="type">int</span> value)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="进程时间"><a href="#进程时间" class="headerlink" title="进程时间"></a>进程时间</h1><p><code>times</code>函数获得它自己以及已终止子进程的墙上时钟时间、用户CPU时间和系统CPU时间。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/times.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">clock_t</span> <span class="title">times</span><span class="params">(struct tms *buf)</span></span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回墙上时钟时间(以时钟滴答数为单位)；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/times.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">clock_t</span> <span class="title function_">times</span><span class="params">(<span class="keyword">struct</span> tms *buf)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回墙上时钟时间(以时钟滴答数为单位)；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tms</span> &#123;</span></span><br><span class="line">    <span class="keyword">clock_t</span> tms_utime;  <span class="comment">/* 用户CPU时间 */</span></span><br><span class="line">    <span class="keyword">clock_t</span> tms_stime;  <span class="comment">/* 系统CPU时间 */</span></span><br><span class="line">    <span class="keyword">clock_t</span> tms_cutime; <span class="comment">/* 子进程的用户CPU时间 */</span></span><br><span class="line">    <span class="keyword">clock_t</span> tms_cstiem; <span class="comment">/* 子进程的系统CPU时间 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tms</span> &#123;</span></span><br><span class="line">    <span class="type">clock_t</span> tms_utime;  <span class="comment">/* 用户CPU时间 */</span></span><br><span class="line">    <span class="type">clock_t</span> tms_stime;  <span class="comment">/* 系统CPU时间 */</span></span><br><span class="line">    <span class="type">clock_t</span> tms_cutime; <span class="comment">/* 子进程的用户CPU时间 */</span></span><br><span class="line">    <span class="type">clock_t</span> tms_cstiem; <span class="comment">/* 子进程的系统CPU时间 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -562,430 +496,113 @@
 
 
 
-      
+
+
     </div>
-    
-    
-    
 
     
-
     
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>您的支持将鼓励我继续创作！</div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.png" alt="kaiiak 微信支付"/>
-        <p>微信支付</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.png" alt="kaiiak 支付宝"/>
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
-
     
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
-          
-            <a href="/tags/APUE/" rel="tag"># APUE</a>
-          
-        </div>
-      
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
 
-      
-      
-      
+  <div class="social-list">
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/04/07/APUE_study_notes-process-environment/" rel="next" title="APUE学习笔记——进程环境">
-                <i class="fa fa-chevron-left"></i> APUE学习笔记——进程环境
-              </a>
-            
-          </div>
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/iakmai">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
 
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/01/golang_smtp/" rel="prev" title="Golang踩坑小结之SMTP">
-                Golang踩坑小结之SMTP <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
-        </noscript>
+            <span class="label">Twitter</span>
+          </a>
       </div>
-    </div>
 
-  
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
 
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+            <span class="label">RSS</span>
+          </a>
+      </div>
   </div>
+</div>
 
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/avatar.jpg"
-                alt="kaiiak" />
-            
-              <p class="site-author-name" itemprop="name">kaiiak</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/APUE/" rel="tag"># APUE</a>
           </div>
 
-          <nav class="site-state motion-element">
+        
 
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives%7C%7Carchive">
-              
-                  <span class="site-state-item-count">25</span>
-                  <span class="site-state-item-name">日志</span>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/04/07/APUE_study_notes-process-environment/" rel="prev" title="APUE学习笔记——进程环境">
+                  <i class="fa fa-chevron-left"></i> APUE学习笔记——进程环境
                 </a>
-              </div>
-            
-
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/kaiiak" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:aNxFi37X@outlook.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/iakmai" target="_blank" title="Twitter">
-                      
-                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://instagram.com/mzzzkkk" target="_blank" title="Instagram">
-                      
-                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
-                  </span>
-                
             </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程标识"><span class="nav-number">1.</span> <span class="nav-text">进程标识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数fork"><span class="nav-number">2.</span> <span class="nav-text">函数fork</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数vfork"><span class="nav-number">3.</span> <span class="nav-text">函数vfork</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数exit"><span class="nav-number">4.</span> <span class="nav-text">函数exit</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数wait和waitpid"><span class="nav-number">5.</span> <span class="nav-text">函数wait和waitpid</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数waittid"><span class="nav-number">6.</span> <span class="nav-text">函数waittid</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数wait3和wait4"><span class="nav-number">7.</span> <span class="nav-text">函数wait3和wait4</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数exec"><span class="nav-number">8.</span> <span class="nav-text">函数exec</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更改用户ID和更改组ID"><span class="nav-number">9.</span> <span class="nav-text">更改用户ID和更改组ID</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数setreuid和setregid"><span class="nav-number">9.1.</span> <span class="nav-text">函数setreuid和setregid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数seteuid和setegid"><span class="nav-number">9.2.</span> <span class="nav-text">函数seteuid和setegid</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数system"><span class="nav-number">10.</span> <span class="nav-text">函数system</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程会计-process-accounting"><span class="nav-number">11.</span> <span class="nav-text">进程会计(process accounting)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户标识"><span class="nav-number">12.</span> <span class="nav-text">用户标识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程调度"><span class="nav-number">13.</span> <span class="nav-text">进程调度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程时间"><span class="nav-number">14.</span> <span class="nav-text">进程时间</span></a></li></ol></div>
-            
-
+            <div class="post-nav-item">
+                <a href="/2017/02/28/golang_smtp/" rel="next" title="Golang踩坑小结之SMTP">
+                  Golang踩坑小结之SMTP <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-KAIIAK fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">kaiiak</span>
-
-  
+    </footer>
+  </article>
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+</div>
+  </main>
 
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KAIIAK</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
   
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://https-blog-iakmai-com.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://blog.iakmai.com/2016/04/27/APUE_study_notes-process-control/';
-          this.page.identifier = '2016/04/27/APUE_study_notes-process-control/';
-          this.page.title = 'APUE学习笔记——进程控制';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-blog-iakmai-com.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -996,36 +613,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"https-blog-iakmai-com","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
 
 </body>
 </html>
