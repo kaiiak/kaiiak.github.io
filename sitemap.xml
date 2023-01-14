@@ -11,6 +11,24 @@
   </url>
   
   <url>
+    <loc>https://blog.iakmai.com/about/index.html</loc>
+    
+    <lastmod>2023-01-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.iakmai.com/archives/index.html</loc>
+    
+    <lastmod>2023-01-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.iakmai.com/tags/index.html</loc>
     
     <lastmod>2023-01-14</lastmod>
@@ -237,24 +255,6 @@
   
   <url>
     <loc>https://blog.iakmai.com/2015/11/14/%E9%80%9A%E8%BF%87pylirc%E5%AE%9E%E7%8E%B0%E7%BA%A2%E5%A4%96%E6%8E%A7%E5%88%B6/</loc>
-    
-    <lastmod>2023-01-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.iakmai.com/about/index.html</loc>
-    
-    <lastmod>2023-01-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.iakmai.com/archives/index.html</loc>
     
     <lastmod>2023-01-14</lastmod>
     
