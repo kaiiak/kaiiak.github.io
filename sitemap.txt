@@ -1,5 +1,8 @@
 https://blog.iakmai.com/manifest.json
 https://blog.iakmai.com/tags/index.html
+https://blog.iakmai.com/2016/02/29/APUE_study_notes-Files_and_Directories/
+https://blog.iakmai.com/2016/04/27/APUE_study_notes-process-control/
+https://blog.iakmai.com/2016/04/07/APUE_study_notes-process-environment/
 https://blog.iakmai.com/2016/03/29/APUE_study_notes-standard_IO_libray/
 https://blog.iakmai.com/2016/01/01/Happy-New-Year/
 https://blog.iakmai.com/2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/
@@ -24,9 +27,6 @@ https://blog.iakmai.com/2015/11/14/%E9%80%9A%E8%BF%87pylirc%E5%AE%9E%E7%8E%B0%E7
 https://blog.iakmai.com/about/index.html
 https://blog.iakmai.com/archives/index.html
 https://blog.iakmai.com/2016/02/25/APUE_study_notes-Files_IO/
-https://blog.iakmai.com/2016/02/29/APUE_study_notes-Files_and_Directories/
-https://blog.iakmai.com/2016/04/27/APUE_study_notes-process-control/
-https://blog.iakmai.com/2016/04/07/APUE_study_notes-process-environment/
 https://blog.iakmai.com/
 https://blog.iakmai.com/tags/GOLANG/
 https://blog.iakmai.com/tags/DOCKER/
