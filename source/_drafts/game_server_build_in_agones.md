@@ -1,5 +1,5 @@
 ---
-layout: 基于Agones的游戏服务器架构
+title: 基于Agones的游戏服务器架构
 date: 2021-02-17 23:34:14
 tags: [K8S,AGONES,GAMESERVER]
 ---
