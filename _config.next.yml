@@ -152,11 +152,11 @@ site_state: true
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
   GitHub: https://github.com/kaiiak || fab fa-github
-  E-Mail: aNxFi37X@outlook.com || fa fa-envelope
+  E-Mail: mailto:aNxFi37X@outlook.com || fa fa-envelope
   #Weibo: https://weibo.com/yourname || fab fa-weibo
   Twitter: https://twitter.com/iakmai || fab fa-twitter
   #FB Page: https://www.facebook.com/yourname || fab fa-facebook
-  StackOverflow: https://stackoverflow.com/4281317 || fab fa-stack-overflow
+  StackOverflow: https://stackoverflow.com/users/4281317/yoock || fab fa-stack-overflow
   #YouTube: https://youtube.com/yourname || fab fa-youtube
   #Instagram: https://instagram.com/yourname || fab fa-instagram
   #Skype: skype:yourname?call|chat || fab fa-skype
