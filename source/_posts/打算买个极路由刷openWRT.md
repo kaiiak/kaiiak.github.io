@@ -1,6 +1,6 @@
 title: 打算买个小米路由刷openWRT
 date: 2015-08-05 17:28:20
-tags: openWRT
+tags: [openWRT]
 ---
 
 主要是因为学校的天翼客户端不能用路由器，这样的话我的树莓派就没法用了。

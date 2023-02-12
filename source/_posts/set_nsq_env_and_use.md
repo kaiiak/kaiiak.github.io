@@ -1,7 +1,7 @@
 ---
 title: NSQ环境的搭建和简单的使用
 date: 2018-07-25 22:47:30
-tags: [NSQ,DOCKER]
+tags: [Nsq,Docker]
 ---
 
 ## NSQ安装说明

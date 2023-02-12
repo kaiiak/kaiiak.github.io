@@ -1,6 +1,6 @@
 title: Golang踩坑小结之SMTP
 date: 2017-03-01 00:16:30
-tags: [GOLANG,SMTP]
+tags: [Golang,Smtp]
 ---
 # smtp之golang标准库
 函数`SendMail`就是标准库里面最简单的发送邮件的方法。

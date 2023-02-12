@@ -1,7 +1,7 @@
 ---
 title: Golang调用FFMPEG实现MP3转PCM
 date: 2020-06-06 17:27:04
-tags: [GOLANG,FFMPEG]
+tags: [Golang,Ffmpeg]
 ---
 
 *如果代码加载不出来，请科学上网来使用Github Gist*

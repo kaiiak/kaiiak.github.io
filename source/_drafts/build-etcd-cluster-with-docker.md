@@ -1,6 +1,6 @@
 ---
 title: 使用Docker构建Etcd集群
-tags: [GOLANG,ETCD,DOCKER]
+tags: [Golang,etcd,Docker]
 ---
 
 # ETCD基本介绍

@@ -1,6 +1,6 @@
 title: 解决Yilia主题的subnav中链接的问题
 date: 2015-08-01 00:11:23
-tags: Hexo主题
+tags: [Hexo主题]
 ---
 ## 问题说明
 我很喜欢Yilia这个漂亮的主题，但是当我自己用的时候发现在subnav区生成的链接并不是我想要的。比如我的github地址是`github.com/kaiiak`，但是实际生成的是`kaiiak.github.io/github.com/kaiiak`。微博地址也是这样，邮箱地址也是。
