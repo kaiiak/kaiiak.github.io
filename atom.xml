@@ -6,7 +6,7 @@
   <link href="https://blog.iakmai.com/atom.xml" rel="self"/>
   
   <link href="https://blog.iakmai.com/"/>
-  <updated>2023-01-17T07:42:57.473Z</updated>
+  <updated>2023-02-12T13:50:14.101Z</updated>
   <id>https://blog.iakmai.com/</id>
   
   <author>
@@ -17,11 +17,46 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>在Ubuntu上编译libprotobuf.so.17和boost1.53</title>
+    <link href="https://blog.iakmai.com/2023/02/12/compiling_dynamic_link_libraries_libprotobuf_so_17_and_boost_1_53_0_on_ubuntu_20_04/"/>
+    <id>https://blog.iakmai.com/2023/02/12/compiling_dynamic_link_libraries_libprotobuf_so_17_and_boost_1_53_0_on_ubuntu_20_04/</id>
+    <published>2023-02-12T13:50:14.101Z</published>
+    <updated>2023-02-12T13:50:14.101Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近在迁移服务器的时候，涉及到操作系统的替换和升级，导致一些C++依赖的项目无法在新系统中运行。由于某些原因，无法在新环境编译旧的服务，只能安装旧的依赖。&lt;br&gt;在Ubuntu20.04中，没有那么旧的依赖可以直接安装，只能自己编译。因为Gcc5.x中添加了对某些C++11</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Ubuntu" scheme="https://blog.iakmai.com/tags/Ubuntu/"/>
+    
+    <category term="C++" scheme="https://blog.iakmai.com/tags/C/"/>
+    
+    <category term="gcc" scheme="https://blog.iakmai.com/tags/gcc/"/>
+    
+    <category term="编译" scheme="https://blog.iakmai.com/tags/%E7%BC%96%E8%AF%91/"/>
+    
+    <category term="protobuf" scheme="https://blog.iakmai.com/tags/protobuf/"/>
+    
+    <category term="boost" scheme="https://blog.iakmai.com/tags/boost/"/>
+    
+    <category term="docker" scheme="https://blog.iakmai.com/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Golang调用FFMPEG实现MP3转PCM</title>
     <link href="https://blog.iakmai.com/2020/06/06/mp3-to-pcm/"/>
     <id>https://blog.iakmai.com/2020/06/06/mp3-to-pcm/</id>
     <published>2020-06-06T09:27:04.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -36,9 +71,9 @@
     
     
     
-    <category term="GOLANG" scheme="https://blog.iakmai.com/tags/GOLANG/"/>
+    <category term="Golang" scheme="https://blog.iakmai.com/tags/Golang/"/>
     
-    <category term="FFMPEG" scheme="https://blog.iakmai.com/tags/FFMPEG/"/>
+    <category term="Ffmpeg" scheme="https://blog.iakmai.com/tags/Ffmpeg/"/>
     
   </entry>
   
@@ -47,7 +82,7 @@
     <link href="https://blog.iakmai.com/2018/07/25/set_nsq_env_and_use/"/>
     <id>https://blog.iakmai.com/2018/07/25/set_nsq_env_and_use/</id>
     <published>2018-07-25T14:47:30.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -61,9 +96,9 @@
     
     
     
-    <category term="DOCKER" scheme="https://blog.iakmai.com/tags/DOCKER/"/>
+    <category term="Docker" scheme="https://blog.iakmai.com/tags/Docker/"/>
     
-    <category term="NSQ" scheme="https://blog.iakmai.com/tags/NSQ/"/>
+    <category term="Nsq" scheme="https://blog.iakmai.com/tags/Nsq/"/>
     
   </entry>
   
@@ -72,7 +107,7 @@
     <link href="https://blog.iakmai.com/2017/02/28/golang_smtp/"/>
     <id>https://blog.iakmai.com/2017/02/28/golang_smtp/</id>
     <published>2017-02-28T16:16:30.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -86,9 +121,9 @@
     
     
     
-    <category term="GOLANG" scheme="https://blog.iakmai.com/tags/GOLANG/"/>
+    <category term="Golang" scheme="https://blog.iakmai.com/tags/Golang/"/>
     
-    <category term="SMTP" scheme="https://blog.iakmai.com/tags/SMTP/"/>
+    <category term="Smtp" scheme="https://blog.iakmai.com/tags/Smtp/"/>
     
   </entry>
   
@@ -97,7 +132,7 @@
     <link href="https://blog.iakmai.com/2016/04/27/APUE_study_notes-process-control/"/>
     <id>https://blog.iakmai.com/2016/04/27/APUE_study_notes-process-control/</id>
     <published>2016-04-27T15:08:52.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -122,7 +157,7 @@
     <link href="https://blog.iakmai.com/2016/04/07/APUE_study_notes-process-environment/"/>
     <id>https://blog.iakmai.com/2016/04/07/APUE_study_notes-process-environment/</id>
     <published>2016-04-07T15:35:06.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -149,7 +184,7 @@
     <link href="https://blog.iakmai.com/2016/03/29/APUE_study_notes-standard_IO_libray/"/>
     <id>https://blog.iakmai.com/2016/03/29/APUE_study_notes-standard_IO_libray/</id>
     <published>2016-03-29T13:53:18.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -174,7 +209,7 @@
     <link href="https://blog.iakmai.com/2016/03/27/tree_command_source_code_analyze/"/>
     <id>https://blog.iakmai.com/2016/03/27/tree_command_source_code_analyze/</id>
     <published>2016-03-27T09:30:30.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -199,7 +234,7 @@
     <link href="https://blog.iakmai.com/2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/"/>
     <id>https://blog.iakmai.com/2016/03/06/compile_YouCompleteMe_in_Ubuntu_64/</id>
     <published>2016-03-06T09:59:39.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -227,7 +262,7 @@
     <link href="https://blog.iakmai.com/2016/03/05/personal_vimrc/"/>
     <id>https://blog.iakmai.com/2016/03/05/personal_vimrc/</id>
     <published>2016-03-05T08:49:30.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -252,7 +287,7 @@
     <link href="https://blog.iakmai.com/2016/02/29/APUE_study_notes-Files_and_Directories/"/>
     <id>https://blog.iakmai.com/2016/02/29/APUE_study_notes-Files_and_Directories/</id>
     <published>2016-02-29T13:48:30.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -277,7 +312,7 @@
     <link href="https://blog.iakmai.com/2016/02/25/APUE_study_notes-Files_IO/"/>
     <id>https://blog.iakmai.com/2016/02/25/APUE_study_notes-Files_IO/</id>
     <published>2016-02-25T00:36:08.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -302,7 +337,7 @@
     <link href="https://blog.iakmai.com/2016/01/28/%E7%BC%96%E8%AF%91apue-3e%E5%B9%B6%E8%A7%A3%E5%86%B3%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF/"/>
     <id>https://blog.iakmai.com/2016/01/28/%E7%BC%96%E8%AF%91apue-3e%E5%B9%B6%E8%A7%A3%E5%86%B3%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF/</id>
     <published>2016-01-28T14:38:58.000Z</published>
-    <updated>2023-01-17T07:42:57.477Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -327,7 +362,7 @@
     <link href="https://blog.iakmai.com/2016/01/01/Happy-New-Year/"/>
     <id>https://blog.iakmai.com/2016/01/01/Happy-New-Year/</id>
     <published>2016-01-01T06:21:25.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -350,7 +385,7 @@
     <link href="https://blog.iakmai.com/2015/11/19/using-vlclib-in-vs/"/>
     <id>https://blog.iakmai.com/2015/11/19/using-vlclib-in-vs/</id>
     <published>2015-11-19T13:08:23.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -375,7 +410,7 @@
     <link href="https://blog.iakmai.com/2015/11/14/%E9%80%9A%E8%BF%87pylirc%E5%AE%9E%E7%8E%B0%E7%BA%A2%E5%A4%96%E6%8E%A7%E5%88%B6/"/>
     <id>https://blog.iakmai.com/2015/11/14/%E9%80%9A%E8%BF%87pylirc%E5%AE%9E%E7%8E%B0%E7%BA%A2%E5%A4%96%E6%8E%A7%E5%88%B6/</id>
     <published>2015-11-14T12:39:40.000Z</published>
-    <updated>2023-01-17T07:42:57.477Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -400,7 +435,7 @@
     <link href="https://blog.iakmai.com/2015/11/09/local-install-pydev-with-eclipse/"/>
     <id>https://blog.iakmai.com/2015/11/09/local-install-pydev-with-eclipse/</id>
     <published>2015-11-09T11:05:57.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -425,7 +460,7 @@
     <link href="https://blog.iakmai.com/2015/11/04/sqlite-create-datebase/"/>
     <id>https://blog.iakmai.com/2015/11/04/sqlite-create-datebase/</id>
     <published>2015-11-04T13:53:54.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -449,7 +484,7 @@
     <link href="https://blog.iakmai.com/2015/11/04/crashing-ballon/"/>
     <id>https://blog.iakmai.com/2015/11/04/crashing-ballon/</id>
     <published>2015-11-04T12:15:01.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -477,7 +512,7 @@
     <link href="https://blog.iakmai.com/2015/10/31/%E5%85%B3%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BElirc%E7%9A%84%E9%85%8D%E7%BD%AE/"/>
     <id>https://blog.iakmai.com/2015/10/31/%E5%85%B3%E4%BA%8E%E6%A0%91%E8%8E%93%E6%B4%BElirc%E7%9A%84%E9%85%8D%E7%BD%AE/</id>
     <published>2015-10-31T13:10:19.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
+    <updated>2023-02-12T13:50:14.101Z</updated>
     
     
       
@@ -496,34 +531,6 @@
     <category term="树莓派" scheme="https://blog.iakmai.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
     
     <category term="lirc" scheme="https://blog.iakmai.com/tags/lirc/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用Python控制树莓派的GPIO(1)</title>
-    <link href="https://blog.iakmai.com/2015/10/18/%E4%BD%BF%E7%94%A8Python%E6%8E%A7%E5%88%B6%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9A%84GPIO-1/"/>
-    <id>https://blog.iakmai.com/2015/10/18/%E4%BD%BF%E7%94%A8Python%E6%8E%A7%E5%88%B6%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9A%84GPIO-1/</id>
-    <published>2015-10-18T09:19:07.000Z</published>
-    <updated>2023-01-17T07:42:57.473Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;使用的树莓派2B&quot;&gt;&lt;a href=&quot;#使用的树莓派2B&quot; class=&quot;headerlink&quot; title=&quot;使用的树莓派2B&quot;&gt;&lt;/a&gt;使用的树莓派2B&lt;/h3&gt;&lt;p&gt;通过PRI.GPIO来实现Python控制树莓派的GPIO。&lt;/p&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Python" scheme="https://blog.iakmai.com/tags/Python/"/>
-    
-    <category term="树莓派" scheme="https://blog.iakmai.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
-    
-    <category term="PRI.GPIO" scheme="https://blog.iakmai.com/tags/PRI-GPIO/"/>
     
   </entry>
   

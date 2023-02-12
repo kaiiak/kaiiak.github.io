@@ -909,6 +909,29 @@
       </tags>
   </entry>
   <entry>
+    <title>在Ubuntu上编译libprotobuf.so.17和boost1.53</title>
+    <url>//2023/02/12/compiling_dynamic_link_libraries_libprotobuf_so_17_and_boost_1_53_0_on_ubuntu_20_04/</url>
+    <content><![CDATA[<p>最近在迁移服务器的时候，涉及到操作系统的替换和升级，导致一些C++依赖的项目无法在新系统中运行。由于某些原因，无法在新环境编译旧的服务，只能安装旧的依赖。<br>在Ubuntu20.04中，没有那么旧的依赖可以直接安装，只能自己编译。因为Gcc5.x中添加了对某些C++11的支持，更改了ABI，所以必须使用4.X编译依赖库，需要使用Ubuntu14.04。<br>下面是编译使用的<code>Dockerfile</code>。</p>
+<h2 id="libprotobuf-so-17-0"><a href="#libprotobuf-so-17-0" class="headerlink" title="libprotobuf.so.17.0"></a>libprotobuf.so.17.0</h2><figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">14.04</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; apt-get install -y git \</span></span><br><span class="line"><span class="language-bash">                        g++ \</span></span><br><span class="line"><span class="language-bash">                        make \</span></span><br><span class="line"><span class="language-bash">                        wget \</span></span><br><span class="line"><span class="language-bash">                        autoconf \</span></span><br><span class="line"><span class="language-bash">                        libtool \</span></span><br><span class="line"><span class="language-bash">                        automake</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文档地址：https://github.com/protocolbuffers/protobuf/tree/v3.6.1.3/src</span></span><br><span class="line"><span class="comment"># 如果因为网络原因导致压缩包下载缓慢，可以下载到本地再使用COPY命令，复制Docker中</span></span><br><span class="line"><span class="comment"># COPY protobuf-3.6.1.3.tar.gz /home</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">cd</span> /home &amp;&amp; wget https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.6.1.3.tar.gz \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; tar xfz protobuf-3.6.1.3.tar.gz \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; <span class="built_in">rm</span> protobuf-3.6.1.3.tar.gz \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; <span class="built_in">cd</span> protobuf-3.6.1.3 \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; ./autogen.sh \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; ./configure --prefix=/usr/ \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; make</span></span><br><span class="line"><span class="comment"># make install 不成功, 启动Container，需要进入内部make install</span></span><br><span class="line"><span class="comment"># RUN cd /home/protobuf-3.6.1.3 \</span></span><br><span class="line"><span class="comment">#   &amp;&amp; make intall \</span></span><br><span class="line"><span class="comment">#   &amp;&amp; cd /home \</span></span><br><span class="line"><span class="comment">#   &amp;&amp; rm -rf protobuf-3.6.1.3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;bash&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+<h3 id="boost-1-53-0"><a href="#boost-1-53-0" class="headerlink" title="boost 1.53.0"></a>boost 1.53.0</h3><p>例如<code>boost_thread-mt.so.1.53.0</code>直接可以软连接到<code>boost_thread.so.1.53.0</code>上。</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">14.04</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; apt-get install -y git \</span></span><br><span class="line"><span class="language-bash">                        g++ \</span></span><br><span class="line"><span class="language-bash">                        make \</span></span><br><span class="line"><span class="language-bash">                        wget</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果因为网络原因导致压缩包下载缓慢，可以下载到本地再使用COPY命令，复制Docker中</span></span><br><span class="line"><span class="comment"># COPY boost_1_53_0.tar.gz /home</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">cd</span> /home &amp;&amp; wegt http://downloads.sourceforge.net/project/boost/boost/1.53.0/boost_1_53_0.tar.gz \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; tar xfz boost_1_53_0.tar.gz \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; <span class="built_in">rm</span> boost_1_53_0.tar.gz \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; <span class="built_in">cd</span> boost_1_53_0 \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; ./bootstrap.sh --prefix=/usr/local --with-libraries=program_options,regex,date_time,filesystem,system,thread \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; ./b2 install \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; <span class="built_in">cd</span> /home \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; <span class="built_in">rm</span> -rf boost_1_53_0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;bash&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="复制文件"><a href="#复制文件" class="headerlink" title="复制文件"></a>复制文件</h2><ul>
+<li>使用<code>docker run</code>启动容器以后，再使用<code>docker cp</code>命令复制容器中的文件</li>
+<li>使用<code>docker save</code>命令压缩<code>image</code>，然后解压缩</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>C++</tag>
+        <tag>gcc</tag>
+        <tag>编译</tag>
+        <tag>protobuf</tag>
+        <tag>boost</tag>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ZOJ_1003:Crashing Ballon</title>
     <url>//2015/11/04/crashing-ballon/</url>
     <content><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><blockquote>
@@ -989,8 +1012,8 @@
 多谢您花费时间阅读我的文章，有不好的地方欢迎指正。
 </center>]]></content>
       <tags>
-        <tag>GOLANG</tag>
-        <tag>SMTP</tag>
+        <tag>Golang</tag>
+        <tag>Smtp</tag>
       </tags>
   </entry>
   <entry>
@@ -1009,8 +1032,8 @@
     <content><![CDATA[<p><em>如果代码加载不出来，请科学上网来使用Github Gist</em></p>
 <script src="https://gist.github.com/kaiiak/4e5f058f4289153a525a54fbc43e756a.js"></script>]]></content>
       <tags>
-        <tag>GOLANG</tag>
-        <tag>FFMPEG</tag>
+        <tag>Golang</tag>
+        <tag>Ffmpeg</tag>
       </tags>
   </entry>
   <entry>
@@ -1064,8 +1087,8 @@
 <h4 id="启动nsqadmin"><a href="#启动nsqadmin" class="headerlink" title="启动nsqadmin"></a>启动nsqadmin</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nsqadmin --lookupd-http-address=127.0.0.1:4161</span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
-        <tag>DOCKER</tag>
-        <tag>NSQ</tag>
+        <tag>Docker</tag>
+        <tag>Nsq</tag>
       </tags>
   </entry>
   <entry>

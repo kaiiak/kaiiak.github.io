@@ -159,13 +159,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -217,6 +217,97 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.iakmai.com/2023/02/12/compiling_dynamic_link_libraries_libprotobuf_so_17_and_boost_1_53_0_on_ubuntu_20_04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaiiak">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KAIIAK">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | KAIIAK">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/02/12/compiling_dynamic_link_libraries_libprotobuf_so_17_and_boost_1_53_0_on_ubuntu_20_04/" class="post-title-link" itemprop="url">在Ubuntu上编译libprotobuf.so.17和boost1.53</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-02-12 21:50:14" itemprop="dateCreated datePublished" datetime="2023-02-12T21:50:14+08:00">2023-02-12</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2023/02/12/compiling_dynamic_link_libraries_libprotobuf_so_17_and_boost_1_53_0_on_ubuntu_20_04/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/2023/02/12/compiling_dynamic_link_libraries_libprotobuf_so_17_and_boost_1_53_0_on_ubuntu_20_04/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>最近在迁移服务器的时候，涉及到操作系统的替换和升级，导致一些C++依赖的项目无法在新系统中运行。由于某些原因，无法在新环境编译旧的服务，只能安装旧的依赖。<br>在Ubuntu20.04中，没有那么旧的依赖可以直接安装，只能自己编译。因为Gcc5.x中添加了对某些C++11的支持，更改了ABI，所以必须使用4.X编译依赖库，需要使用Ubuntu14.04。<br>下面是编译使用的<code>Dockerfile</code>。</p>
+<h2 id="libprotobuf-so-17-0"><a href="#libprotobuf-so-17-0" class="headerlink" title="libprotobuf.so.17.0"></a>libprotobuf.so.17.0</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">14.04</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; apt-get install -y git \</span></span><br><span class="line"><span class="language-bash">                        g++ \</span></span><br><span class="line"><span class="language-bash">                        make \</span></span><br><span class="line"><span class="language-bash">                        wget \</span></span><br><span class="line"><span class="language-bash">                        autoconf \</span></span><br><span class="line"><span class="language-bash">                        libtool \</span></span><br><span class="line"><span class="language-bash">                        automake</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文档地址：https://github.com/protocolbuffers/protobuf/tree/v3.6.1.3/src</span></span><br><span class="line"><span class="comment"># 如果因为网络原因导致压缩包下载缓慢，可以下载到本地再使用COPY命令，复制Docker中</span></span><br><span class="line"><span class="comment"># COPY protobuf-3.6.1.3.tar.gz /home</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">cd</span> /home &amp;&amp; wget https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.6.1.3.tar.gz \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; tar xfz protobuf-3.6.1.3.tar.gz \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; <span class="built_in">rm</span> protobuf-3.6.1.3.tar.gz \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; <span class="built_in">cd</span> protobuf-3.6.1.3 \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; ./autogen.sh \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; ./configure --prefix=/usr/ \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; make</span></span><br><span class="line"><span class="comment"># make install 不成功, 启动Container，需要进入内部make install</span></span><br><span class="line"><span class="comment"># RUN cd /home/protobuf-3.6.1.3 \</span></span><br><span class="line"><span class="comment">#   &amp;&amp; make intall \</span></span><br><span class="line"><span class="comment">#   &amp;&amp; cd /home \</span></span><br><span class="line"><span class="comment">#   &amp;&amp; rm -rf protobuf-3.6.1.3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;bash&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+<h3 id="boost-1-53-0"><a href="#boost-1-53-0" class="headerlink" title="boost 1.53.0"></a>boost 1.53.0</h3><p>例如<code>boost_thread-mt.so.1.53.0</code>直接可以软连接到<code>boost_thread.so.1.53.0</code>上。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">14.04</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; apt-get install -y git \</span></span><br><span class="line"><span class="language-bash">                        g++ \</span></span><br><span class="line"><span class="language-bash">                        make \</span></span><br><span class="line"><span class="language-bash">                        wget</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果因为网络原因导致压缩包下载缓慢，可以下载到本地再使用COPY命令，复制Docker中</span></span><br><span class="line"><span class="comment"># COPY boost_1_53_0.tar.gz /home</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">cd</span> /home &amp;&amp; wegt http://downloads.sourceforge.net/project/boost/boost/1.53.0/boost_1_53_0.tar.gz \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; tar xfz boost_1_53_0.tar.gz \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; <span class="built_in">rm</span> boost_1_53_0.tar.gz \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; <span class="built_in">cd</span> boost_1_53_0 \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; ./bootstrap.sh --prefix=/usr/local --with-libraries=program_options,regex,date_time,filesystem,system,thread \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; ./b2 install \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; <span class="built_in">cd</span> /home \</span></span><br><span class="line"><span class="language-bash">  &amp;&amp; <span class="built_in">rm</span> -rf boost_1_53_0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;bash&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="复制文件"><a href="#复制文件" class="headerlink" title="复制文件"></a>复制文件</h2><ul>
+<li>使用<code>docker run</code>启动容器以后，再使用<code>docker cp</code>命令复制容器中的文件</li>
+<li>使用<code>docker save</code>命令压缩<code>image</code>，然后解压缩</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://blog.iakmai.com/2020/06/06/mp3-to-pcm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -253,7 +344,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-17 15:42:57" itemprop="dateModified" datetime="2023-01-17T15:42:57+08:00">2023-01-17</time>
+      <time title="修改时间：2023-02-12 21:50:14" itemprop="dateModified" datetime="2023-02-12T21:50:14+08:00">2023-02-12</time>
     </span>
 
   
@@ -343,7 +434,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-17 15:42:57" itemprop="dateModified" datetime="2023-01-17T15:42:57+08:00">2023-01-17</time>
+      <time title="修改时间：2023-02-12 21:50:14" itemprop="dateModified" datetime="2023-02-12T21:50:14+08:00">2023-02-12</time>
     </span>
 
   
@@ -447,7 +538,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-17 15:42:57" itemprop="dateModified" datetime="2023-01-17T15:42:57+08:00">2023-01-17</time>
+      <time title="修改时间：2023-02-12 21:50:14" itemprop="dateModified" datetime="2023-02-12T21:50:14+08:00">2023-02-12</time>
     </span>
 
   
@@ -565,7 +656,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-17 15:42:57" itemprop="dateModified" datetime="2023-01-17T15:42:57+08:00">2023-01-17</time>
+      <time title="修改时间：2023-02-12 21:50:14" itemprop="dateModified" datetime="2023-02-12T21:50:14+08:00">2023-02-12</time>
     </span>
 
   
@@ -831,145 +922,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.iakmai.com/2016/04/07/APUE_study_notes-process-environment/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="kaiiak">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KAIIAK">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | KAIIAK">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/04/07/APUE_study_notes-process-environment/" class="post-title-link" itemprop="url">APUE学习笔记——进程环境</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-04-07 23:35:06" itemprop="dateCreated datePublished" datetime="2016-04-07T23:35:06+08:00">2016-04-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-17 15:42:57" itemprop="dateModified" datetime="2023-01-17T15:42:57+08:00">2023-01-17</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/04/07/APUE_study_notes-process-environment/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/2016/04/07/APUE_study_notes-process-environment/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="进程终止"><a href="#进程终止" class="headerlink" title="进程终止"></a>进程终止</h1><ol>
-<li><p>退出函数</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">exit</span><span class="params">(<span class="type">int</span> status)</span>;</span><br><span class="line"><span class="type">void</span> _Exit(<span class="type">int</span> status);</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> _exit(<span class="type">int</span> status);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>函数<code>atexit</code></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">atexit</span><span class="params">(<span class="type">void</span> (*func)(<span class="type">void</span>))</span>;</span><br></pre></td></tr></table></figure>
-<p>其中，<code>atexit</code>的参数是一个函数地址，当调用此函数时无需向它传递任何参数，也不期望它返回一个值。<code>exit</code>调用这些函数的顺序与它们等级时候的顺序相反。同一函数如若登记多次也会被调用多次。</p>
-</li>
-</ol>
-<h1 id="环境表"><a href="#环境表" class="headerlink" title="环境表"></a>环境表</h1><p>环境表也是一个字符指针数组，其中每个指针包含一个以<code>null</code>结束的C字符串的地址。全局变量<code>environ</code>则包含了该指针的数组的地址：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">char</span> **environ;</span><br></pre></td></tr></table></figure>
-<p>我们称<code>environ</code>为<code>环境指针(environment pointer)</code>，指针数组为环境表，其中各指针指向的字符串为环境字符串。<br>通常用<code>getenv</code>和<code>putenv</code>函数来访问特定的环境变量，而不是<code>environ</code>变量。</p>
-<h1 id="C程序的存储空间布局"><a href="#C程序的存储空间布局" class="headerlink" title="C程序的存储空间布局"></a>C程序的存储空间布局</h1><ul>
-<li>正文段。</li>
-<li>初始化数据段。</li>
-<li>未初始化数据段。</li>
-<li>栈。</li>
-<li>堆。</li>
-</ul>
-<h1 id="存储空间分配"><a href="#存储空间分配" class="headerlink" title="存储空间分配"></a>存储空间分配</h1><ol>
-<li><code>malloc</code>，分配指定字节的存储区。此存储区中的初始值不确定。</li>
-<li><code>calloc</code>,为指定数量指定长度的对象分配存储空间。该空间中的每一位(bit)都初始化为0。</li>
-<li><code>realloc</code>,增加或减少以前分配区的长度。</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> *<span class="title function_">malloc</span><span class="params">(<span class="type">size_t</span> size)</span>;</span><br><span class="line"><span class="type">void</span> *<span class="title function_">calloc</span><span class="params">(<span class="type">size_t</span> nobj, <span class="type">size_t</span> size)</span>;</span><br><span class="line"><span class="type">void</span> *<span class="title function_">realloc</span><span class="params">(<span class="type">size_t</span> nobj, <span class="type">size_t</span> newsize)</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 3个函数返回值：若成功，返回非空指针；若出错，返回NULL</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">free</span><span class="params">(<span class="type">void</span> *ptr)</span>;</span><br></pre></td></tr></table></figure>
-
-<h1 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> **<span class="title function_">getenv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br><span class="line"><span class="comment">/* 返回值：指向与name关联的value的指针；若未找到，返回NULL */</span></span><br></pre></td></tr></table></figure>
-
-<p><code>getenv</code>,可以用其取环境变量值</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">putenv</span><span class="params">(<span class="type">char</span> *str)</span>;</span><br><span class="line"><span class="comment">/* 函数返回值：若成功，返回0；若出错，返回非0 */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">setenv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name, <span class="type">const</span> <span class="type">char</span> *value, <span class="type">int</span> rewrite)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">unsetenv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>putenv</code>取形式为<code>name=value</code>的字符串，将其放到环境中。</li>
-<li><code>setenv</code>将<code>name</code>设置为<code>value</code>。如果在环境中<code>name</code>已存在,那么(a)若<code>rewrite</code>非0，则首先删除其现有的定义;(b)若<code>rewrite</code>为0，则不删除其现有定义(<code>name</code>不设置为新<code>value</code>,而且也不出错)。</li>
-<li><code>unsetenv</code>删除<code>name</code>的定义。即使不存在这种定义与不出错。</li>
-</ul>
-<h1 id="函数setjmp和longjmp"><a href="#函数setjmp和longjmp" class="headerlink" title="函数setjmp和longjmp"></a>函数<code>setjmp</code>和<code>longjmp</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;setjmp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">setjmp</span><span class="params">(jmp_buf env)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若直接调用，返回0；若从longjmp返回，则为非0 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">longjmp</span><span class="params">(jmp_buf env, <span class="type">int</span> val)</span>;</span><br></pre></td></tr></table></figure>
-
-<p>在希望返回到的位置调用<code>setjmp</code>。当调用<code>longjmp</code>是，第一个参数是调用<code>setjmp</code>时的<code>env</code>;第二个参数是具有非0值的<code>val</code>,它将称为从<code>setjmp</code>处返回的值。<br>在课本的<a target="_blank" rel="noopener" href="https://github.com/kaiiak/APUE/blob/master/chapter7/7.13.c">例程7.13</a>中，全局变量、静态变量和易失变量(volatile variables)不受优化的影响。如果要编写一个使用非局部跳转的可移植程序，则必须使用<code>volatile</code>属性。但是一个系统移植到另一个系统，其他任何事情都可能改变。</p>
-<h1 id="函数getrlimit和setrlimit"><a href="#函数getrlimit和setrlimit" class="headerlink" title="函数getrlimit和setrlimit"></a>函数<code>getrlimit</code>和<code>setrlimit</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">getrlimit</span><span class="params">(<span class="type">int</span> resource, <span class="keyword">struct</span> rlimit *rlptr)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">setrlimit</span><span class="params">(<span class="type">int</span> resource, <span class="type">const</span> <span class="keyword">struct</span> rlimit *rlptr)</span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回非0 */</span></span><br></pre></td></tr></table></figure>
-<p>这两个函数的每一次调用都指定一个资源以及一个指向下列结构的指针。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rlimit</span> &#123;</span></span><br><span class="line">    <span class="type">rlim_t</span> rlim_cur;    <span class="comment">/* soft limit: current limit */</span></span><br><span class="line">    <span class="type">rlim_t</span> rlim_max;    <span class="comment">/* hard limit: maximum value for rlim_cur */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>任何一个进程都可以将一个限制值更改为小于或等于其硬限制值。</li>
-<li>任何一个进程都可以降低其硬限制值，但它必须大于或等于其软限制值。</li>
-<li>只有超级用户进程才可以提高硬限制值。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

@@ -159,13 +159,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">26</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -217,6 +217,143 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://blog.iakmai.com/2016/04/07/APUE_study_notes-process-environment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaiiak">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KAIIAK">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | KAIIAK">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/04/07/APUE_study_notes-process-environment/" class="post-title-link" itemprop="url">APUE学习笔记——进程环境</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-04-07 23:35:06" itemprop="dateCreated datePublished" datetime="2016-04-07T23:35:06+08:00">2016-04-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-12 21:50:14" itemprop="dateModified" datetime="2023-02-12T21:50:14+08:00">2023-02-12</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/04/07/APUE_study_notes-process-environment/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/2016/04/07/APUE_study_notes-process-environment/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="进程终止"><a href="#进程终止" class="headerlink" title="进程终止"></a>进程终止</h1><ol>
+<li><p>退出函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">exit</span><span class="params">(<span class="type">int</span> status)</span>;</span><br><span class="line"><span class="type">void</span> _Exit(<span class="type">int</span> status);</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> _exit(<span class="type">int</span> status);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数<code>atexit</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">atexit</span><span class="params">(<span class="type">void</span> (*func)(<span class="type">void</span>))</span>;</span><br></pre></td></tr></table></figure>
+<p>其中，<code>atexit</code>的参数是一个函数地址，当调用此函数时无需向它传递任何参数，也不期望它返回一个值。<code>exit</code>调用这些函数的顺序与它们等级时候的顺序相反。同一函数如若登记多次也会被调用多次。</p>
+</li>
+</ol>
+<h1 id="环境表"><a href="#环境表" class="headerlink" title="环境表"></a>环境表</h1><p>环境表也是一个字符指针数组，其中每个指针包含一个以<code>null</code>结束的C字符串的地址。全局变量<code>environ</code>则包含了该指针的数组的地址：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">char</span> **environ;</span><br></pre></td></tr></table></figure>
+<p>我们称<code>environ</code>为<code>环境指针(environment pointer)</code>，指针数组为环境表，其中各指针指向的字符串为环境字符串。<br>通常用<code>getenv</code>和<code>putenv</code>函数来访问特定的环境变量，而不是<code>environ</code>变量。</p>
+<h1 id="C程序的存储空间布局"><a href="#C程序的存储空间布局" class="headerlink" title="C程序的存储空间布局"></a>C程序的存储空间布局</h1><ul>
+<li>正文段。</li>
+<li>初始化数据段。</li>
+<li>未初始化数据段。</li>
+<li>栈。</li>
+<li>堆。</li>
+</ul>
+<h1 id="存储空间分配"><a href="#存储空间分配" class="headerlink" title="存储空间分配"></a>存储空间分配</h1><ol>
+<li><code>malloc</code>，分配指定字节的存储区。此存储区中的初始值不确定。</li>
+<li><code>calloc</code>,为指定数量指定长度的对象分配存储空间。该空间中的每一位(bit)都初始化为0。</li>
+<li><code>realloc</code>,增加或减少以前分配区的长度。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> *<span class="title function_">malloc</span><span class="params">(<span class="type">size_t</span> size)</span>;</span><br><span class="line"><span class="type">void</span> *<span class="title function_">calloc</span><span class="params">(<span class="type">size_t</span> nobj, <span class="type">size_t</span> size)</span>;</span><br><span class="line"><span class="type">void</span> *<span class="title function_">realloc</span><span class="params">(<span class="type">size_t</span> nobj, <span class="type">size_t</span> newsize)</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 3个函数返回值：若成功，返回非空指针；若出错，返回NULL</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">free</span><span class="params">(<span class="type">void</span> *ptr)</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> **<span class="title function_">getenv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br><span class="line"><span class="comment">/* 返回值：指向与name关联的value的指针；若未找到，返回NULL */</span></span><br></pre></td></tr></table></figure>
+
+<p><code>getenv</code>,可以用其取环境变量值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">putenv</span><span class="params">(<span class="type">char</span> *str)</span>;</span><br><span class="line"><span class="comment">/* 函数返回值：若成功，返回0；若出错，返回非0 */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">setenv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name, <span class="type">const</span> <span class="type">char</span> *value, <span class="type">int</span> rewrite)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">unsetenv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>putenv</code>取形式为<code>name=value</code>的字符串，将其放到环境中。</li>
+<li><code>setenv</code>将<code>name</code>设置为<code>value</code>。如果在环境中<code>name</code>已存在,那么(a)若<code>rewrite</code>非0，则首先删除其现有的定义;(b)若<code>rewrite</code>为0，则不删除其现有定义(<code>name</code>不设置为新<code>value</code>,而且也不出错)。</li>
+<li><code>unsetenv</code>删除<code>name</code>的定义。即使不存在这种定义与不出错。</li>
+</ul>
+<h1 id="函数setjmp和longjmp"><a href="#函数setjmp和longjmp" class="headerlink" title="函数setjmp和longjmp"></a>函数<code>setjmp</code>和<code>longjmp</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;setjmp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">setjmp</span><span class="params">(jmp_buf env)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若直接调用，返回0；若从longjmp返回，则为非0 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">longjmp</span><span class="params">(jmp_buf env, <span class="type">int</span> val)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在希望返回到的位置调用<code>setjmp</code>。当调用<code>longjmp</code>是，第一个参数是调用<code>setjmp</code>时的<code>env</code>;第二个参数是具有非0值的<code>val</code>,它将称为从<code>setjmp</code>处返回的值。<br>在课本的<a target="_blank" rel="noopener" href="https://github.com/kaiiak/APUE/blob/master/chapter7/7.13.c">例程7.13</a>中，全局变量、静态变量和易失变量(volatile variables)不受优化的影响。如果要编写一个使用非局部跳转的可移植程序，则必须使用<code>volatile</code>属性。但是一个系统移植到另一个系统，其他任何事情都可能改变。</p>
+<h1 id="函数getrlimit和setrlimit"><a href="#函数getrlimit和setrlimit" class="headerlink" title="函数getrlimit和setrlimit"></a>函数<code>getrlimit</code>和<code>setrlimit</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/resource.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">getrlimit</span><span class="params">(<span class="type">int</span> resource, <span class="keyword">struct</span> rlimit *rlptr)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">setrlimit</span><span class="params">(<span class="type">int</span> resource, <span class="type">const</span> <span class="keyword">struct</span> rlimit *rlptr)</span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回非0 */</span></span><br></pre></td></tr></table></figure>
+<p>这两个函数的每一次调用都指定一个资源以及一个指向下列结构的指针。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rlimit</span> &#123;</span></span><br><span class="line">    <span class="type">rlim_t</span> rlim_cur;    <span class="comment">/* soft limit: current limit */</span></span><br><span class="line">    <span class="type">rlim_t</span> rlim_max;    <span class="comment">/* hard limit: maximum value for rlim_cur */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>任何一个进程都可以将一个限制值更改为小于或等于其硬限制值。</li>
+<li>任何一个进程都可以降低其硬限制值，但它必须大于或等于其软限制值。</li>
+<li>只有超级用户进程才可以提高硬限制值。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://blog.iakmai.com/2016/03/29/APUE_study_notes-standard_IO_libray/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -253,7 +390,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-17 15:42:57" itemprop="dateModified" datetime="2023-01-17T15:42:57+08:00">2023-01-17</time>
+      <time title="修改时间：2023-02-12 21:50:14" itemprop="dateModified" datetime="2023-02-12T21:50:14+08:00">2023-02-12</time>
     </span>
 
   
@@ -428,7 +565,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-17 15:42:57" itemprop="dateModified" datetime="2023-01-17T15:42:57+08:00">2023-01-17</time>
+      <time title="修改时间：2023-02-12 21:50:14" itemprop="dateModified" datetime="2023-02-12T21:50:14+08:00">2023-02-12</time>
     </span>
 
   
@@ -528,7 +665,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-17 15:42:57" itemprop="dateModified" datetime="2023-01-17T15:42:57+08:00">2023-01-17</time>
+      <time title="修改时间：2023-02-12 21:50:14" itemprop="dateModified" datetime="2023-02-12T21:50:14+08:00">2023-02-12</time>
     </span>
 
   
@@ -632,7 +769,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-17 15:42:57" itemprop="dateModified" datetime="2023-01-17T15:42:57+08:00">2023-01-17</time>
+      <time title="修改时间：2023-02-12 21:50:14" itemprop="dateModified" datetime="2023-02-12T21:50:14+08:00">2023-02-12</time>
     </span>
 
   
@@ -699,419 +836,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://blog.iakmai.com/2016/02/29/APUE_study_notes-Files_and_Directories/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="kaiiak">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KAIIAK">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | KAIIAK">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/02/29/APUE_study_notes-Files_and_Directories/" class="post-title-link" itemprop="url">APUE学习笔记——文件和目录</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-02-29 21:48:30" itemprop="dateCreated datePublished" datetime="2016-02-29T21:48:30+08:00">2016-02-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-17 15:42:57" itemprop="dateModified" datetime="2023-01-17T15:42:57+08:00">2023-01-17</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2016/02/29/APUE_study_notes-Files_and_Directories/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/2016/02/29/APUE_study_notes-Files_and_Directories/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="函数stat、fstat、fstatat、lstat"><a href="#函数stat、fstat、fstatat、lstat" class="headerlink" title="函数stat、fstat、fstatat、lstat"></a>函数<code>stat</code>、<code>fstat</code>、<code>fstatat</code>、<code>lstat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">stat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fstat</span><span class="params">(<span class="type">int</span> fd, <span class="keyword">struct</span> stat *buf)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">lstat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">lstat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf, <span class="type">int</span> flag)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 所有4个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line">sturct stat &#123; </span><br><span class="line">    <span class="type">mode_t</span>          st_mode;        <span class="comment">/* file type &amp; mode (permissions) */</span></span><br><span class="line">    <span class="type">ino_t</span>           st_ino;         <span class="comment">/* i-node number (serial number) */</span></span><br><span class="line">    <span class="type">dev_t</span>           st_dev;         <span class="comment">/* device number (file system) */</span></span><br><span class="line">    <span class="type">dev_t</span>           st_rdev;        <span class="comment">/* device number for special files */</span></span><br><span class="line">    <span class="type">nlink_t</span>         st_nlink;       <span class="comment">/* number of links */</span></span><br><span class="line">    <span class="type">uid_t</span>           st_uid;         <span class="comment">/* user ID of links */</span></span><br><span class="line">    <span class="type">gid_t</span>           st_gid;         <span class="comment">/* group ID of owner */</span></span><br><span class="line">    <span class="type">off_t</span>           st_size;        <span class="comment">/* size in bytes, for regular files  */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_atime</span>;</span>       <span class="comment">/* time of last access */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_mtime</span>;</span>       <span class="comment">/* time of last modification */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_ctime</span>;</span>       <span class="comment">/* time of last file status change */</span></span><br><span class="line">    <span class="type">blksize_t</span>       st_blksize;     <span class="comment">/* best I/O block size */</span></span><br><span class="line">    <span class="type">blkcnt_t</span>        st_blocks;      <span class="comment">/* number of disk blocks allocated */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>函数<code>stat</code>:返回<code>pathname</code>命名文件有关的信息结构；</li>
-<li>函数<code>fstat</code>:返回在描述符<code>fd</code>上打开文件的有关信息；</li>
-<li>函数<code>lstat</code>:类似于函数<code>stat</code>，但当命名的文件是一个符号链接时，<code>lstat</code>返回该符号连接的有关信息；</li>
-<li>函数<code>fstatat</code>:为一个相对于当前打开目录(由<code>fd</code>参数指向)的路径名返回文件统计信息。</li>
-</ul>
-<p>文件信息包含<code>stat</code>结构的<code>st_mode</code>成员中。可以下表中的宏文件确定文件的类型。</p>
-<table>
-<thead>
-<tr>
-<th>宏</th>
-<th align="left">文件类型</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>S_ISREG()</code></td>
-<td align="left">普通文件</td>
-</tr>
-<tr>
-<td><code>S_ISDIR()</code></td>
-<td align="left">目录文件</td>
-</tr>
-<tr>
-<td><code>S_ISCHR()</code></td>
-<td align="left">字符特殊文件</td>
-</tr>
-<tr>
-<td><code>S_ISBLK()</code></td>
-<td align="left">块特殊文件</td>
-</tr>
-<tr>
-<td><code>S_ISFIFO()</code></td>
-<td align="left">管道或FIFO</td>
-</tr>
-<tr>
-<td><code>S_ISLNK()</code></td>
-<td align="left">符号链接</td>
-</tr>
-<tr>
-<td><code>S_ISSOCK()</code></td>
-<td align="left">套接字</td>
-</tr>
-</tbody></table>
-<h1 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h1><p>文件类型包括如下几类：</p>
-<ol>
-<li>普通文件(regular file):包含了某种形式的数据；</li>
-<li>目录文件(directory file):包含了其他文件的名字以及指向与这些文件有关信息的指针；</li>
-<li>块特殊文件(block special file):该类型文件提供对设备(如磁盘)带缓冲的访问，每次访问以固定长度为单位进行；</li>
-<li>字符特殊文件(character special file):该文件提供对设备不带缓冲的访问，每次访问长度不变。系统中的所有设备要么是字符特殊文件，要么是块特殊文件。</li>
-<li>FIFO:该文件用于进程通信，也称为命名管道(named pipe)；</li>
-<li>套接字(socket)：该文件用于进程间的网络通信，也可以用在一台宿主机上进程间的非网络通信。</li>
-<li>符号链接(symbolic link):该文件指向另一个文件。</li>
-</ol>
-<h1 id="设置用户ID和设置组ID"><a href="#设置用户ID和设置组ID" class="headerlink" title="设置用户ID和设置组ID"></a>设置用户ID和设置组ID</h1><ul>
-<li>实际用户ID和实际组ID标识我们究竟是谁。</li>
-<li>有效用户ID、有效组ID以及附属组ID决定了我们的文件访问权限。</li>
-<li>保存的设置用户ID和保存的设置组ID在执行一个程序时包含了有效用户ID和有效组ID的副本。</li>
-</ul>
-<p>每个文件有一个所有者和组所有者，所有者由<code>stat</code>结构中的<code>st_uid</code>指定，组所有者则由<code>st_gid</code>指定。</p>
-<h1 id="文件访问权限"><a href="#文件访问权限" class="headerlink" title="文件访问权限"></a>文件访问权限</h1><p>所有文件类型(目录、字符特别文件等)都有访问权限(access permisiion)。</p>
-<table>
-<thead>
-<tr>
-<th><code>st_mode</code>屏蔽</th>
-<th align="left">含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>S_IRUSR</code></td>
-<td align="left">用户都</td>
-</tr>
-<tr>
-<td><code>S_IWUSR</code></td>
-<td align="left">用户写</td>
-</tr>
-<tr>
-<td><code>S_IXUSR</code></td>
-<td align="left">用户执行</td>
-</tr>
-<tr>
-<td><code>S_IRGRP</code></td>
-<td align="left">组读</td>
-</tr>
-<tr>
-<td><code>S_IWGRP</code></td>
-<td align="left">组写</td>
-</tr>
-<tr>
-<td><code>S_IXGRP</code></td>
-<td align="left">组执行</td>
-</tr>
-<tr>
-<td><code>S_IROTH</code></td>
-<td align="left">其他读</td>
-</tr>
-<tr>
-<td><code>S_IWOTH</code></td>
-<td align="left">其他写</td>
-</tr>
-<tr>
-<td><code>S_IXOTH</code></td>
-<td align="left">其他执行</td>
-</tr>
-</tbody></table>
-<h1 id="函数access和faccessat"><a href="#函数access和faccessat" class="headerlink" title="函数access和faccessat"></a>函数<code>access</code>和<code>faccessat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">access</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> mode)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">faccessat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> mode, <span class="type">int</span> flag)</span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<p><code>access</code>和<code>faccessat</code>函数是按实际用户ID和实际组ID进行访问权限测试的。</p>
-<table>
-<thead>
-<tr>
-<th><code>mode</code></th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>R_OK</code></td>
-<td align="left">测试读权限</td>
-</tr>
-<tr>
-<td><code>W_OK</code></td>
-<td align="left">测试写权限</td>
-</tr>
-<tr>
-<td><code>X_OK</code></td>
-<td align="left">测试执行权限</td>
-</tr>
-</tbody></table>
-<h1 id="函数umask"><a href="#函数umask" class="headerlink" title="函数umask"></a>函数<code>umask</code></h1><p><code>umask</code>函数为进程设置文件模式创建屏蔽字(mask for the process)，并返回之前的值。(这是少数几个没有出错返回函数中的一个。)</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">mode_t</span> <span class="title function_">umask</span><span class="params">(<span class="type">mode_t</span> cmask)</span>;</span><br><span class="line"><span class="comment">/* 返回值：之前的文件模式穿件屏蔽字 */</span></span><br></pre></td></tr></table></figure>
-<p>参数<code>cmask</code>是由上上个表列出的9个常量(S_IRUSR、S_IWUSR等)中若干个按位“或”构成的。</p>
-<table>
-<thead>
-<tr>
-<th>屏蔽位</th>
-<th align="left">含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0400</td>
-<td align="left">用户读</td>
-</tr>
-<tr>
-<td>0200</td>
-<td align="left">用户写</td>
-</tr>
-<tr>
-<td>0100</td>
-<td align="left">用户执行</td>
-</tr>
-<tr>
-<td>0040</td>
-<td align="left">组读</td>
-</tr>
-<tr>
-<td>0020</td>
-<td align="left">组写</td>
-</tr>
-<tr>
-<td>0010</td>
-<td align="left">组执行</td>
-</tr>
-<tr>
-<td>0004</td>
-<td align="left">其他读</td>
-</tr>
-<tr>
-<td>0002</td>
-<td align="left">其他写</td>
-</tr>
-<tr>
-<td>0001</td>
-<td align="left">其他执行</td>
-</tr>
-</tbody></table>
-<h1 id="函数chmod、fchmod和fchmodat"><a href="#函数chmod、fchmod和fchmodat" class="headerlink" title="函数chmod、fchmod和fchmodat"></a>函数<code>chmod</code>、<code>fchmod</code>和<code>fchmodat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">chomd</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">mode_t</span> mode)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fchome</span><span class="params">(<span class="type">int</span> fd, <span class="type">mode_t</span> mode)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fchomdat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">mode_t</span> mode, <span class="type">int</span> flag)</span>;</span><br><span class="line"><span class="comment">/* 3个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<p><code>chmod</code>函数在指定的文件上进行操作，而<code>fchmod</code>函数则对已打开的文件进行操作。<br><code>fchomdat</code>函数与<code>chmod</code>函数在下面两种情况下是相同的：一种是<code>pathname</code>参数为绝对路径，另一种是<code>fd</code>参数取值为<code>AT_FDCWD</code>而<code>pathname</code>参数为相对路径。否则，<code>fchmodat</code>计算相对于打开目录(由<code>fd</code>参数指向)的pathname。<code>flag</code>参数可以用于改变<code>fchmodat</code>的行为，当设置了<code>AT_SYMLIN_NOFOLLOW</code>标志时，<code>fchmodat</code>并不会跟随符号链接。</p>
-<table>
-<thead>
-<tr>
-<th><code>mode</code></th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>S_ISUID</code></td>
-<td align="left">执行时设置用户ID</td>
-</tr>
-<tr>
-<td><code>S_ISGID</code></td>
-<td align="left">执行时设置组ID</td>
-</tr>
-<tr>
-<td><code>S_ISVTX</code></td>
-<td align="left">保存正文(粘着位)</td>
-</tr>
-<tr>
-<td><code>S_IRWXU</code></td>
-<td align="left">用户(所有者)读、写和执行</td>
-</tr>
-<tr>
-<td><code>S_IRUSR</code></td>
-<td align="left">用户(所有者)读</td>
-</tr>
-<tr>
-<td><code>S_IWUSR</code></td>
-<td align="left">用户(所有者)写</td>
-</tr>
-<tr>
-<td><code>S_IXUSR</code></td>
-<td align="left">用户(所有者)执行</td>
-</tr>
-<tr>
-<td><code>S_IRWXG</code></td>
-<td align="left">组读、写和执行</td>
-</tr>
-<tr>
-<td><code>S_IRGRP</code></td>
-<td align="left">组读</td>
-</tr>
-<tr>
-<td><code>S_IWGRP</code></td>
-<td align="left">组写</td>
-</tr>
-<tr>
-<td><code>S_IXGRP</code></td>
-<td align="left">组执行</td>
-</tr>
-<tr>
-<td><code>S_IRWXO</code></td>
-<td align="left">其他读、写和执行</td>
-</tr>
-<tr>
-<td><code>S_IROTH</code></td>
-<td align="left">其他读</td>
-</tr>
-<tr>
-<td><code>S_IWOTH</code></td>
-<td align="left">其他写</td>
-</tr>
-<tr>
-<td><code>S_IXOTH</code></td>
-<td align="left">其他执行</td>
-</tr>
-</tbody></table>
-<h1 id="粘着位-sticky-bit"><a href="#粘着位-sticky-bit" class="headerlink" title="粘着位(sticky bit)"></a>粘着位(sticky bit)</h1><p><code>S_ISVTX</code>位被称为<code>粘着位</code>：如果一个可执行的程序文件的这一位被设置了，那么当程序第一次被执行，在其终止时，程序正文的一个副本仍被保存在交换区。<br>后来的UNIX版本称为它为<code>保存正文位(saved-text bit)</code>，因此也就有了常量<code>S_ISVTX</code>。</p>
-<h1 id="函数chown、fchown、fchownat和lchown"><a href="#函数chown、fchown、fchownat和lchown" class="headerlink" title="函数chown、fchown、fchownat和lchown"></a>函数<code>chown</code>、<code>fchown</code>、<code>fchownat</code>和<code>lchown</code></h1><p>下面几个<code>chown</code>函数可用于更改文件的用户ID和组ID。如果两个参数<code>owner</code>或<code>group</code>中的任意一个是-1，则对应的ID不变。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">chown</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">uid_t</span> owner, <span class="type">git_t</span> group)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fchown</span><span class="params">(<span class="type">int</span> fd, <span class="type">uid_t</span> owner, <span class="type">gid_t</span> group)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fchownat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">uid_t</span> owner, <span class="type">gid_t</span> group, <span class="type">int</span> flag)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">lchown</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">uid_t</span> owner, <span class="type">gid_t</span> group)</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 4个函数的返回值：若辰宫，返回0；若出错，返回-1</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="文件长度"><a href="#文件长度" class="headerlink" title="文件长度"></a>文件长度</h1><p><code>stat</code>结构成员<code>st_size</code>表示以字节为单位的单位长度。只对普通文件、目录文件和符号连接有效。</p>
-<h1 id="文件中的空洞"><a href="#文件中的空洞" class="headerlink" title="文件中的空洞"></a>文件中的空洞</h1><p>空洞是由所设置的偏移量超过文件端尾，并写入了某些数据后造成的。</p>
-<h1 id="文件截断"><a href="#文件截断" class="headerlink" title="文件截断"></a>文件截断</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">truncate</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">off_t</span> length)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">ftruncate</span><span class="params">(<span class="type">int</span> fd, <span class="type">off_t</span> length)</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 两个函数的返回值：若成功，返回0；若失败，返回-1</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-
-<p>如果该文件以前的长度大于<code>length</code>，则超过<code>length</code>以外的数据就不能再访问。如果以前的长度小于<code>length</code>，文件长度将增加，在以前的文件尾端和新的文件尾端之间的数据将读作0。</p>
-<h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><h1 id="函数link、linkat、unlink、unlinkat和remove"><a href="#函数link、linkat、unlink、unlinkat和remove" class="headerlink" title="函数link、linkat、unlink、unlinkat和remove"></a>函数<code>link</code>、<code>linkat</code>、<code>unlink</code>、<code>unlinkat</code>和<code>remove</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">link</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *existingpath, <span class="type">const</span> <span class="type">char</span> *newpath)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">linkat</span><span class="params">(<span class="type">int</span> efd, <span class="type">const</span> <span class="type">char</span> *existingpath, <span class="type">int</span> nfd, <span class="type">const</span> <span class="type">char</span> *newpath, <span class="type">int</span> flag)</span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<p>这两个函数创建一个新目录项<code>newpath</code>，它引用现有文件<code>existingpath</code>。如果<code>newpath</code>已存在，则返回出错。<br>对于<code>linkat</code>函数，现有文件是通过<code>efd</code>和<code>existingpath</code>指定，新的路径名是通过<code>nfd</code>和<code>newpath</code>指定的。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">unlink</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">unlinkat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">int</span> flag)</span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<p>这两个函数删除目录项，并将由<code>pathname</code>所引用的链接数减1。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">remove</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若失败，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="函数rename和renameat"><a href="#函数rename和renameat" class="headerlink" title="函数rename和renameat"></a>函数<code>rename</code>和<code>renameat</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">rename</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *oldname, <span class="type">const</span> <span class="type">char</span> *newname)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">renameat</span><span class="params">(<span class="type">int</span> oldfd, <span class="type">const</span> <span class="type">char</span> *oldname, <span class="type">int</span> newfd, <span class="type">const</span> <span class="type">char</span> *newname)</span>;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>如果<code>oldname</code>指的是一个文件而不是目录，那么为该文件或符号连接重命名。</li>
-<li>如果<code>oldname</code>指的是一个空目录，那么为该目录重命名。</li>
-<li>如果<code>oldname</code>或<code>newname</code>引用符号连接，则处理的是符号链接本身，而不是它引用的文件。</li>
-<li>不能对<code>.</code>和<code>..</code>重命名。</li>
-<li>作为一个特例，如果<code>oldname</code>和<code>newname</code>引用同意文件，则函数不做任何更改而成功返回。</li>
-</ol>
-<h1 id="符号链接"><a href="#符号链接" class="headerlink" title="符号链接"></a>符号链接</h1><p>符号链接是对一个文件的间接指针。符号链接以及它指向何种对象并无任何文件系统限制，任何用户都可以创建指向目录的符号连接。</p>
-<h1 id="创建和读取符号连接"><a href="#创建和读取符号连接" class="headerlink" title="创建和读取符号连接"></a>创建和读取符号连接</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">symlink</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *actualpath, <span class="type">const</span> <span class="type">char</span> *sympath)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">symlinat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *acutalpath, <span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *symptah)</span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">readlink</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *actualpath, <span class="type">const</span> <span class="type">char</span> *symptah)</span>;</span><br><span class="line"><span class="type">sszie_t</span> <span class="title function_">readlinkat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span>* <span class="keyword">restrict</span> pathname, <span class="type">char</span> *<span class="keyword">restrict</span> buf, <span class="type">size_t</span> bufsize)</span>;</span><br><span class="line"><span class="comment">/* 两个函数的返回值：若成功，返回读取的字节数；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="文件时间"><a href="#文件时间" class="headerlink" title="文件时间"></a>文件时间</h1><table>
-<thead>
-<tr>
-<th>字段</th>
-<th align="left">说明</th>
-<th align="left">例子</th>
-<th align="left">ls(1)选项</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>st_atim</code></td>
-<td align="left">文件数据的最后访问时间</td>
-<td align="left"><code>read</code></td>
-<td align="left"><code>-u</code></td>
-</tr>
-<tr>
-<td><code>st_mtim</code></td>
-<td align="left">文件数据的最后修改时间</td>
-<td align="left"><code>write</code></td>
-<td align="left"><code>默认</code></td>
-</tr>
-<tr>
-<td><code>st_ctim</code></td>
-<td align="left">i节点状态的最后更改时间</td>
-<td align="left"><code>chomd、chown</code></td>
-<td align="left"><code>-c</code></td>
-</tr>
-</tbody></table>
-<h1 id="函数futimens、utimensat和utimes"><a href="#函数futimens、utimensat和utimes" class="headerlink" title="函数futimens、utimensat和utimes"></a>函数<code>futimens</code>、<code>utimensat</code>和<code>utimes</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">futimens</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="keyword">struct</span> timespec times[<span class="number">2</span>])</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">utimensat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *path, <span class="type">const</span> <span class="keyword">struct</span> timespec times[<span class="number">2</span>], <span class="type">int</span> flag)</span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="函数mkdir、mkdirat和rmdir"><a href="#函数mkdir、mkdirat和rmdir" class="headerlink" title="函数mkdir、mkdirat和rmdir"></a>函数<code>mkdir</code>、<code>mkdirat</code>和<code>rmdir</code></h1><p>两个函数创建一个新目录。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">mkdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">mode_t</span> mode)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">mkdir</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">mode_t</span> mode)</span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<p>用<code>rmdir</code>函数可以创建一个空目录。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">rmdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若失败，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-
-<h1 id="读目录"><a href="#读目录" class="headerlink" title="读目录"></a>读目录</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dirent.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">DIR *<span class="title function_">opendir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname)</span>;</span><br><span class="line">DIR *<span class="title function_">fdopendir</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br><span class="line"><span class="comment">/* 两个函数返回值：若成功，返回指针；若出错，返回NULL */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> dirent *<span class="title function_">readdir</span><span class="params">(DIR *dp)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回指针；若在目录尾或出错，返回NULL */</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">rewinddir</span><span class="params">(DIR *dp)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">closeddir</span><span class="params">(DIR *dp)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若失败，返回-1 */</span></span><br><span class="line"></span><br><span class="line"><span class="type">long</span> <span class="title function_">telldir</span><span class="params">(DIR *dp)</span>;</span><br><span class="line"><span class="comment">/* 返回值：与dp关联的相关位置 */</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">seekdir</span><span class="params">(DIR *dp, <span class="type">long</span> loc)</span>;</span><br></pre></td></tr></table></figure>
-
-<h1 id="函数chdir、fchdir和getcwd"><a href="#函数chdir、fchdir和getcwd" class="headerlink" title="函数chdir、fchdir和getcwd"></a>函数<code>chdir</code>、<code>fchdir</code>和<code>getcwd</code></h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">chdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fchdir</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>进程调用<code>chdir</code>和<code>fchdir</code>函数更改当前工作目录。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> *<span class="title function_">getcwd</span><span class="params">(<span class="type">char</span> *buf, <span class="type">size_t</span> size)</span>;</span><br></pre></td></tr></table></figure>
-<p>逐层上移，直到遇到根，得到当前工作目录完整的绝对路径。<br>必须像此函数传递两个函数，一个是缓冲区地址<code>buf</code>(要有足够的长度容纳绝对路径再加上一个终止<code>null</code>字节)，另一个是缓冲区的长度<code>size</code>(以字节为单位)。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
