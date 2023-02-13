@@ -68,3 +68,9 @@ CMD ["bash"]
 ## 复制文件
 - 使用`docker run`启动容器以后，再使用`docker cp`命令复制容器中的文件
 - 使用`docker save`命令压缩`image`，然后解压缩
+
+## Reference
+
+- [如何从Docker镜像中导出文件](https://www.pkslow.com/archives/extract-files-from-docker-image)
+- [boost docker](https://github.com/pblischak/boost-docker-test)
+- [C++ ABI changed in GCC 5.x](https://medium.com/@joe.tsai8207/c-abi-changed-in-gcc-5-x-4fca239c36b6)
