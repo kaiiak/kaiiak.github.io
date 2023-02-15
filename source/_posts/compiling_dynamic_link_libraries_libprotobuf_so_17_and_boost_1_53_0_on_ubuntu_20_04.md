@@ -24,18 +24,16 @@ RUN apt-get update \
 # 文档地址：https://github.com/protocolbuffers/protobuf/tree/v3.6.1.3/src
 # 如果因为网络原因导致压缩包下载缓慢，可以下载到本地再使用COPY命令，复制Docker中
 # COPY protobuf-3.6.1.3.tar.gz /home
-RUN cd /home && wget https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.6.1.3.tar.gz \
+RUN cd /home && wget -O protobuf-3.6.1.3.tar.gz https://github.com/protocolbuffers/protobuf/archive/refs/tags/v3.6.1.3.tar.gz \
   && tar xfz protobuf-3.6.1.3.tar.gz \
   && rm protobuf-3.6.1.3.tar.gz \
   && cd protobuf-3.6.1.3 \
   && ./autogen.sh \
   && ./configure --prefix=/usr/ \
-  && make
-# make install 不成功, 启动Container，需要进入内部make install
-# RUN cd /home/protobuf-3.6.1.3 \
-#   && make intall \
-#   && cd /home \
-#   && rm -rf protobuf-3.6.1.3
+  && make \
+  && make install \
+  && cd /home \
+  && rm -rf protobuf-3.6.1.3
 
 CMD ["bash"]
 ```
@@ -74,3 +72,5 @@ CMD ["bash"]
 - [如何从Docker镜像中导出文件](https://www.pkslow.com/archives/extract-files-from-docker-image)
 - [boost docker](https://github.com/pblischak/boost-docker-test)
 - [C++ ABI changed in GCC 5.x](https://medium.com/@joe.tsai8207/c-abi-changed-in-gcc-5-x-4fca239c36b6)
+- [libprotobuf docker](https://github.com/kaiiak/libprotobuf-docker)
+- [boost docker](https://github.com/kaiiak/boost-docker)
