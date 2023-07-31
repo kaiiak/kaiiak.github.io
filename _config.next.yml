@@ -740,7 +740,7 @@ google_analytics:
   tracking_id: G-EDK6BZBWNK
   # By default, NexT will load an external gtag.js script on your site.
   # If you only need the pageview feature, set the following option to true to get a better performance.
-  only_pageview: false
+  only_pageview: true
 
 # Baidu Analytics
 # See: https://tongji.baidu.com
