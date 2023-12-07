@@ -1,167 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>APUE学习笔记——文件IO</title>
-    <url>//2016/02/25/APUE_study_notes-Files_IO/</url>
-    <content><![CDATA[<h1 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h1><p>所有打开的文件都通过文件描述符(一个非负整数)引用。</p>
-<p>维基百科上对于文件描述符的解释是这样的：</p>
-<blockquote>
-<p>文件描述符在形式上是一个非负整数。实际上，它是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。在程序设计中，一些涉及底层的程序编写往往会围绕着文件描述符展开。但是文件描述符这一概念往往只适用于UNIX、Linux这样的操作系统。</p>
-</blockquote>
-<p>当读、写一个文件时，使用<code>open</code>或<code>creat</code>返回的文件描述符标识该文件，将其作为参数传给<code>read</code>或<code>write</code>。</p>
-<p>在POSIX.1的应用程序中，文件描述符0与进程的标准输入关联(STDIN_FILENO)、文件描述符1与进程的标准输出关联(STDOUT_FILENO)、文件描述符2与进程的标准错误关联(STDERR_FILENO)，且已经确定化。<br>文件描述符的变化范围是<code>0~OPEN_MAX-1</code>。</p>
-<h1 id="函数open和openat"><a href="#函数open和openat" class="headerlink" title="函数open和openat"></a>函数<code>open</code>和<code>openat</code></h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">open</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *path, <span class="type">int</span> oflag, ... <span class="comment">/* mode_t mode */</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">openat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *path, <span class="type">int</span> oflag, ... <span class="comment">/* mode_t mode */</span>)</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *path ：文件的名称，可以包含（绝对和相对）路径</span></span><br><span class="line"><span class="comment"> *flags：文件打开模式</span></span><br><span class="line"><span class="comment"> *mode：用来规定对该文件的所有者，文件的用户组及系 统中其他用户的访问权限</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/* 两函数的返回值： 若成功，返回文件描述符； 若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th>打开方式</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>O_RDONLY</code></td>
-<td align="left">只读打开.</td>
-</tr>
-<tr>
-<td><code>O_WRONLY</code></td>
-<td align="left">只写打开.</td>
-</tr>
-<tr>
-<td><code>O_RDWR</code></td>
-<td align="left">读、写打开.</td>
-</tr>
-<tr>
-<td><code>O_EXEC</code></td>
-<td align="left">只执行打开.</td>
-</tr>
-<tr>
-<td><code>O_SEARCH</code></td>
-<td align="left">只搜索打开 (应用于目录).</td>
-</tr>
-<tr>
-<td><code>O_APPEND</code></td>
-<td align="left">每次写时都追加到文件的尾端.</td>
-</tr>
-<tr>
-<td><code>O_CLOEXEC</code></td>
-<td align="left">设置<code>FD_CLOEXEC</code>文件描述符.</td>
-</tr>
-<tr>
-<td><code>O_CREAT</code></td>
-<td align="left">若此文件不存在则创建它.</td>
-</tr>
-<tr>
-<td><code>O_DIRECTORY</code></td>
-<td align="left">如果<code>path</code>引用的不是目录，则出错.</td>
-</tr>
-<tr>
-<td><code>O_EXCL</code></td>
-<td align="left">如果同时指定了<code>O_CREAT</code>，而文件已存在，则出错.</td>
-</tr>
-<tr>
-<td><code>O_NOCTTY</code></td>
-<td align="left">如果<code>path</code>引用的是终端设备，则不将该设备分配作为此进程的控制终端.</td>
-</tr>
-<tr>
-<td><code>O_NOFOLLOW</code></td>
-<td align="left">如果<code>path</code>引用的是一个符号连接，则出错.</td>
-</tr>
-<tr>
-<td><code>O_NONBLOCK</code></td>
-<td align="left">如果<code>path</code>引用的是一个<code>FIFO</code>、一个块特殊文件或一个自负特殊文件，则此选项为文件的本次打开操作和后续的I&#x2F;O操作设置非阻塞方式.</td>
-</tr>
-<tr>
-<td><code>O_SYNC</code></td>
-<td align="left">使每次<code>write</code>等待物理I&#x2F;O完成，包括由该<code>write</code>操作引起的文件属性更新所需的I&#x2F;O.</td>
-</tr>
-<tr>
-<td><code>O_TRUNC</code></td>
-<td align="left">如果此文件存在，而且为只写或读-写成功打开，则将其长度截断为0.</td>
-</tr>
-<tr>
-<td><code>O_TTY_INIT</code></td>
-<td align="left">如果打开一个还未打开的终端设备，设置非标准<code>termios</code>参数值，使其符合<code>Single UNIX Specification</code>.</td>
-</tr>
-<tr>
-<td><code>O_DSYNC</code></td>
-<td align="left">使每次<code>write</code>要等待物理I&#x2F;O完成，但是如果该写操作并不影响读取刚写入的数据，则不需等待文件属性被更新.</td>
-</tr>
-<tr>
-<td><code>O_RSYNC</code></td>
-<td align="left">使每一个一文件描述符作为参数进行的<code>read</code>操作等待，直至所有对文件同一部份挂起的写操作都完成.</td>
-</tr>
-</tbody></table>
-<h3 id="fd参数吧open和openat函数区分开，共有3种可能性。"><a href="#fd参数吧open和openat函数区分开，共有3种可能性。" class="headerlink" title="fd参数吧open和openat函数区分开，共有3种可能性。"></a><code>fd</code>参数吧<code>open</code>和<code>openat</code>函数区分开，共有3种可能性。</h3><ol>
-<li><code>path</code>参数指定的是绝对路径名，在这种情况下，<code>fd</code>参数被忽略，<code>openat</code>函数就相当于<code>open</code>函数。</li>
-<li><code>path</code>参数指定的是相对路径名，<code>fd</code>参数指出了相对路径名在文件系统中的开始地址。<code>fd</code>参数是通过打开相对路径名所在的目录来获取。</li>
-<li><code>path</code>参数指定了相对路径名，<code>fd</code>参数具有特殊值<code>AT_FDCWD</code>。在这种情况下，路径名在当前工作目录中获取，<code>openat</code>函数在操作上与<code>open</code>函数类似。</li>
-</ol>
-<h1 id="函数creat"><a href="#函数creat" class="headerlink" title="函数creat"></a>函数<code>creat</code></h1><h3 id="调用函数creat创建一个新的文件"><a href="#调用函数creat创建一个新的文件" class="headerlink" title="调用函数creat创建一个新的文件"></a>调用函数<code>creat</code>创建一个新的文件</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">creat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *path, <span class="type">mode_t</span> mode)</span>;</span><br><span class="line"><span class="comment">/* 返回值： 若成功，返回为只写打开的文件描述符；如出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-<p>等效于：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">open(path, O_WRONLY|O_CREAT|O_TRUNC, mode);</span><br></pre></td></tr></table></figure>
-
-<h1 id="函数close"><a href="#函数close" class="headerlink" title="函数close"></a>函数<code>close</code></h1><h3 id="调用close函数关闭一个打开文件"><a href="#调用close函数关闭一个打开文件" class="headerlink" title="调用close函数关闭一个打开文件"></a>调用<code>close</code>函数关闭一个打开文件</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">close</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；如出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="函数lseek"><a href="#函数lseek" class="headerlink" title="函数lseek"></a>函数<code>lseek</code></h1><h3 id="当前文件偏移量-current-file-offset-：它通常是一个非负整数，用以度量从文件开始处计算的字节数。"><a href="#当前文件偏移量-current-file-offset-：它通常是一个非负整数，用以度量从文件开始处计算的字节数。" class="headerlink" title="当前文件偏移量(current file offset)：它通常是一个非负整数，用以度量从文件开始处计算的字节数。"></a>当前文件偏移量(current file offset)：它通常是一个非负整数，用以度量从文件开始处计算的字节数。</h3><h3 id="调用lseek显式的为一个打开文件设置偏移量。"><a href="#调用lseek显式的为一个打开文件设置偏移量。" class="headerlink" title="调用lseek显式的为一个打开文件设置偏移量。"></a>调用<code>lseek</code>显式的为一个打开文件设置偏移量。</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">off_t</span> <span class="title function_">lseek</span><span class="params">(<span class="type">int</span> fd, <span class="type">off_t</span> offset, <span class="type">int</span> whence)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若辰宫，返回新的文件偏移量；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<p>对参数<code>offset</code>的解释与参数<code>whence</code>的值有关。</p>
-<ul>
-<li>若<code>whence</code>是<code>SEEK_SET</code>，则经该文件的偏移量设置为距文件开始处<code>offset</code>个字节。</li>
-<li>若<code>whence</code>是<code>SEEK_CUR</code>，则经该文件的偏移量设置为其当前量增加<code>offset</code>，<code>offset</code>可为正或负。</li>
-<li>若<code>whence</code>是<code>SEEK_END</code>，则经该文件的偏移量设置为文件长度加<code>offset</code>，<code>offset</code>可正可负。</li>
-</ul>
-<h1 id="函数read"><a href="#函数read" class="headerlink" title="函数read"></a>函数<code>read</code></h1><h3 id="调用read函数从打开文件中读数据。"><a href="#调用read函数从打开文件中读数据。" class="headerlink" title="调用read函数从打开文件中读数据。"></a>调用<code>read</code>函数从打开文件中读数据。</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">read</span><span class="params">(<span class="type">int</span> fd, <span class="type">void</span> *buf, <span class="type">size_t</span> nbytes)</span>;</span><br><span class="line"><span class="comment">/* 返回值：读到的字节数，若已到文件尾，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<p>有多种情况可使实际读到的字节数少于要求读的字节数：</p>
-<ul>
-<li>读到普通文件时，在读到要求字计数之前已到达了文件微端。</li>
-<li>当从终端设备读时，通常一次最多读一行。</li>
-<li>当从网络读时，网络中的缓冲机制可能造成返回值小于所要求的字节数。</li>
-<li>当从管道或<code>FIFO</code>读时，如若管道包含的字节少于所需的数量，那么<code>read</code>将只返回实际可用的字节数。</li>
-<li>当从某些面向记录的设备读时，一次最多返回一个记录。</li>
-<li>当一信号造成中断，而已经读到部分数据量时。</li>
-</ul>
-<h1 id="函数write"><a href="#函数write" class="headerlink" title="函数write"></a>函数<code>write</code></h1><h3 id="调用write函数向打开文件写数据。"><a href="#调用write函数向打开文件写数据。" class="headerlink" title="调用write函数向打开文件写数据。"></a>调用<code>write</code>函数向打开文件写数据。</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">write</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">void</span> *buf, <span class="type">size_t</span> nbytes)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回已写的字节数；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="函数pread和pwrite"><a href="#函数pread和pwrite" class="headerlink" title="函数pread和pwrite"></a>函数<code>pread</code>和<code>pwrite</code></h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">pread</span><span class="params">(<span class="type">int</span> fd, <span class="type">void</span> *buf, <span class="type">size_t</span> nbytes. <span class="type">off_t</span> offset)</span>;</span><br><span class="line"><span class="comment">/* 返回值：读到的字节数，若已到文件尾，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">pwrite</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">void</span> *buf, <span class="type">size_t</span> nbytes, <span class="type">off_t</span> offset)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>调用<code>pread</code>相当于调用<code>lseek</code>后调用<code>read</code>，但是<code>pread</code>又与这种顺序调用有下列重要区别。</p>
-<ul>
-<li>调用<code>pread</code>时，无法中断其定位和都读操作。</li>
-<li>不更新当前文件偏移量。<br>调用<code>pwrite</code>相当于调用<code>lseek</code>后调用<code>write</code>，但也与它们有类似的区别。</li>
-</ul>
-<blockquote>
-<p>原子操作(atomic operation)；指的是由多步组成一个一个操作。如果该操作原子地执行，则要么执行所有步骤，要么一步也不执行，不可能只执行所有步骤的一个子集。</p>
-</blockquote>
-<h1 id="函数dup和dup2"><a href="#函数dup和dup2" class="headerlink" title="函数dup和dup2"></a>函数<code>dup</code>和<code>dup2</code></h1><h3 id="复制一个现有的文件描述符"><a href="#复制一个现有的文件描述符" class="headerlink" title="复制一个现有的文件描述符"></a>复制一个现有的文件描述符</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">dup</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">dup2</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span> fd2)</span>;</span><br><span class="line"><span class="comment">/* 两函数的返回值：若成功，返回新的文件描述符；如出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="函数sync、fsync和fdatasync"><a href="#函数sync、fsync和fdatasync" class="headerlink" title="函数sync、fsync和fdatasync"></a>函数<code>sync</code>、<code>fsync</code>和<code>fdatasync</code></h1><blockquote>
-<p>内核通常先将数据复制到缓冲区中，然后排入队列，晚些时候写入磁盘。这种方法被称为<code>延迟写(delayed write)</code>.</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unitstd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">fsync</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fdatasync</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">sync</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure>
-
-<p><code>sync</code>只是将所有修改过的块缓冲区排入写队列，然后就返回，它并不等待实际写磁盘操作结束。<br><code>fsync</code>函数只对由文件描述符<code>fd</code>指定的一个文件起作用，并且等待写磁盘操作结束才返回。<br><code>fdatasync</code>函数类似于<code>fsync</code>，但它只影响文件的数据部分。</p>
-<h1 id="函数fcntl"><a href="#函数fcntl" class="headerlink" title="函数fcntl"></a>函数<code>fcntl</code></h1><h3 id="改变已经打开文件的属性。"><a href="#改变已经打开文件的属性。" class="headerlink" title="改变已经打开文件的属性。"></a>改变已经打开文件的属性。</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">fcntl</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span> cmd, ... <span class="comment">/* int arg */</span>)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，则依赖cmd，若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="fcntl函数有以下5种功能。"><a href="#fcntl函数有以下5种功能。" class="headerlink" title="fcntl函数有以下5种功能。"></a><code>fcntl</code>函数有以下5种功能。</h4><ol>
-<li>复制一个已有的描述符 (<code>cmd=F_DUPFD</code>或<code>F_DUPFD_CLOEXEC</code>)。</li>
-<li>获取&#x2F;设置文件描述符标志 (<code>cmd=F_GETFD</code>或<code>F_SETFD</code>)。</li>
-<li>获取&#x2F;设置文件状态标志 (<code>cmd=F_GETFL</code>或<code>F_SETFL</code>)。</li>
-<li>获取&#x2F;设置异步I&#x2F;O所有权 (<code>cmd=F_GETOWN</code>或<code>F_SETOWN</code>)。</li>
-<li>获取&#x2F;设置记录锁 (<code>cmd=F_GETLK</code>或<code>F_SETLKW</code>)。</li>
-</ol>
-<p>|cmd|功能<br>|<br>|——|:—————————————————-|<br>|<code>F_DUPFD</code>|复制文件描述符<code>fd</code>。|<br>|<code>F_DUPFD_CLOEXEC</code>|复制文件描述符，设置与新描述符关联的<code>FD_CLOEXEC</code>文件描述符标志的值，返回新文件描述符。|<br>|<code>F_GETFD</code>|对应于<code>fd</code>的文件描述符标志作为函数值返回。|<br>|<code>F_SETFD</code>|对于<code>fd</code>设置文件描述符标志。|<br>|<code>F_GETFL</code>|对应于<code>fd</code>的文件状态标志作为函数值返回。|<br>|<code>F_SETFL</code>|将文件状态标志设置为第3个参数的值。可以更改的几个标志是：<code>O_APPEND</code>、<code>O_NONBLOCK</code>、<code>O_SYNC</code>、<code>O_DSYNC</code>、<code>O_RSYNC</code>、<code>O_FSYNC</code>、和<code>O_ASYNC</code>。|<br>|<code>F_GETOWN</code>|获取当前接收<code>SIGIO</code>和<code>SIGURG</code>信号进程ID或进程组ID。|<br>|<code>F_SETOWN</code>|设置接收<code>SIGIO</code>和<code>SIGURG</code>信号的进程ID或进程组ID。|</p>
-<h1 id="函数ioctl"><a href="#函数ioctl" class="headerlink" title="函数ioctl"></a>函数<code>ioctl</code></h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span> <span class="comment">/* System V */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ioctl.h&gt;</span>  <span class="comment">/* BSD and Linux */</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">ioctl</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span> request, ...)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若出错，返回-1；若成功，返回其他值 */</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="dev-fd"><a href="#dev-fd" class="headerlink" title="/dev/fd"></a><code>/dev/fd</code></h2><p>较新的系统都提供名为<code>/dev/fd</code>的目录，其目录项是名为0、1、2等的文件。打开文件<code>/dev/fdn</code>等效于复制描述符n(假设描述符n是打开的).</p>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-        <tag>APUE</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>APUE学习笔记——文件和目录</title>
     <url>//2016/02/29/APUE_study_notes-Files_and_Directories/</url>
     <content><![CDATA[<h1 id="函数stat、fstat、fstatat、lstat"><a href="#函数stat、fstat、fstatat、lstat" class="headerlink" title="函数stat、fstat、fstatat、lstat"></a>函数<code>stat</code>、<code>fstat</code>、<code>fstatat</code>、<code>lstat</code></h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">stat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fstat</span><span class="params">(<span class="type">int</span> fd, <span class="keyword">struct</span> stat *buf)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">lstat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">lstat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *<span class="keyword">restrict</span> pathname, <span class="keyword">struct</span> stat *<span class="keyword">restrict</span> buf, <span class="type">int</span> flag)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 所有4个函数的返回值：若成功，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line">sturct stat &#123; </span><br><span class="line">    <span class="type">mode_t</span>          st_mode;        <span class="comment">/* file type &amp; mode (permissions) */</span></span><br><span class="line">    <span class="type">ino_t</span>           st_ino;         <span class="comment">/* i-node number (serial number) */</span></span><br><span class="line">    <span class="type">dev_t</span>           st_dev;         <span class="comment">/* device number (file system) */</span></span><br><span class="line">    <span class="type">dev_t</span>           st_rdev;        <span class="comment">/* device number for special files */</span></span><br><span class="line">    <span class="type">nlink_t</span>         st_nlink;       <span class="comment">/* number of links */</span></span><br><span class="line">    <span class="type">uid_t</span>           st_uid;         <span class="comment">/* user ID of links */</span></span><br><span class="line">    <span class="type">gid_t</span>           st_gid;         <span class="comment">/* group ID of owner */</span></span><br><span class="line">    <span class="type">off_t</span>           st_size;        <span class="comment">/* size in bytes, for regular files  */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_atime</span>;</span>       <span class="comment">/* time of last access */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_mtime</span>;</span>       <span class="comment">/* time of last modification */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">timespec</span> <span class="title">st_ctime</span>;</span>       <span class="comment">/* time of last file status change */</span></span><br><span class="line">    <span class="type">blksize_t</span>       st_blksize;     <span class="comment">/* best I/O block size */</span></span><br><span class="line">    <span class="type">blkcnt_t</span>        st_blocks;      <span class="comment">/* number of disk blocks allocated */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -486,6 +325,167 @@
 <p>进程调用<code>chdir</code>和<code>fchdir</code>函数更改当前工作目录。</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> *<span class="title function_">getcwd</span><span class="params">(<span class="type">char</span> *buf, <span class="type">size_t</span> size)</span>;</span><br></pre></td></tr></table></figure>
 <p>逐层上移，直到遇到根，得到当前工作目录完整的绝对路径。<br>必须像此函数传递两个函数，一个是缓冲区地址<code>buf</code>(要有足够的长度容纳绝对路径再加上一个终止<code>null</code>字节)，另一个是缓冲区的长度<code>size</code>(以字节为单位)。</p>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+        <tag>APUE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>APUE学习笔记——文件IO</title>
+    <url>//2016/02/25/APUE_study_notes-Files_IO/</url>
+    <content><![CDATA[<h1 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h1><p>所有打开的文件都通过文件描述符(一个非负整数)引用。</p>
+<p>维基百科上对于文件描述符的解释是这样的：</p>
+<blockquote>
+<p>文件描述符在形式上是一个非负整数。实际上，它是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符。在程序设计中，一些涉及底层的程序编写往往会围绕着文件描述符展开。但是文件描述符这一概念往往只适用于UNIX、Linux这样的操作系统。</p>
+</blockquote>
+<p>当读、写一个文件时，使用<code>open</code>或<code>creat</code>返回的文件描述符标识该文件，将其作为参数传给<code>read</code>或<code>write</code>。</p>
+<p>在POSIX.1的应用程序中，文件描述符0与进程的标准输入关联(STDIN_FILENO)、文件描述符1与进程的标准输出关联(STDOUT_FILENO)、文件描述符2与进程的标准错误关联(STDERR_FILENO)，且已经确定化。<br>文件描述符的变化范围是<code>0~OPEN_MAX-1</code>。</p>
+<h1 id="函数open和openat"><a href="#函数open和openat" class="headerlink" title="函数open和openat"></a>函数<code>open</code>和<code>openat</code></h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">open</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *path, <span class="type">int</span> oflag, ... <span class="comment">/* mode_t mode */</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">openat</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">char</span> *path, <span class="type">int</span> oflag, ... <span class="comment">/* mode_t mode */</span>)</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> *path ：文件的名称，可以包含（绝对和相对）路径</span></span><br><span class="line"><span class="comment"> *flags：文件打开模式</span></span><br><span class="line"><span class="comment"> *mode：用来规定对该文件的所有者，文件的用户组及系 统中其他用户的访问权限</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/* 两函数的返回值： 若成功，返回文件描述符； 若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>打开方式</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>O_RDONLY</code></td>
+<td align="left">只读打开.</td>
+</tr>
+<tr>
+<td><code>O_WRONLY</code></td>
+<td align="left">只写打开.</td>
+</tr>
+<tr>
+<td><code>O_RDWR</code></td>
+<td align="left">读、写打开.</td>
+</tr>
+<tr>
+<td><code>O_EXEC</code></td>
+<td align="left">只执行打开.</td>
+</tr>
+<tr>
+<td><code>O_SEARCH</code></td>
+<td align="left">只搜索打开 (应用于目录).</td>
+</tr>
+<tr>
+<td><code>O_APPEND</code></td>
+<td align="left">每次写时都追加到文件的尾端.</td>
+</tr>
+<tr>
+<td><code>O_CLOEXEC</code></td>
+<td align="left">设置<code>FD_CLOEXEC</code>文件描述符.</td>
+</tr>
+<tr>
+<td><code>O_CREAT</code></td>
+<td align="left">若此文件不存在则创建它.</td>
+</tr>
+<tr>
+<td><code>O_DIRECTORY</code></td>
+<td align="left">如果<code>path</code>引用的不是目录，则出错.</td>
+</tr>
+<tr>
+<td><code>O_EXCL</code></td>
+<td align="left">如果同时指定了<code>O_CREAT</code>，而文件已存在，则出错.</td>
+</tr>
+<tr>
+<td><code>O_NOCTTY</code></td>
+<td align="left">如果<code>path</code>引用的是终端设备，则不将该设备分配作为此进程的控制终端.</td>
+</tr>
+<tr>
+<td><code>O_NOFOLLOW</code></td>
+<td align="left">如果<code>path</code>引用的是一个符号连接，则出错.</td>
+</tr>
+<tr>
+<td><code>O_NONBLOCK</code></td>
+<td align="left">如果<code>path</code>引用的是一个<code>FIFO</code>、一个块特殊文件或一个自负特殊文件，则此选项为文件的本次打开操作和后续的I&#x2F;O操作设置非阻塞方式.</td>
+</tr>
+<tr>
+<td><code>O_SYNC</code></td>
+<td align="left">使每次<code>write</code>等待物理I&#x2F;O完成，包括由该<code>write</code>操作引起的文件属性更新所需的I&#x2F;O.</td>
+</tr>
+<tr>
+<td><code>O_TRUNC</code></td>
+<td align="left">如果此文件存在，而且为只写或读-写成功打开，则将其长度截断为0.</td>
+</tr>
+<tr>
+<td><code>O_TTY_INIT</code></td>
+<td align="left">如果打开一个还未打开的终端设备，设置非标准<code>termios</code>参数值，使其符合<code>Single UNIX Specification</code>.</td>
+</tr>
+<tr>
+<td><code>O_DSYNC</code></td>
+<td align="left">使每次<code>write</code>要等待物理I&#x2F;O完成，但是如果该写操作并不影响读取刚写入的数据，则不需等待文件属性被更新.</td>
+</tr>
+<tr>
+<td><code>O_RSYNC</code></td>
+<td align="left">使每一个一文件描述符作为参数进行的<code>read</code>操作等待，直至所有对文件同一部份挂起的写操作都完成.</td>
+</tr>
+</tbody></table>
+<h3 id="fd参数吧open和openat函数区分开，共有3种可能性。"><a href="#fd参数吧open和openat函数区分开，共有3种可能性。" class="headerlink" title="fd参数吧open和openat函数区分开，共有3种可能性。"></a><code>fd</code>参数吧<code>open</code>和<code>openat</code>函数区分开，共有3种可能性。</h3><ol>
+<li><code>path</code>参数指定的是绝对路径名，在这种情况下，<code>fd</code>参数被忽略，<code>openat</code>函数就相当于<code>open</code>函数。</li>
+<li><code>path</code>参数指定的是相对路径名，<code>fd</code>参数指出了相对路径名在文件系统中的开始地址。<code>fd</code>参数是通过打开相对路径名所在的目录来获取。</li>
+<li><code>path</code>参数指定了相对路径名，<code>fd</code>参数具有特殊值<code>AT_FDCWD</code>。在这种情况下，路径名在当前工作目录中获取，<code>openat</code>函数在操作上与<code>open</code>函数类似。</li>
+</ol>
+<h1 id="函数creat"><a href="#函数creat" class="headerlink" title="函数creat"></a>函数<code>creat</code></h1><h3 id="调用函数creat创建一个新的文件"><a href="#调用函数creat创建一个新的文件" class="headerlink" title="调用函数creat创建一个新的文件"></a>调用函数<code>creat</code>创建一个新的文件</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">creat</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *path, <span class="type">mode_t</span> mode)</span>;</span><br><span class="line"><span class="comment">/* 返回值： 若成功，返回为只写打开的文件描述符；如出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+<p>等效于：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">open(path, O_WRONLY|O_CREAT|O_TRUNC, mode);</span><br></pre></td></tr></table></figure>
+
+<h1 id="函数close"><a href="#函数close" class="headerlink" title="函数close"></a>函数<code>close</code></h1><h3 id="调用close函数关闭一个打开文件"><a href="#调用close函数关闭一个打开文件" class="headerlink" title="调用close函数关闭一个打开文件"></a>调用<code>close</code>函数关闭一个打开文件</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">close</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；如出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="函数lseek"><a href="#函数lseek" class="headerlink" title="函数lseek"></a>函数<code>lseek</code></h1><h3 id="当前文件偏移量-current-file-offset-：它通常是一个非负整数，用以度量从文件开始处计算的字节数。"><a href="#当前文件偏移量-current-file-offset-：它通常是一个非负整数，用以度量从文件开始处计算的字节数。" class="headerlink" title="当前文件偏移量(current file offset)：它通常是一个非负整数，用以度量从文件开始处计算的字节数。"></a>当前文件偏移量(current file offset)：它通常是一个非负整数，用以度量从文件开始处计算的字节数。</h3><h3 id="调用lseek显式的为一个打开文件设置偏移量。"><a href="#调用lseek显式的为一个打开文件设置偏移量。" class="headerlink" title="调用lseek显式的为一个打开文件设置偏移量。"></a>调用<code>lseek</code>显式的为一个打开文件设置偏移量。</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">off_t</span> <span class="title function_">lseek</span><span class="params">(<span class="type">int</span> fd, <span class="type">off_t</span> offset, <span class="type">int</span> whence)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若辰宫，返回新的文件偏移量；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<p>对参数<code>offset</code>的解释与参数<code>whence</code>的值有关。</p>
+<ul>
+<li>若<code>whence</code>是<code>SEEK_SET</code>，则经该文件的偏移量设置为距文件开始处<code>offset</code>个字节。</li>
+<li>若<code>whence</code>是<code>SEEK_CUR</code>，则经该文件的偏移量设置为其当前量增加<code>offset</code>，<code>offset</code>可为正或负。</li>
+<li>若<code>whence</code>是<code>SEEK_END</code>，则经该文件的偏移量设置为文件长度加<code>offset</code>，<code>offset</code>可正可负。</li>
+</ul>
+<h1 id="函数read"><a href="#函数read" class="headerlink" title="函数read"></a>函数<code>read</code></h1><h3 id="调用read函数从打开文件中读数据。"><a href="#调用read函数从打开文件中读数据。" class="headerlink" title="调用read函数从打开文件中读数据。"></a>调用<code>read</code>函数从打开文件中读数据。</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">read</span><span class="params">(<span class="type">int</span> fd, <span class="type">void</span> *buf, <span class="type">size_t</span> nbytes)</span>;</span><br><span class="line"><span class="comment">/* 返回值：读到的字节数，若已到文件尾，返回0；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<p>有多种情况可使实际读到的字节数少于要求读的字节数：</p>
+<ul>
+<li>读到普通文件时，在读到要求字计数之前已到达了文件微端。</li>
+<li>当从终端设备读时，通常一次最多读一行。</li>
+<li>当从网络读时，网络中的缓冲机制可能造成返回值小于所要求的字节数。</li>
+<li>当从管道或<code>FIFO</code>读时，如若管道包含的字节少于所需的数量，那么<code>read</code>将只返回实际可用的字节数。</li>
+<li>当从某些面向记录的设备读时，一次最多返回一个记录。</li>
+<li>当一信号造成中断，而已经读到部分数据量时。</li>
+</ul>
+<h1 id="函数write"><a href="#函数write" class="headerlink" title="函数write"></a>函数<code>write</code></h1><h3 id="调用write函数向打开文件写数据。"><a href="#调用write函数向打开文件写数据。" class="headerlink" title="调用write函数向打开文件写数据。"></a>调用<code>write</code>函数向打开文件写数据。</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">write</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">void</span> *buf, <span class="type">size_t</span> nbytes)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回已写的字节数；若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="函数pread和pwrite"><a href="#函数pread和pwrite" class="headerlink" title="函数pread和pwrite"></a>函数<code>pread</code>和<code>pwrite</code></h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">pread</span><span class="params">(<span class="type">int</span> fd, <span class="type">void</span> *buf, <span class="type">size_t</span> nbytes. <span class="type">off_t</span> offset)</span>;</span><br><span class="line"><span class="comment">/* 返回值：读到的字节数，若已到文件尾，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">pwrite</span><span class="params">(<span class="type">int</span> fd, <span class="type">const</span> <span class="type">void</span> *buf, <span class="type">size_t</span> nbytes, <span class="type">off_t</span> offset)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>调用<code>pread</code>相当于调用<code>lseek</code>后调用<code>read</code>，但是<code>pread</code>又与这种顺序调用有下列重要区别。</p>
+<ul>
+<li>调用<code>pread</code>时，无法中断其定位和都读操作。</li>
+<li>不更新当前文件偏移量。<br>调用<code>pwrite</code>相当于调用<code>lseek</code>后调用<code>write</code>，但也与它们有类似的区别。</li>
+</ul>
+<blockquote>
+<p>原子操作(atomic operation)；指的是由多步组成一个一个操作。如果该操作原子地执行，则要么执行所有步骤，要么一步也不执行，不可能只执行所有步骤的一个子集。</p>
+</blockquote>
+<h1 id="函数dup和dup2"><a href="#函数dup和dup2" class="headerlink" title="函数dup和dup2"></a>函数<code>dup</code>和<code>dup2</code></h1><h3 id="复制一个现有的文件描述符"><a href="#复制一个现有的文件描述符" class="headerlink" title="复制一个现有的文件描述符"></a>复制一个现有的文件描述符</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">dup</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">dup2</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span> fd2)</span>;</span><br><span class="line"><span class="comment">/* 两函数的返回值：若成功，返回新的文件描述符；如出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="函数sync、fsync和fdatasync"><a href="#函数sync、fsync和fdatasync" class="headerlink" title="函数sync、fsync和fdatasync"></a>函数<code>sync</code>、<code>fsync</code>和<code>fdatasync</code></h1><blockquote>
+<p>内核通常先将数据复制到缓冲区中，然后排入队列，晚些时候写入磁盘。这种方法被称为<code>延迟写(delayed write)</code>.</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unitstd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">fsync</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fdatasync</span><span class="params">(<span class="type">int</span> fd)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，返回0；若出错，返回-1 */</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">sync</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>sync</code>只是将所有修改过的块缓冲区排入写队列，然后就返回，它并不等待实际写磁盘操作结束。<br><code>fsync</code>函数只对由文件描述符<code>fd</code>指定的一个文件起作用，并且等待写磁盘操作结束才返回。<br><code>fdatasync</code>函数类似于<code>fsync</code>，但它只影响文件的数据部分。</p>
+<h1 id="函数fcntl"><a href="#函数fcntl" class="headerlink" title="函数fcntl"></a>函数<code>fcntl</code></h1><h3 id="改变已经打开文件的属性。"><a href="#改变已经打开文件的属性。" class="headerlink" title="改变已经打开文件的属性。"></a>改变已经打开文件的属性。</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">fcntl</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span> cmd, ... <span class="comment">/* int arg */</span>)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若成功，则依赖cmd，若出错，返回-1 */</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="fcntl函数有以下5种功能。"><a href="#fcntl函数有以下5种功能。" class="headerlink" title="fcntl函数有以下5种功能。"></a><code>fcntl</code>函数有以下5种功能。</h4><ol>
+<li>复制一个已有的描述符 (<code>cmd=F_DUPFD</code>或<code>F_DUPFD_CLOEXEC</code>)。</li>
+<li>获取&#x2F;设置文件描述符标志 (<code>cmd=F_GETFD</code>或<code>F_SETFD</code>)。</li>
+<li>获取&#x2F;设置文件状态标志 (<code>cmd=F_GETFL</code>或<code>F_SETFL</code>)。</li>
+<li>获取&#x2F;设置异步I&#x2F;O所有权 (<code>cmd=F_GETOWN</code>或<code>F_SETOWN</code>)。</li>
+<li>获取&#x2F;设置记录锁 (<code>cmd=F_GETLK</code>或<code>F_SETLKW</code>)。</li>
+</ol>
+<p>|cmd|功能<br>|<br>|——|:—————————————————-|<br>|<code>F_DUPFD</code>|复制文件描述符<code>fd</code>。|<br>|<code>F_DUPFD_CLOEXEC</code>|复制文件描述符，设置与新描述符关联的<code>FD_CLOEXEC</code>文件描述符标志的值，返回新文件描述符。|<br>|<code>F_GETFD</code>|对应于<code>fd</code>的文件描述符标志作为函数值返回。|<br>|<code>F_SETFD</code>|对于<code>fd</code>设置文件描述符标志。|<br>|<code>F_GETFL</code>|对应于<code>fd</code>的文件状态标志作为函数值返回。|<br>|<code>F_SETFL</code>|将文件状态标志设置为第3个参数的值。可以更改的几个标志是：<code>O_APPEND</code>、<code>O_NONBLOCK</code>、<code>O_SYNC</code>、<code>O_DSYNC</code>、<code>O_RSYNC</code>、<code>O_FSYNC</code>、和<code>O_ASYNC</code>。|<br>|<code>F_GETOWN</code>|获取当前接收<code>SIGIO</code>和<code>SIGURG</code>信号进程ID或进程组ID。|<br>|<code>F_SETOWN</code>|设置接收<code>SIGIO</code>和<code>SIGURG</code>信号的进程ID或进程组ID。|</p>
+<h1 id="函数ioctl"><a href="#函数ioctl" class="headerlink" title="函数ioctl"></a>函数<code>ioctl</code></h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span> <span class="comment">/* System V */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ioctl.h&gt;</span>  <span class="comment">/* BSD and Linux */</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">ioctl</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span> request, ...)</span>;</span><br><span class="line"><span class="comment">/* 返回值：若出错，返回-1；若成功，返回其他值 */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="dev-fd"><a href="#dev-fd" class="headerlink" title="/dev/fd"></a><code>/dev/fd</code></h2><p>较新的系统都提供名为<code>/dev/fd</code>的目录，其目录项是名为0、1、2等的文件。打开文件<code>/dev/fdn</code>等效于复制描述符n(假设描述符n是打开的).</p>
 ]]></content>
       <tags>
         <tag>Linux</tag>
@@ -1110,6 +1110,17 @@
       </tags>
   </entry>
   <entry>
+    <title>C#利用VLC播放网络串流</title>
+    <url>//2015/11/19/using-vlclib-in-vs/</url>
+    <content><![CDATA[<p><a target="_blank" rel="noopener" href="http://www.videolan.org/">VLC的官方网站</a>，VLC的源代码是用C语言实现的。我们这里用<code>C#</code>的封装——nVLC。<br><a target="_blank" rel="noopener" href="http://www.codeproject.com/Articles/109639/nVLC">nVLC</a>。</p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>在运行本程序之前，请先安装VLC，或者拷贝<code>libvlc.dll</code>、<code>libvlccode.dll</code>和<code>plugins目录</code>到你的</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Windows.Forms;</span><br><span class="line"><span class="keyword">using</span> Declarations;</span><br><span class="line"><span class="keyword">using</span> Declarations.Enums;</span><br><span class="line"><span class="keyword">using</span> Declarations.Media;</span><br><span class="line"><span class="keyword">using</span> Declarations.Players;</span><br><span class="line"><span class="keyword">using</span> Implementation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">nVLC_Demo_MemoryInputOutput</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">Form1</span> : <span class="title">Form</span></span><br><span class="line">    &#123;</span><br><span class="line">        IMediaPlayerFactory m_factory;</span><br><span class="line">        IVideoPlayer m_sourcePlayer;</span><br><span class="line">        IVideoPlayer m_renderPlayer;</span><br><span class="line">        IMemoryInputMedia m_inputMedia;</span><br><span class="line">        <span class="keyword">const</span> <span class="built_in">long</span> MicroSecondsInSecomd = <span class="number">1000</span> * <span class="number">1000</span>;</span><br><span class="line">        <span class="built_in">long</span> MicroSecondsBetweenFrame;</span><br><span class="line">        <span class="built_in">long</span> frameCounter;</span><br><span class="line">        FrameData data = <span class="keyword">new</span> FrameData() &#123; DTS = <span class="number">-1</span> &#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="built_in">int</span> DefaultFps = <span class="number">24</span>;</span><br><span class="line">        Timer timer = <span class="keyword">new</span> Timer();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Form1</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            InitializeComponent();</span><br><span class="line">            timer.Tick += <span class="keyword">new</span> EventHandler(timer_Tick);</span><br><span class="line">            timer.Interval = <span class="number">1000</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">timer_Tick</span>(<span class="params"><span class="built_in">object</span> sender, EventArgs e</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>.Text = m_inputMedia.PendingFramesCount.ToString();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnLoad</span>(<span class="params">EventArgs e</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">base</span>.OnLoad(e);</span><br><span class="line"></span><br><span class="line">            m_factory = <span class="keyword">new</span> MediaPlayerFactory(<span class="literal">true</span>);</span><br><span class="line">            m_sourcePlayer = m_factory.CreatePlayer&lt;IVideoPlayer&gt;();</span><br><span class="line">            m_sourcePlayer.Events.PlayerPlaying += <span class="keyword">new</span> EventHandler(Events_PlayerPlaying);</span><br><span class="line">            m_sourcePlayer.Mute = <span class="literal">true</span>;</span><br><span class="line">            m_renderPlayer = m_factory.CreatePlayer&lt;IVideoPlayer&gt;();</span><br><span class="line">            m_renderPlayer.WindowHandle = panel1.Handle;</span><br><span class="line">            m_inputMedia = m_factory.CreateMedia&lt;IMemoryInputMedia&gt;(MediaStrings.IMEM);</span><br><span class="line">            SetupOutput(m_sourcePlayer.CustomRendererEx);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">Events_PlayerPlaying</span>(<span class="params"><span class="built_in">object</span> sender, EventArgs e</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            MicroSecondsBetweenFrame = (<span class="built_in">long</span>)(MicroSecondsInSecomd / (m_sourcePlayer.FPS != <span class="number">0</span> ? m_sourcePlayer.FPS : DefaultFps));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetupOutput</span>(<span class="params">IMemoryRendererEx iMemoryRenderer</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            iMemoryRenderer.SetFormatSetupCallback(OnSetupCallback);</span><br><span class="line">            iMemoryRenderer.SetExceptionHandler(OnErrorCallback);</span><br><span class="line">            iMemoryRenderer.SetCallback(OnNewFrameCallback);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> BitmapFormat <span class="title">OnSetupCallback</span>(<span class="params">BitmapFormat format</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            SetupInput(format);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> BitmapFormat(format.Width, format.Height, ChromaType.RV24);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnErrorCallback</span>(<span class="params">Exception error</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            MessageBox.Show(error.Message);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnNewFrameCallback</span>(<span class="params">PlanarFrame frame</span>)</span></span><br><span class="line">        &#123;          </span><br><span class="line">            data.Data = frame.Planes[<span class="number">0</span>];</span><br><span class="line">            data.DataSize = frame.Lenghts[<span class="number">0</span>];</span><br><span class="line">            data.PTS = frameCounter++ * MicroSecondsBetweenFrame;</span><br><span class="line">            m_inputMedia.AddFrame(data);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="comment">/*m_inputMedia.PendingFramesCount == 10 &amp;&amp; */</span>!m_renderPlayer.IsPlaying)</span><br><span class="line">            &#123;</span><br><span class="line">                m_renderPlayer.Play();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetupInput</span>(<span class="params">BitmapFormat format</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> streamInfo = <span class="keyword">new</span> StreamInfo();</span><br><span class="line">            streamInfo.Category = StreamCategory.Video;</span><br><span class="line">            streamInfo.Codec = VideoCodecs.BGR24;</span><br><span class="line">            streamInfo.Width = format.Width;</span><br><span class="line">            streamInfo.Height = format.Height;</span><br><span class="line">            streamInfo.Size = format.ImageSize;</span><br><span class="line"></span><br><span class="line">            m_inputMedia.Initialize(streamInfo);</span><br><span class="line">            m_inputMedia.SetExceptionHandler(OnErrorCallback);</span><br><span class="line">            m_renderPlayer.Open(m_inputMedia);           </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OpenSourceMedia</span>(<span class="params"><span class="built_in">string</span> path</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//IMediaFromFile media = m_factory.CreateMedia&lt;IMediaFromFile&gt;(path);</span></span><br><span class="line">            IMedia media = m_factory.CreateMedia&lt;IMedia&gt;(path);</span><br><span class="line">            m_sourcePlayer.Open(media);</span><br><span class="line">            m_sourcePlayer.Play();</span><br><span class="line">            timer.Start();</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button1_Click</span>(<span class="params"><span class="built_in">object</span> sender, EventArgs e</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            OpenSourceMedia(<span class="string">&quot;http://192.168.2.108:8090&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>vlc</tag>
+        <tag>CSharp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>tree命令源码分析</title>
     <url>//2016/03/27/tree_command_source_code_analyze/</url>
     <content><![CDATA[<h1 id="为什么选择tree这个命令？"><a href="#为什么选择tree这个命令？" class="headerlink" title="为什么选择tree这个命令？"></a>为什么选择tree这个命令？</h1><p>学完APUE的前几章，学完了IO和文件与目录，我们可以做点东西出来了。而借鉴别人的程序就是做出东西的选择之一。</p>
@@ -1127,17 +1138,6 @@
       <tags>
         <tag>Linux</tag>
         <tag>tree</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C#利用VLC播放网络串流</title>
-    <url>//2015/11/19/using-vlclib-in-vs/</url>
-    <content><![CDATA[<p><a target="_blank" rel="noopener" href="http://www.videolan.org/">VLC的官方网站</a>，VLC的源代码是用C语言实现的。我们这里用<code>C#</code>的封装——nVLC。<br><a target="_blank" rel="noopener" href="http://www.codeproject.com/Articles/109639/nVLC">nVLC</a>。</p>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>在运行本程序之前，请先安装VLC，或者拷贝<code>libvlc.dll</code>、<code>libvlccode.dll</code>和<code>plugins目录</code>到你的</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Windows.Forms;</span><br><span class="line"><span class="keyword">using</span> Declarations;</span><br><span class="line"><span class="keyword">using</span> Declarations.Enums;</span><br><span class="line"><span class="keyword">using</span> Declarations.Media;</span><br><span class="line"><span class="keyword">using</span> Declarations.Players;</span><br><span class="line"><span class="keyword">using</span> Implementation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">nVLC_Demo_MemoryInputOutput</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">Form1</span> : <span class="title">Form</span></span><br><span class="line">    &#123;</span><br><span class="line">        IMediaPlayerFactory m_factory;</span><br><span class="line">        IVideoPlayer m_sourcePlayer;</span><br><span class="line">        IVideoPlayer m_renderPlayer;</span><br><span class="line">        IMemoryInputMedia m_inputMedia;</span><br><span class="line">        <span class="keyword">const</span> <span class="built_in">long</span> MicroSecondsInSecomd = <span class="number">1000</span> * <span class="number">1000</span>;</span><br><span class="line">        <span class="built_in">long</span> MicroSecondsBetweenFrame;</span><br><span class="line">        <span class="built_in">long</span> frameCounter;</span><br><span class="line">        FrameData data = <span class="keyword">new</span> FrameData() &#123; DTS = <span class="number">-1</span> &#125;;</span><br><span class="line">        <span class="keyword">const</span> <span class="built_in">int</span> DefaultFps = <span class="number">24</span>;</span><br><span class="line">        Timer timer = <span class="keyword">new</span> Timer();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Form1</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            InitializeComponent();</span><br><span class="line">            timer.Tick += <span class="keyword">new</span> EventHandler(timer_Tick);</span><br><span class="line">            timer.Interval = <span class="number">1000</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">timer_Tick</span>(<span class="params"><span class="built_in">object</span> sender, EventArgs e</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>.Text = m_inputMedia.PendingFramesCount.ToString();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnLoad</span>(<span class="params">EventArgs e</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">base</span>.OnLoad(e);</span><br><span class="line"></span><br><span class="line">            m_factory = <span class="keyword">new</span> MediaPlayerFactory(<span class="literal">true</span>);</span><br><span class="line">            m_sourcePlayer = m_factory.CreatePlayer&lt;IVideoPlayer&gt;();</span><br><span class="line">            m_sourcePlayer.Events.PlayerPlaying += <span class="keyword">new</span> EventHandler(Events_PlayerPlaying);</span><br><span class="line">            m_sourcePlayer.Mute = <span class="literal">true</span>;</span><br><span class="line">            m_renderPlayer = m_factory.CreatePlayer&lt;IVideoPlayer&gt;();</span><br><span class="line">            m_renderPlayer.WindowHandle = panel1.Handle;</span><br><span class="line">            m_inputMedia = m_factory.CreateMedia&lt;IMemoryInputMedia&gt;(MediaStrings.IMEM);</span><br><span class="line">            SetupOutput(m_sourcePlayer.CustomRendererEx);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">Events_PlayerPlaying</span>(<span class="params"><span class="built_in">object</span> sender, EventArgs e</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            MicroSecondsBetweenFrame = (<span class="built_in">long</span>)(MicroSecondsInSecomd / (m_sourcePlayer.FPS != <span class="number">0</span> ? m_sourcePlayer.FPS : DefaultFps));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetupOutput</span>(<span class="params">IMemoryRendererEx iMemoryRenderer</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            iMemoryRenderer.SetFormatSetupCallback(OnSetupCallback);</span><br><span class="line">            iMemoryRenderer.SetExceptionHandler(OnErrorCallback);</span><br><span class="line">            iMemoryRenderer.SetCallback(OnNewFrameCallback);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> BitmapFormat <span class="title">OnSetupCallback</span>(<span class="params">BitmapFormat format</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            SetupInput(format);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> BitmapFormat(format.Width, format.Height, ChromaType.RV24);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnErrorCallback</span>(<span class="params">Exception error</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            MessageBox.Show(error.Message);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnNewFrameCallback</span>(<span class="params">PlanarFrame frame</span>)</span></span><br><span class="line">        &#123;          </span><br><span class="line">            data.Data = frame.Planes[<span class="number">0</span>];</span><br><span class="line">            data.DataSize = frame.Lenghts[<span class="number">0</span>];</span><br><span class="line">            data.PTS = frameCounter++ * MicroSecondsBetweenFrame;</span><br><span class="line">            m_inputMedia.AddFrame(data);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="comment">/*m_inputMedia.PendingFramesCount == 10 &amp;&amp; */</span>!m_renderPlayer.IsPlaying)</span><br><span class="line">            &#123;</span><br><span class="line">                m_renderPlayer.Play();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetupInput</span>(<span class="params">BitmapFormat format</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> streamInfo = <span class="keyword">new</span> StreamInfo();</span><br><span class="line">            streamInfo.Category = StreamCategory.Video;</span><br><span class="line">            streamInfo.Codec = VideoCodecs.BGR24;</span><br><span class="line">            streamInfo.Width = format.Width;</span><br><span class="line">            streamInfo.Height = format.Height;</span><br><span class="line">            streamInfo.Size = format.ImageSize;</span><br><span class="line"></span><br><span class="line">            m_inputMedia.Initialize(streamInfo);</span><br><span class="line">            m_inputMedia.SetExceptionHandler(OnErrorCallback);</span><br><span class="line">            m_renderPlayer.Open(m_inputMedia);           </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OpenSourceMedia</span>(<span class="params"><span class="built_in">string</span> path</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//IMediaFromFile media = m_factory.CreateMedia&lt;IMediaFromFile&gt;(path);</span></span><br><span class="line">            IMedia media = m_factory.CreateMedia&lt;IMedia&gt;(path);</span><br><span class="line">            m_sourcePlayer.Open(media);</span><br><span class="line">            m_sourcePlayer.Play();</span><br><span class="line">            timer.Start();</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">button1_Click</span>(<span class="params"><span class="built_in">object</span> sender, EventArgs e</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            OpenSourceMedia(<span class="string">&quot;http://192.168.2.108:8090&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>vlc</tag>
-        <tag>CSharp</tag>
       </tags>
   </entry>
   <entry>
