@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.iakmai.com/2015/11/09/local-install-pydev-with-eclipse/</loc>
+    
+    <lastmod>2023-12-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.iakmai.com/2020/06/06/mp3-to-pcm/</loc>
     
     <lastmod>2023-12-07</lastmod>
@@ -262,15 +271,6 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>https://blog.iakmai.com/2015/11/09/local-install-pydev-with-eclipse/</loc>
-    
-    <lastmod>2023-12-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   <url>
     <loc>https://blog.iakmai.com/</loc>
@@ -279,20 +279,6 @@
     <priority>1.0</priority>
   </url>
 
-  
-  <url>
-    <loc>https://blog.iakmai.com/tags/Golang/</loc>
-    <lastmod>2023-12-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.iakmai.com/tags/Docker/</loc>
-    <lastmod>2023-12-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
   
   <url>
     <loc>https://blog.iakmai.com/tags/Linux/</loc>
@@ -400,6 +386,13 @@
   </url>
   
   <url>
+    <loc>https://blog.iakmai.com/tags/Golang/</loc>
+    <lastmod>2023-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.iakmai.com/tags/Smtp/</loc>
     <lastmod>2023-12-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -429,6 +422,13 @@
   
   <url>
     <loc>https://blog.iakmai.com/tags/Nsq/</loc>
+    <lastmod>2023-12-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.iakmai.com/tags/Docker/</loc>
     <lastmod>2023-12-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
